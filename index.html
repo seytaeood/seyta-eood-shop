@@ -49,30 +49,6 @@
     font-style: italic;
   }
 
-  /* Език секция горе вдясно */
-  .language-switcher {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    padding: 5px 12px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    user-select: none;
-  }
-  .language-switcher select {
-    border: none;
-    background: transparent;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    cursor: pointer;
-    outline: none;
-  }
-
   nav {
     background: var(--secondary-color);
     padding: 14px 0;
@@ -371,67 +347,19 @@
     text-decoration: none;
     font-weight: 700;
   }
-
-  @media (max-width: 700px) {
-    nav a {
-      display: block;
-      margin: 10px 0;
-    }
-    .products-grid {
-      grid-template-columns: 1fr;
-    }
-    header h1 {
-      font-size: 2.2rem;
-    }
-    form {
-      margin: 40px 20px 60px;
-      padding: 25px 20px;
-    }
-    .language-switcher {
-      position: static;
-      margin: 10px auto 0;
-      text-align: center;
-    }
-    .cart {
-      width: 90vw;
-      max-height: 60vh;
-      top: auto;
-      bottom: 20px;
-      right: 50%;
-      transform: translateX(50%);
-    }
-    .cart-toggle-btn {
-      top: auto;
-      bottom: 90px;
-      right: 50%;
-      transform: translateX(50%);
-    }
-  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1 id="site-title">SEYTA EOOD</h1>
-  <p id="site-tagline">Продажба на едро на перилни препарати и детергенти от Турция</p>
-  <div class="language-switcher">
-    <label for="lang-select">Език: </label>
-    <select id="lang-select" aria-label="Избор на език">
-      <option value="bg" selected>Български</option>
-      <option value="en">English</option>
-      <option value="sq">Shqip</option>
-      <option value="xk">Kosovë</option>
-      <option value="tr">Türkçe</option>
-      <option value="ro">Română</option>
-      <option value="de">Deutsch</option>
-    </select>
-  </div>
+  <h1>SEYTA EOOD</h1>
+  <p>Продажба на едро на перилни препарати и детергенти от Турция</p>
 </header>
 
 <nav>
-  <a href="#products" id="nav-products">Продукти</a>
-  <a href="#contact" id="nav-contact">Контакти</a>
-  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener" id="nav-payment">Плащане</a>
+  <a href="#products">Продукти</a>
+  <a href="#contact">Контакти</a>
+  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener">Плащане</a>
 </nav>
 
 <div class="container" id="products">
@@ -440,21 +368,21 @@
   </div>
 </div>
 
-<div class="payment" style="text-align:center; margin:50px 0 40px;">
-  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener" id="pay-button" style="background:#28a745; color:#fff; padding:18px 48px; font-size:1.4rem; border-radius:16px; font-weight:800; box-shadow: 0 6px 20px rgb(40 167 69 / 0.4); text-decoration:none; display:inline-block; transition: background-color 0.3s ease;">Направи поръчка и плати</a>
+<div class="payment">
+  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener">Направи поръчка и плати</a>
 </div>
 
 <form id="contact" aria-label="Форма за контакт">
-  <h3 id="contact-title">Свържи се с нас</h3>
+  <h3>Свържи се с нас</h3>
   <input type="text" id="contact-name" placeholder="Име" required />
   <input type="email" id="contact-email" placeholder="Имейл" required />
   <input type="tel" id="contact-phone" placeholder="Телефон" required />
   <textarea id="contact-message" rows="4" placeholder="Съобщение"></textarea>
-  <button type="submit" id="contact-submit">Изпрати</button>
+  <button type="submit">Изпрати</button>
 </form>
 
 <footer>
-  <p id="footer-text">&copy; 2025 SEYTA EOOD</p>
+  <p>&copy; 2025 SEYTA EOOD</p>
   <p>Имейл: <a href="mailto:epron1eood@gmail.com">epron1eood@gmail.com</a> | Тел: +359896600310</p>
 </footer>
 
@@ -463,185 +391,66 @@
 <div class="cart" id="cart" aria-live="polite" aria-label="Количка с продукти">
   <button class="cart-close" id="cart-close">Затвори</button>
   <h3>Количка</h3>
-  <div class="cart-list" id="cart-list"></div>
-  <div class="cart-total" id="cart-total">Общо: 0 лв</div>
+  <div class="cart-list" id="cart-list">
+    <p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>
+  </div>
+  <div class="cart-total" id="cart-total"></div>
 </div>
 
 <script>
-  // Данни за продуктите - можеш да ги допълваш тук
   const productsData = [
     {
       id: 'perwoll-black-3l',
-      name: {
-        bg: 'Perwoll Black 3L',
-        en: 'Perwoll Black 3L',
-        sq: 'Perwoll Black 3L',
-        xk: 'Perwoll Black 3L',
-        tr: 'Perwoll Black 3L',
-        ro: 'Perwoll Black 3L',
-        de: 'Perwoll Black 3L'
-      },
+      name: 'Perwoll Black 3L',
       price: 12.00,
       img: 'https://cdn.pixabay.com/photo/2017/08/02/11/08/detergent-2575722_1280.jpg',
       alt: 'Perwoll Black 3L'
     },
     {
       id: 'fairy-aloe-vera-800ml',
-      name: {
-        bg: 'Fairy Aloe Vera 800ml',
-        en: 'Fairy Aloe Vera 800ml',
-        sq: 'Fairy Aloe Vera 800ml',
-        xk: 'Fairy Aloe Vera 800ml',
-        tr: 'Fairy Aloe Vera 800ml',
-        ro: 'Fairy Aloe Vera 800ml',
-        de: 'Fairy Aloe Vera 800ml'
-      },
+      name: 'Fairy Aloe Vera 800ml',
       price: 4.20,
       img: 'https://cdn.pixabay.com/photo/2018/01/31/06/52/fairy-3121551_1280.jpg',
       alt: 'Fairy Aloe Vera 800ml'
     },
     {
       id: 'abc-pro-5l',
-      name: {
-        bg: 'ABC Pro 5L',
-        en: 'ABC Pro 5L',
-        sq: 'ABC Pro 5L',
-        xk: 'ABC Pro 5L',
-        tr: 'ABC Pro 5L',
-        ro: 'ABC Pro 5L',
-        de: 'ABC Pro 5L'
-      },
+      name: 'ABC Pro 5L',
       price: 15.50,
       img: 'https://cdn.pixabay.com/photo/2016/11/18/16/44/soap-1839345_1280.jpg',
       alt: 'ABC Pro 5L'
     },
     {
       id: 'persil-prah-7kg',
-      name: {
-        bg: 'Persil Прах 7 кг',
-        en: 'Persil Powder 7 kg',
-        sq: 'Persil Pluhur 7 kg',
-        xk: 'Persil Pluhur 7 kg',
-        tr: 'Persil Toz 7 kg',
-        ro: 'Persil Pudră 7 kg',
-        de: 'Persil Pulver 7 kg'
-      },
+      name: 'Persil Прах 7 кг',
       price: 18.00,
       img: 'https://cdn.pixabay.com/photo/2017/07/04/14/18/laundry-2471366_1280.jpg',
       alt: 'Persil Прах 7 кг'
     },
     {
       id: 'bio-techen-perilen-5l',
-      name: {
-        bg: 'Bio Течен перилен 5L',
-        en: 'Bio Liquid Detergent 5L',
-        sq: 'Bio Detergjent Lëng 5L',
-        xk: 'Bio Detergjent Lëng 5L',
-        tr: 'Bio Sıvı Deterjan 5L',
-        ro: 'Bio Detergent Lichid 5L',
-        de: 'Bio Flüssiges Waschmittel 5L'
-      },
+      name: 'Bio Течен перилен 5L',
       price: 16.50,
       img: 'https://cdn.pixabay.com/photo/2017/08/02/11/08/detergent-2575722_1280.jpg',
       alt: 'Bio Течен перилен 5L'
     },
     {
       id: 'natural-soap',
-      name: {
-        bg: 'Натурален сапун',
-        en: 'Natural Soap',
-        sq: 'Sapuni Natyral',
-        xk: 'Sapuni Natyral',
-        tr: 'Doğal Sabun',
-        ro: 'Săpun Natural',
-        de: 'Naturseife'
-      },
+      name: 'Натурален сапун',
       price: 3.90,
       img: 'https://cdn.pixabay.com/photo/2016/11/18/16/44/soap-1839345_1280.jpg',
       alt: 'Натурален сапун'
     },
     {
       id: 'shampoo-1l',
-      name: {
-        bg: 'Шампоан 1L',
-        en: 'Shampoo 1L',
-        sq: 'Shampo 1L',
-        xk: 'Shampo 1L',
-        tr: 'Şampuan 1L',
-        ro: 'Șampon 1L',
-        de: 'Shampoo 1L'
-      },
+      name: 'Шампоан 1L',
       price: 5.80,
       img: 'https://cdn.pixabay.com/photo/2018/01/31/06/52/shampoo-3121553_1280.jpg',
       alt: 'Шампоан 1L'
     }
   ];
 
-  // Локализация на други текстове
-  const translations = {
-    bg: {
-      products: "Продукти",
-      contacts: "Контакти",
-      payment: "Плащане",
-      contactTitle: "Свържи се с нас",
-      contactName: "Име",
-      contactEmail: "Имейл",
-      contactPhone: "Телефон",
-      contactMessage: "Съобщение",
-      contactSend: "Изпрати",
-      cartTitle: "Количка",
-      cartTotal: "Общо",
-      cartClose: "Затвори",
-      siteTitle: "SEYTA EOOD",
-      siteTagline: "Продажба на едро на перилни препарати и детергенти от Турция",
-      footerText: "© 2025 SEYTA EOOD",
-      cartToggle: "Покажи количката"
-    },
-    en: {
-      products: "Products",
-      contacts: "Contacts",
-      payment: "Payment",
-      contactTitle: "Contact Us",
-      contactName: "Name",
-      contactEmail: "Email",
-      contactPhone: "Phone",
-      contactMessage: "Message",
-      contactSend: "Send",
-      cartTitle: "Cart",
-      cartTotal: "Total",
-      cartClose: "Close",
-      siteTitle: "SEYTA EOOD",
-      siteTagline: "Wholesale of detergents from Turkey",
-      footerText: "© 2025 SEYTA EOOD",
-      cartToggle: "Show Cart"
-    },
-    // Други езици - добави при нужда
-    sq: { /* copy bg for demo */ ...this.translations?.bg },
-    xk: { ...this.translations?.bg },
-    tr: { ...this.translations?.bg },
-    ro: { ...this.translations?.bg },
-    de: { ...this.translations?.bg }
-  };
-
-  // Количка
-  let cart = {};
-
-  // DOM елементи
   const productsGrid = document.getElementById('products-grid');
-  const langSelect = document.getElementById('lang-select');
-  const navProducts = document.getElementById('nav-products');
-  const navContact = document.getElementById('nav-contact');
-  const navPayment = document.getElementById('nav-payment');
-  const contactTitle = document.getElementById('contact-title');
-  const contactName = document.getElementById('contact-name');
-  const contactEmail = document.getElementById('contact-email');
-  const contactPhone = document.getElementById('contact-phone');
-  const contactMessage = document.getElementById('contact-message');
-  const contactSubmit = document.getElementById('contact-submit');
-  const siteTitle = document.getElementById('site-title');
-  const siteTagline = document.getElementById('site-tagline');
-  const footerText = document.getElementById('footer-text');
-  const payButton = document.getElementById('pay-button');
   const cartToggleBtn = document.querySelector('.cart-toggle-btn');
   const cartEl = document.getElementById('cart');
   const cartCloseBtn = document.getElementById('cart-close');
@@ -649,136 +458,82 @@
   const cartTotalEl = document.getElementById('cart-total');
   const cartCount = document.getElementById('cart-count');
 
-  // Зареждане на продукти
-  function loadProducts(language) {
+  let cart = {};
+
+  function renderProducts() {
     productsGrid.innerHTML = '';
-    productsData.forEach((product, index) => {
+    productsData.forEach(product => {
       const card = document.createElement('div');
       card.className = 'product-card';
-
       card.innerHTML = `
         <img src="${product.img}" alt="${product.alt}" loading="lazy" />
-        <h3>${product.name[language] || product.name.bg}</h3>
+        <h3>${product.name}</h3>
         <p>${product.price.toFixed(2)} лв</p>
-        <button data-id="${product.id}">${language === 'en' ? 'Add to cart' : 'Добави в количката'}</button>
+        <button data-id="${product.id}">Добави в количката</button>
       `;
-
       productsGrid.appendChild(card);
     });
   }
 
-  // Обновяване на текстове според езика
-  function updateTexts(lang) {
-    const tr = translations[lang] || translations.bg;
-
-    navProducts.textContent = tr.products;
-    navContact.textContent = tr.contacts;
-    navPayment.textContent = tr.payment;
-
-    contactTitle.textContent = tr.contactTitle;
-    contactName.placeholder = tr.contactName;
-    contactEmail.placeholder = tr.contactEmail;
-    contactPhone.placeholder = tr.contactPhone;
-    contactMessage.placeholder = tr.contactMessage;
-    contactSubmit.textContent = tr.contactSend;
-
-    siteTitle.textContent = tr.siteTitle;
-    siteTagline.textContent = tr.siteTagline;
-
-    footerText.textContent = tr.footerText;
-
-    payButton.textContent = tr.payment;
-
-    cartCloseBtn.textContent = tr.cartClose;
-
-    cartToggleBtn.setAttribute('aria-label', tr.cartToggle);
-
-    // Презареждаме продуктите с новия език (за имена на продукти)
-    loadProducts(lang);
+  function updateCartUI() {
+    cartList.innerHTML = '';
+    const items = Object.values(cart);
+    if (items.length === 0) {
+      cartList.innerHTML = '<p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>';
+      cartTotalEl.textContent = '';
+      cartCount.textContent = '0';
+      return;
+    }
+    let total = 0;
+    let count = 0;
+    items.forEach(item => {
+      count += item.qty;
+      total += item.qty * item.price;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <span>${item.name} x ${item.qty}</span>
+        <span>${(item.price * item.qty).toFixed(2)} лв</span>
+        <button data-id="${item.id}" aria-label="Премахни ${item.name}">×</button>
+      `;
+      cartList.appendChild(div);
+    });
+    cartTotalEl.textContent = `Общо: ${total.toFixed(2)} лв`;
+    cartCount.textContent = count;
   }
 
-  // Добавяне в количката
-  function addToCart(productId) {
-    if (cart[productId]) {
-      cart[productId].qty += 1;
+  function addToCart(id) {
+    if (cart[id]) {
+      cart[id].qty++;
     } else {
-      const product = productsData.find(p => p.id === productId);
+      const product = productsData.find(p => p.id === id);
       if (!product) return;
-      cart[productId] = {
-        ...product,
-        qty: 1
-      };
+      cart[id] = {...product, qty: 1};
     }
     updateCartUI();
   }
 
-  // Премахване от количката
-  function removeFromCart(productId) {
-    if (cart[productId]) {
-      cart[productId].qty -= 1;
-      if (cart[productId].qty <= 0) {
-        delete cart[productId];
-      }
-      updateCartUI();
+  function removeFromCart(id) {
+    if (!cart[id]) return;
+    cart[id].qty--;
+    if (cart[id].qty <= 0) {
+      delete cart[id];
     }
+    updateCartUI();
   }
 
-  // Обновяване UI на количката
-  function updateCartUI() {
-    cartList.innerHTML = '';
-    let total = 0;
-    let count = 0;
-
-    Object.values(cart).forEach(item => {
-      count += item.qty;
-      total += item.price * item.qty;
-      const itemEl = document.createElement('div');
-      itemEl.className = 'cart-item';
-      itemEl.innerHTML = `
-        <span>${item.name[langSelect.value] || item.name.bg} x ${item.qty}</span>
-        <span>${(item.price * item.qty).toFixed(2)} лв</span>
-        <button aria-label="Премахни ${item.name.bg}" data-id="${item.id}">×</button>
-      `;
-      cartList.appendChild(itemEl);
-    });
-
-    cartTotalEl.textContent = `Общо: ${total.toFixed(2)} лв`;
-    cartCount.textContent = count;
-
-    // Ако няма продукти в количката
-    if (count === 0) {
-      cartList.innerHTML = `<p style="text-align:center; color:#777; font-style:italic;">${langSelect.value === 'en' ? 'Cart is empty' : 'Количката е празна'}</p>`;
-      cartTotalEl.textContent = '';
-    }
-  }
-
-  // Събития
-  document.body.addEventListener('click', e => {
-    if (e.target.tagName === 'BUTTON' && e.target.dataset.id) {
+  productsGrid.addEventListener('click', e => {
+    if (e.target.tagName === 'BUTTON') {
       addToCart(e.target.dataset.id);
-    }
-    if (e.target.classList.contains('cart-item') || e.target.parentElement.classList.contains('cart-item')) {
-      // ignore clicks inside cart items except buttons
-    }
-    if (e.target.classList.contains('cart-item') || e.target.parentElement.classList.contains('cart-item')) {
-      // ...
     }
   });
 
-  // Използваме делегиране за бутоните в количката (премахване)
   cartList.addEventListener('click', e => {
-    if (e.target.tagName === 'BUTTON' && e.target.dataset.id) {
+    if (e.target.tagName === 'BUTTON') {
       removeFromCart(e.target.dataset.id);
     }
   });
 
-  // Смяна на език
-  langSelect.addEventListener('change', e => {
-    updateTexts(e.target.value);
-    updateCartUI();
-  });
-
-  // Отваряне/затваряне на количката
   cartToggleBtn.addEventListener('click', () => {
     if (cartEl.style.display === 'flex') {
       cartEl.style.display = 'none';
@@ -790,18 +545,15 @@
     cartEl.style.display = 'none';
   });
 
-  // Контакт форма
-  const contactForm = document.querySelector('form#contact');
-  contactForm.addEventListener('submit', e => {
+  document.getElementById('contact').addEventListener('submit', e => {
     e.preventDefault();
-    alert(langSelect.value === 'en' ? 'Thank you for your message!' : 'Благодарим за съобщението!');
-    contactForm.reset();
+    alert('Благодарим за съобщението! Ще се свържем с Вас скоро.');
+    e.target.reset();
   });
 
   // Инициализация
-  updateTexts(langSelect.value);
+  renderProducts();
   updateCartUI();
-
 </script>
 
 </body>
