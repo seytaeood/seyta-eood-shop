@@ -1,494 +1,166 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SEYTA EOOD - Перилни препарати и почистващи средства</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f4f8;
-    margin: 0; padding: 0; color: #333;
-  }
-  header {
-    background: #004080;
-    color: white;
-    padding: 20px 15px;
-    text-align: center;
-    position: relative;
-  }
-  header h1 {
-    margin: 0;
-    font-weight: 700;
-  }
-  header p {
-    margin: 5px 0 0;
-    font-size: 1.1rem;
-  }
-  #language-select {
-    position: absolute;
-    top: 18px;
-    right: 15px;
-    padding: 5px 8px;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
-  }
-  nav {
-    background: #0074d9;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-  }
-  nav a {
-    color: white;
-    margin: 0 18px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: color 0.3s ease;
-  }
-  nav a:hover {
-    color: #ffcc00;
-  }
-  main {
-    max-width: 1100px;
-    margin: 25px auto;
-    padding: 0 15px;
-  }
-  #products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-    gap: 20px;
-  }
-  .product-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s ease;
-  }
-  .product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 15px rgb(0 0 0 / 0.15);
-  }
-  .product-card img {
-    border-radius: 10px;
-    object-fit: contain;
-    max-height: 180px;
-    margin-bottom: 12px;
-    background: #f9f9f9;
-  }
-  .product-card h3 {
-    font-size: 1.15rem;
-    margin: 0 0 8px 0;
-    color: #004080;
-  }
-  .product-card p {
-    margin: 0 0 15px 0;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #0074d9;
-  }
-  .product-card button {
-    background: #ff6f00;
-    border: none;
-    padding: 10px 15px;
-    font-weight: 700;
-    color: white;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  .product-card button:hover {
-    background: #e65c00;
-  }
-  /* Cart styles */
-  .cart-toggle-btn {
-    position: fixed;
-    bottom: 22px;
-    right: 22px;
-    background: #0074d9;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 54px;
-    height: 54px;
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 0 3px 7px rgb(0 0 0 / 0.3);
-    z-index: 9999;
-  }
-  #cart {
-    position: fixed;
-    top: 0; right: 0;
-    width: 320px;
-    height: 100vh;
-    background: white;
-    box-shadow: -5px 0 15px rgb(0 0 0 / 0.2);
-    padding: 15px;
-    display: none;
-    flex-direction: column;
-    z-index: 10000;
-  }
-  #cart h3 {
-    margin: 0 0 15px 0;
-    color: #004080;
-  }
-  #cart-list {
-    flex-grow: 1;
-    overflow-y: auto;
-    margin-bottom: 15px;
-  }
-  .cart-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-  }
-  .cart-item button {
-    background: transparent;
-    border: none;
-    color: #ff3b3b;
-    font-weight: 700;
-    font-size: 20px;
-    cursor: pointer;
-    line-height: 1;
-  }
-  #cart-total {
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #0074d9;
-  }
-  #cart-pay-btn {
-    background: #28a745;
-    border: none;
-    padding: 12px;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    width: 100%;
-  }
-  #cart-pay-btn:hover {
-    background: #218838;
-  }
-  #cart-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: transparent;
-    border: none;
-    font-size: 25px;
-    cursor: pointer;
-    color: #004080;
-  }
-  /* Contact form */
-  form {
-    max-width: 480px;
-    margin: 40px auto 60px;
-    background: white;
-    padding: 25px 30px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgb(0 0 0 / 0.1);
-  }
-  form h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #004080;
-  }
-  form input, form textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 16px;
-    border-radius: 7px;
-    border: 1.5px solid #ccc;
-    font-size: 1rem;
-    resize: vertical;
-    font-family: inherit;
-  }
-  form textarea {
-    min-height: 90px;
-  }
-  form button {
-    background: #0074d9;
-    color: white;
-    border: none;
-    padding: 12px 0;
-    font-weight: 700;
-    font-size: 1.1rem;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    width: 100%;
-  }
-  form button:hover {
-    background: #005fa3;
-  }
-  footer {
-    background: #004080;
-    color: white;
-    text-align: center;
-    padding: 20px 10px;
-  }
-  footer p {
-    margin: 4px 0;
-    font-size: 0.95rem;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEYTA EOOD - Онлайн Магазин</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f9fa; }
+    header, footer { background: #003366; color: white; text-align: center; padding: 20px; }
+    nav { background: #0055aa; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+    nav a, .lang, .currency { color: white; margin: 0 10px; text-decoration: none; }
+    .container { padding: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .product { background: white; border: 1px solid #ccc; border-radius: 8px; padding: 10px; width: 200px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+    .product img { width: 100%; border-radius: 8px; height: 150px; object-fit: cover; }
+    .product h3 { font-size: 1.1em; margin: 10px 0; }
+    .product p { margin: 5px 0; }
+    .product button { background: #007bff; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
+    .cart { position: fixed; top: 20px; right: 20px; background: white; border: 1px solid #aaa; padding: 15px; width: 200px; border-radius: 10px; }
+    .cart h4 { margin-top: 0; }
+    .filter { text-align: center; margin: 20px; }
+    .filter select, .currency { padding: 5px; }
+  </style>
 </head>
 <body>
+
 <header>
   <h1>SEYTA EOOD</h1>
-  <p>Продажба на перилни препарати и почистващи средства на едро</p>
-  <select id="language-select" aria-label="Избор на език">
-    <option value="bg" selected>Български</option>
-    <option value="en">English</option>
-    <option value="sq">Shqip (Албански)</option>
-    <option value="xk">Kosovo</option>
-    <option value="tr">Türkçe</option>
-    <option value="ro">Română</option>
-    <option value="de">Deutsch</option>
-  </select>
+  <p>Перилни и почистващи препарати - Най-доброто за Вашия дом</p>
 </header>
 
 <nav>
-  <a href="#" id="nav-products">Продукти</a>
-  <a href="#contact-form" id="nav-contact">Контакти</a>
+  <div>
+    <a href="#">Начало</a>
+    <a href="#">Контакти</a>
+  </div>
+  <div>
+    <span class="lang">Език:
+      <select>
+        <option>BG</option>
+        <option>EN</option>
+        <option>AL</option>
+        <option>TR</option>
+        <option>RO</option>
+        <option>DE</option>
+      </select>
+    </span>
+    <span class="currency">Валута:
+      <select id="currency" onchange="convertPrices()">
+        <option value="BGN">лв</option>
+        <option value="EUR">€</option>
+        <option value="USD">$</option>
+      </select>
+    </span>
+  </div>
 </nav>
 
-<main>
-  <section id="products-grid" aria-label="Продукти">
+<div class="filter">
+  <label for="category">Категория:</label>
+  <select id="category" onchange="filterProducts()">
+    <option value="all">Всички</option>
+    <option value="перилни">Перилни</option>
+    <option value="почистващи">Почистващи</option>
+    <option value="омекотители">Омекотители</option>
+  </select>
+</div>
 
-    <!-- Продуктите ще се заредят динамично тук -->
+<div class="container" id="products">
+  <!-- Продуктите се зареждат динамично от JavaScript -->
+</div>
 
-  </section>
-
-  <form id="contact-form" aria-label="Форма за контакт">
-    <h3>Свържете се с нас</h3>
-    <input type="text" id="contact-name" name="name" placeholder="Име" required />
-    <input type="email" id="contact-email" name="email" placeholder="Имейл" required />
-    <input type="tel" id="contact-phone" name="phone" placeholder="Телефон" required />
-    <textarea id="contact-message" name="message" placeholder="Съобщение"></textarea>
-    <button type="submit">Изпрати</button>
-  </form>
-</main>
-
-<button class="cart-toggle-btn" aria-label="Отвори количката">🛒<span id="cart-count" style="position:absolute; top:2px; right:8px; font-size:0.8rem; background:#ff6f00; color:#fff; border-radius:50%; padding:0 6px; display:none;"></span></button>
-
-<aside id="cart" role="region" aria-label="Пазарска количка">
-  <button id="cart-close" aria-label="Затвори количката">&times;</button>
-  <h3>Количка</h3>
-  <div id="cart-list" tabindex="0">
-    <p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>
-  </div>
-  <div id="cart-total"></div>
-  <button id="cart-pay-btn" style="display:none;">Плати</button>
-</aside>
+<div class="cart" id="cart">
+  <h4>Количка</h4>
+  <ul id="cart-items"></ul>
+  <p><strong>Общо: <span id="total">0.00</span> <span id="currency-symbol">лв</span></strong></p>
+  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">
+    <button>Плати</button>
+  </a>
+</div>
 
 <footer>
-  <p>Имейл: <a href="mailto:epron1eood@gmail.com" style="color:#ffcc00;">epron1eood@gmail.com</a> | Тел: +359 896 600 310</p>
-  <p>&copy; 2025 SEYTA EOOD. Всички права запазени.</p>
+  <p>&copy; 2025 SEYTA EOOD | Имейл: epron1eood@gmail.com | Тел: +359896600310</p>
 </footer>
 
 <script>
-  const productsData = [
-    {
-      id: 'persil-liquid-3l',
-      name: 'Persil Течен перилен препарат 3L',
-      price: 18.00 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/010/021/persil-liquid-3l.png',
-      alt: 'Persil Течен перилен препарат 3L'
-    },
-    {
-      id: 'persil-prah-7kg',
-      name: 'Persil Прах 7 кг',
-      price: 24.00 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/010/010/persil-prah-7kg.png',
-      alt: 'Persil Прах 7 кг'
-    },
-    {
-      id: 'fairy-800ml',
-      name: 'Fairy Зелен чай 800ml',
-      price: 5.60 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/009/892/fairy-800ml.png',
-      alt: 'Fairy Зелен чай 800ml'
-    },
-    {
-      id: 'vix-10kg',
-      name: 'VIX Прах 10 кг',
-      price: 20.00 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/008/693/vix-10kg.png',
-      alt: 'VIX Прах 10 кг'
-    },
-    {
-      id: 'mr-proper-1l',
-      name: 'Mr. Proper Универсален препарат 1L',
-      price: 4.80 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/007/792/mr-proper-1l.png',
-      alt: 'Mr. Proper Универсален препарат 1L'
-    },
-    {
-      id: 'domestos-750ml',
-      name: 'Domestos Белина 750ml',
-      price: 3.50 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/008/317/domestos-750ml.png',
-      alt: 'Domestos Белина 750ml'
-    },
-    {
-      id: 'lenor-fabric-softener-1l',
-      name: 'Lenor Омекотител 1L',
-      price: 6.40 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/008/366/lenor-fabric-softener-1l.png',
-      alt: 'Lenor Омекотител 1L'
-    },
-    {
-      id: 'sapun-naturalen',
-      name: 'Натурален сапун 150g',
-      price: 2.40 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/004/700/sapun-naturalen.png',
-      alt: 'Натурален сапун 150g'
-    },
-    {
-      id: 'champoo-1l',
-      name: 'Шампоан 1L',
-      price: 5.00 * 0.75,
-      img: 'https://chistdom.com/files/products/images/000/007/100/champoo-1l.png',
-      alt: 'Шампоан 1L'
-    }
-  ];
+const products = [
+  { name: "Perwoll Black", category: "перилни", price: 9.00, img: "https://i.imgur.com/RwRZ2Ea.jpg" },
+  { name: "Fairy Lemon", category: "почистващи", price: 3.15, img: "https://i.imgur.com/KCmG4xD.jpg" },
+  { name: "Savex 3L", category: "перилни", price: 10.50, img: "https://i.imgur.com/LnFgV2N.jpg" },
+  { name: "Silan Fresh Sky", category: "омекотители", price: 5.25, img: "https://i.imgur.com/ZzIyfDN.jpg" }
+];
 
-  const productsGrid = document.getElementById('products-grid');
-  const cartToggleBtn = document.querySelector('.cart-toggle-btn');
-  const cartEl = document.getElementById('cart');
-  const cartCloseBtn = document.getElementById('cart-close');
-  const cartList = document.getElementById('cart-list');
-  const cartTotalEl = document.getElementById('cart-total');
-  const cartCount = document.getElementById('cart-count');
-  const cartPayBtn = document.getElementById('cart-pay-btn');
-  const languageSelect = document.getElementById('language-select');
-  const contactForm = document.getElementById('contact-form');
+let cart = [];
+let currentCurrency = "BGN";
 
-  let cart = {};
-
-  function renderProducts() {
-    productsGrid.innerHTML = '';
-    productsData.forEach(product => {
-      const card = document.createElement('article');
-      card.className = 'product-card';
+function displayProducts(filter = "all") {
+  const container = document.getElementById("products");
+  container.innerHTML = "";
+  products.forEach(p => {
+    if (filter === "all" || p.category === filter) {
+      const card = document.createElement("div");
+      card.className = "product";
       card.innerHTML = `
-        <img src="${product.img}" alt="${product.alt}" loading="lazy" />
-        <h3>${product.name}</h3>
-        <p>${product.price.toFixed(2)} лв</p>
-        <button data-id="${product.id}" aria-label="Добави ${product.name} в количката">Добави в количката</button>
+        <img src="${p.img}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p class="price" data-price="${p.price}">${p.price.toFixed(2)} лв</p>
+        <button onclick="addToCart('${p.name}', ${p.price})">Добави</button>
       `;
-      productsGrid.appendChild(card);
-    });
+      container.appendChild(card);
+    }
+  });
+}
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCart();
+}
+
+function updateCart() {
+  const list = document.getElementById("cart-items");
+  const total = document.getElementById("total");
+  const symbol = document.getElementById("currency-symbol");
+  list.innerHTML = "";
+  let sum = 0;
+  cart.forEach(item => {
+    sum += item.price;
+    const li = document.createElement("li");
+    li.textContent = item.name + " - " + convertCurrency(item.price).toFixed(2);
+    list.appendChild(li);
+  });
+  total.textContent = convertCurrency(sum).toFixed(2);
+  symbol.textContent = getCurrencySymbol(currentCurrency);
+}
+
+function filterProducts() {
+  const cat = document.getElementById("category").value;
+  displayProducts(cat);
+}
+
+function convertCurrency(price) {
+  switch (currentCurrency) {
+    case "EUR": return price / 1.95;
+    case "USD": return price / 1.80;
+    default: return price;
   }
+}
 
-  function updateCartUI() {
-    cartList.innerHTML = '';
-    const items = Object.values(cart);
-    if (items.length === 0) {
-      cartList.innerHTML = '<p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>';
-      cartTotalEl.textContent = '';
-      cartCount.style.display = 'none';
-      cartPayBtn.style.display = 'none';
-      return;
-    }
-    let total = 0;
-    let count = 0;
-    items.forEach(item => {
-      count += item.qty;
-      total += item.qty * item.price;
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <span>${item.name} x ${item.qty}</span>
-        <span>${(item.price * item.qty).toFixed(2)} лв</span>
-        <button data-id="${item.id}" aria-label="Премахни ${item.name} от количката">×</button>
-      `;
-      cartList.appendChild(div);
-    });
-    cartTotalEl.textContent = `Общо: ${total.toFixed(2)} лв`;
-    cartCount.style.display = 'inline-block';
-    cartCount.textContent = count;
-    cartPayBtn.style.display = 'block';
-    cartPayBtn.textContent = 'Плати';
-  }
+function getCurrencySymbol(cur) {
+  return cur === "EUR" ? "€" : cur === "USD" ? "$" : "лв";
+}
 
-  function addToCart(id) {
-    if (cart[id]) {
-      cart[id].qty++;
-    } else {
-      const product = productsData.find(p => p.id === id);
-      if (!product) return;
-      cart[id] = {...product, qty: 1};
-    }
-    updateCartUI();
-  }
-
-  function removeFromCart(id) {
-    if (!cart[id]) return;
-    cart[id].qty--;
-    if (cart[id].qty <= 0) {
-      delete cart[id];
-    }
-    updateCartUI();
-  }
-
-  productsGrid.addEventListener('click', e => {
-    if (e.target.tagName === 'BUTTON') {
-      addToCart(e.target.dataset.id);
-    }
+function convertPrices() {
+  currentCurrency = document.getElementById("currency").value;
+  const prices = document.querySelectorAll(".price");
+  prices.forEach(el => {
+    const base = parseFloat(el.dataset.price);
+    el.textContent = convertCurrency(base).toFixed(2) + " " + getCurrencySymbol(currentCurrency);
   });
+  updateCart();
+}
 
-  cartList.addEventListener('click', e => {
-    if (e.target.tagName === 'BUTTON') {
-      removeFromCart(e.target.dataset.id);
-    }
-  });
-
-  cartToggleBtn.addEventListener('click', () => {
-    cartEl.style.display = cartEl.style.display === 'flex' ? 'none' : 'flex';
-  });
-
-  cartCloseBtn.addEventListener('click', () => {
-    cartEl.style.display = 'none';
-  });
-
-  cartPayBtn.addEventListener('click', () => {
-    if(Object.keys(cart).length === 0) {
-      alert('Количката е празна!');
-      return;
-    }
-    // Тук пренасочваме към Vivawallet плащане, може да добавиш повече логика по желание.
-    window.open('https://pay.vivawallet.com/seyta-eood', '_blank');
-  });
-
-  languageSelect.addEventListener('change', e => {
-    alert('Смяната на езика ще бъде добавена скоро!');
-    // Тук можеш да добавиш преводи и динамична смяна на текстове, ако искаш.
-    // За момента само показва alert.
-  });
-
-  contactForm.addEventListener('submit', e => {
-    e.preventDefault();
-    alert('Благодарим Ви! Ще се свържем с Вас скоро.');
-    contactForm.reset();
-  });
-
-  // Първоначално зареждане на продукти и количка
-  renderProducts();
-  updateCartUI();
+// Първоначално зареждане
+displayProducts();
 </script>
+
 </body>
 </html>
