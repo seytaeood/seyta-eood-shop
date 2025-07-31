@@ -1,193 +1,162 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Seyta EOOD Магазин</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEYTA EOOD Магазин</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    .card-img-top {
+    .product-card img {
       height: 200px;
       object-fit: cover;
     }
-    .product-card {
-      margin-bottom: 20px;
-    }
     .currency-switcher {
-      float: right;
-      margin-top: 10px;
+      width: auto;
     }
-    .search-bar {
-      margin-bottom: 20px;
+    .filter-section {
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
-
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center">
-    <h1>Seyta EOOD Онлайн магазин</h1>
-    <select id="currency" class="form-select w-auto currency-switcher">
-      <option value="1" selected>BGN</option>
-      <option value="0.51">EUR</option>
-      <option value="0.56">USD</option>
-    </select>
-  </div>
-
-  <input type="text" id="searchInput" class="form-control search-bar" placeholder="Търси продукт...">
-
-  <div class="row mb-3">
-    <div class="col-md-3">
-      <select id="categoryFilter" class="form-select">
-        <option value="">Всички категории</option>
-        <option value="почистващи">Почистващи</option>
-        <option value="дезинфектанти">Дезинфектанти</option>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+    <a class="navbar-brand" href="#">SEYTA EOOD</a>
+    <div class="ms-auto d-flex align-items-center">
+      <select id="currencySelect" class="form-select me-2 currency-switcher">
+        <option value="BGN" selected>BGN</option>
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
       </select>
+      <input id="searchInput" type="text" placeholder="Търси продукт..." class="form-control me-2">
+      <button onclick="searchProducts()" class="btn btn-outline-light">Търси</button>
+      <a href="#cart" class="btn btn-success ms-3">🛒 Количка</a>
     </div>
-    <div class="col-md-3">
-      <select id="priceFilter" class="form-select">
-        <option value="">Всички цени</option>
-        <option value="low">До 5 лв.</option>
-        <option value="mid">5 - 10 лв.</option>
-        <option value="high">Над 10 лв.</option>
-      </select>
+  </nav>
+
+  <div class="container mt-4">
+    <div class="row filter-section">
+      <div class="col-md-4">
+        <label>Категория</label>
+        <select class="form-select" onchange="filterProducts()" id="categoryFilter">
+          <option value="">Всички</option>
+          <option value="почистване">Почистване</option>
+          <option value="домакинство">Домакинство</option>
+          <option value="индустриални">Индустриални</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label>Цена (макс. в BGN)</label>
+        <input type="range" id="priceRange" min="0" max="100" value="100" class="form-range" oninput="filterProducts()">
+        <div id="priceValue">до 100 BGN</div>
+      </div>
+    </div>
+
+    <div class="row mt-4" id="productList">
+      <!-- Продуктите ще се заредят тук -->
     </div>
   </div>
 
-  <div class="row" id="productList">
-    <!-- Продукт 1 -->
-    <div class="col-md-4 product-card" data-category="почистващи" data-price="7.20">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc695d" class="card-img-top" alt="Препарат за баня">
-        <div class="card-body">
-          <h5 class="card-title">Препарат за баня</h5>
-          <p class="card-text">Ефективен препарат за почистване на баня. 500мл</p>
-          <p class="price">Цена: <span class="price-val">7.20</span> <span class="currency">лв.</span></p>
-          <button class="btn btn-primary add-to-cart">Добави в количката</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Продукт 2 -->
-    <div class="col-md-4 product-card" data-category="почистващи" data-price="5.90">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1600185365927-3fe7e146e1f5" class="card-img-top" alt="Универсален почистващ препарат">
-        <div class="card-body">
-          <h5 class="card-title">Универсален почистващ препарат</h5>
-          <p class="card-text">Подходящ за всякакви повърхности. 1л</p>
-          <p class="price">Цена: <span class="price-val">5.90</span> <span class="currency">лв.</span></p>
-          <button class="btn btn-primary add-to-cart">Добави в количката</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Продукт 3 -->
-    <div class="col-md-4 product-card" data-category="дезинфектанти" data-price="9.00">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1603394426817-0c0c60af994e" class="card-img-top" alt="Дезинфектант за ръце">
-        <div class="card-body">
-          <h5 class="card-title">Дезинфектант за ръце</h5>
-          <p class="card-text">Бързосъхнещ гел с 70% алкохол. 300мл</p>
-          <p class="price">Цена: <span class="price-val">9.00</span> <span class="currency">лв.</span></p>
-          <button class="btn btn-primary add-to-cart">Добави в количката</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Продукт 4 -->
-    <div class="col-md-4 product-card" data-category="дезинфектанти" data-price="11.50">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1588776814546-b52c2c8a0876" class="card-img-top" alt="Повърхностен дезинфектант">
-        <div class="card-body">
-          <h5 class="card-title">Повърхностен дезинфектант</h5>
-          <p class="card-text">Убива 99.9% от бактериите. 750мл</p>
-          <p class="price">Цена: <span class="price-val">11.50</span> <span class="currency">лв.</span></p>
-          <button class="btn btn-primary add-to-cart">Добави в количката</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Продукт 5 -->
-    <div class="col-md-4 product-card" data-category="почистващи" data-price="4.80">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1590080877634-3403f922ad96" class="card-img-top" alt="Спрей за прозорци">
-        <div class="card-body">
-          <h5 class="card-title">Спрей за прозорци</h5>
-          <p class="card-text">Прозрачност без следи. 500мл</p>
-          <p class="price">Цена: <span class="price-val">4.80</span> <span class="currency">лв.</span></p>
-          <button class="btn btn-primary add-to-cart">Добави в количката</button>
-        </div>
-      </div>
-    </div>
+  <div class="container mt-5" id="cart">
+    <h3>🛒 Вашата количка</h3>
+    <ul id="cartItems" class="list-group mb-3"></ul>
+    <div><strong>Общо:</strong> <span id="cartTotal">0</span> <span id="currency">BGN</span></div>
+    <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-primary mt-3">Плати</a>
   </div>
 
-  <h3>Количка</h3>
-  <ul id="cart" class="list-group mb-4"></ul>
-  <button id="checkoutBtn" class="btn btn-success">Плати</button>
-</div>
+  <script>
+    const products = [
+      { id: 1, title: "Универсален почистващ препарат", price: 10, image: "https://source.unsplash.com/400x300/?cleaning", category: "почистване" },
+      { id: 2, title: "Дезинфектант за ръце", price: 8, image: "https://source.unsplash.com/400x300/?disinfectant", category: "почистване" },
+      { id: 3, title: "Прах за пране", price: 12, image: "https://source.unsplash.com/400x300/?detergent", category: "домакинство" },
+      { id: 4, title: "Миеща гъба", price: 3, image: "https://source.unsplash.com/400x300/?sponge", category: "домакинство" },
+      { id: 5, title: "Индустриален обезмаслител", price: 25, image: "https://source.unsplash.com/400x300/?degreaser", category: "индустриални" },
+      { id: 6, title: "Препарат за стъкла", price: 7, image: "https://source.unsplash.com/400x300/?window-cleaner", category: "почистване" },
+      { id: 7, title: "Четка за под", price: 14, image: "https://source.unsplash.com/400x300/?brush", category: "домакинство" },
+      { id: 8, title: "Моп с кофа", price: 30, image: "https://source.unsplash.com/400x300/?mop", category: "домакинство" },
+      { id: 9, title: "Течен сапун", price: 5, image: "https://source.unsplash.com/400x300/?soap", category: "домакинство" },
+      { id: 10, title: "Антибактериални кърпички", price: 4, image: "https://source.unsplash.com/400x300/?wipes", category: "почистване" },
+      { id: 11, title: "Прахосмукачка", price: 110, image: "https://source.unsplash.com/400x300/?vacuum-cleaner", category: "индустриални" },
+      { id: 12, title: "Препарат за под", price: 6, image: "https://source.unsplash.com/400x300/?floor-cleaner", category: "почистване" },
+      { id: 13, title: "Домакински ръкавици", price: 3, image: "https://source.unsplash.com/400x300/?gloves", category: "домакинство" },
+      { id: 14, title: "Кош за боклук", price: 15, image: "https://source.unsplash.com/400x300/?trash-bin", category: "домакинство" },
+      { id: 15, title: "Индустриална четка", price: 22, image: "https://source.unsplash.com/400x300/?industrial-brush", category: "индустриални" },
+      { id: 16, title: "Препарат за баня", price: 9, image: "https://source.unsplash.com/400x300/?bathroom-cleaner", category: "почистване" },
+      { id: 17, title: "Кухненска кърпа", price: 6, image: "https://source.unsplash.com/400x300/?kitchen-towel", category: "домакинство" },
+      { id: 18, title: "Ароматизатор за помещения", price: 8, image: "https://source.unsplash.com/400x300/?air-freshener", category: "домакинство" },
+      { id: 19, title: "Течност за съдове", price: 4, image: "https://source.unsplash.com/400x300/?dish-soap", category: "домакинство" },
+      { id: 20, title: "Индустриална почистваща машина", price: 150, image: "https://source.unsplash.com/400x300/?cleaning-machine", category: "индустриални" }
+    ];
 
-<script>
-  const currencySelect = document.getElementById('currency');
-  const prices = document.querySelectorAll('.price-val');
-  const currencyLabel = document.querySelectorAll('.currency');
+    let currency = "BGN";
+    let cart = [];
 
-  currencySelect.addEventListener('change', () => {
-    const rate = parseFloat(currencySelect.value);
-    prices.forEach((p, i) => {
-      const base = parseFloat(p.getAttribute('data-base') || p.textContent);
-      if (!p.getAttribute('data-base')) {
-        p.setAttribute('data-base', base);
+    function renderProducts() {
+      const productList = document.getElementById("productList");
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const category = document.getElementById("categoryFilter").value;
+      const maxPrice = parseFloat(document.getElementById("priceRange").value);
+      document.getElementById("priceValue").textContent = `до ${maxPrice} BGN`;
+
+      productList.innerHTML = "";
+      products.filter(p => {
+        const matchCategory = !category || p.category === category;
+        const matchSearch = p.title.toLowerCase().includes(search);
+        const matchPrice = p.price <= maxPrice;
+        return matchCategory && matchSearch && matchPrice;
+      }).forEach(product => {
+        const price = convertCurrency(product.price);
+        productList.innerHTML += `
+          <div class="col-md-4 mb-4">
+            <div class="card product-card">
+              <img src="${product.image}" class="card-img-top" alt="${product.title}">
+              <div class="card-body">
+                <h5 class="card-title">${product.title}</h5>
+                <p class="card-text">${price.toFixed(2)} ${currency}</p>
+                <button class="btn btn-primary" onclick="addToCart(${product.id})">Добави в количката</button>
+              </div>
+            </div>
+          </div>`;
+      });
+    }
+
+    function addToCart(productId) {
+      const item = products.find(p => p.id === productId);
+      cart.push(item);
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById("cartItems");
+      const total = cart.reduce((sum, p) => sum + convertCurrency(p.price), 0);
+      cartList.innerHTML = cart.map(p => `<li class="list-group-item">${p.title} - ${convertCurrency(p.price).toFixed(2)} ${currency}</li>`).join("");
+      document.getElementById("cartTotal").textContent = total.toFixed(2);
+      document.getElementById("currency").textContent = currency;
+    }
+
+    function convertCurrency(priceBGN) {
+      switch (currency) {
+        case "EUR": return priceBGN / 1.95;
+        case "USD": return priceBGN / 1.80;
+        default: return priceBGN;
       }
-      p.textContent = (base * rate).toFixed(2);
+    }
+
+    function filterProducts() {
+      renderProducts();
+    }
+
+    function searchProducts() {
+      renderProducts();
+    }
+
+    document.getElementById("currencySelect").addEventListener("change", function () {
+      currency = this.value;
+      renderProducts();
+      updateCart();
     });
-    const label = currencySelect.options[currencySelect.selectedIndex].text;
-    currencyLabel.forEach(c => c.textContent = label === 'BGN' ? 'лв.' : label);
-  });
 
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const productName = btn.closest('.card-body').querySelector('.card-title').textContent;
-      const li = document.createElement('li');
-      li.className = 'list-group-item';
-      li.textContent = productName;
-      document.getElementById('cart').appendChild(li);
-    });
-  });
-
-  document.getElementById('checkoutBtn').addEventListener('click', () => {
-    alert("Благодарим за поръчката! Плащане ще бъде уредено.");
-  });
-
-  document.getElementById('searchInput').addEventListener('input', function () {
-    const query = this.value.toLowerCase();
-    document.querySelectorAll('.product-card').forEach(card => {
-      const name = card.querySelector('.card-title').textContent.toLowerCase();
-      card.style.display = name.includes(query) ? '' : 'none';
-    });
-  });
-
-  document.getElementById('categoryFilter').addEventListener('change', function () {
-    const category = this.value;
-    document.querySelectorAll('.product-card').forEach(card => {
-      card.style.display = (!category || card.dataset.category === category) ? '' : 'none';
-    });
-  });
-
-  document.getElementById('priceFilter').addEventListener('change', function () {
-    const filter = this.value;
-    document.querySelectorAll('.product-card').forEach(card => {
-      const price = parseFloat(card.dataset.price);
-      let show = true;
-      if (filter === 'low') show = price <= 5;
-      else if (filter === 'mid') show = price > 5 && price <= 10;
-      else if (filter === 'high') show = price > 10;
-      card.style.display = show ? '' : 'none';
-    });
-  });
-</script>
-
+    // Start
+    renderProducts();
+  </script>
 </body>
 </html>
