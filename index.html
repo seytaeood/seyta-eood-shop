@@ -1,45 +1,101 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SEYTA EOOD – Онлайн магазин</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seyta EOOD - Онлайн магазин</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      padding-top: 4rem;
+      background-color: #f7f7f7;
+    }
+    .logo {
+      max-height: 80px;
+    }
+    .product-card {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .language-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <img src="logo.jpg" alt="Лого SEYTA" class="site-logo">
-    <h1>SEYTA EOOD</h1>
-    <nav>
-      <a href="#products">Продукти</a>
-      <a href="#contact">Контакт</a>
-    </nav>
-  </header>
 
-  <main>
-    <section id="products" class="product-grid">
-      <!-- Примерен продукт 1 -->
-      <div class="product-card">
-        <img src="prod1.jpg" alt="Урея Узбекистан">
-        <h2>Урея – Узбекистан</h2>
-        <p>Азотен тор, 50 кг чувал</p>
-        <p class="price">≈ 790 лв/тон</p>
-        <a class="btn" href="https://paypal.me/твояПП/790">Купи с PayPal</a>
+  <div class="container text-center">
+    <div class="language-switch">
+      <select id="languageSelect" class="form-select form-select-sm">
+        <option value="bg">Български</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <img src="BUL.FIRE.LAB.LOGO.JPG" alt="Лого" class="logo mb-3" />
+    <h1 id="mainTitle">Онлайн магазин на Сейта ЕООД</h1>
+    <p id="subtitle">Качествени продукти за дома и бизнеса</p>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card product-card">
+          <img src="https://images.unsplash.com/photo-1606813909021-75e928a66d76?w=500" class="card-img-top" alt="Препарат за под">
+          <div class="card-body">
+            <h5 class="card-title" data-bg="Препарат за под" data-en="Floor Cleaner">Препарат за под</h5>
+            <p class="card-text" data-bg="Концентрат 1л за всички видове подови настилки." data-en="1L concentrate for all types of floors.">Концентрат 1л за всички видове подови настилки.</p>
+            <p><strong>8.90 лв</strong></p>
+            <a href="#" class="btn btn-primary">Купи</a>
+          </div>
+        </div>
       </div>
-      <!-- Ти можеш да добавиш още примери аналогично -->
-    </section>
 
-    <section id="contact" class="contact-section">
-      <h2>Свържи се с нас</h2>
-      <form action="mailto:seytaeood@gmail.com" method="post" enctype="text/plain">
-        <input type="text" name="Име" placeholder="Вашето име" required>
-        <input type="email" name="Имейл" placeholder="Имейл адрес" required>
-        <textarea name="Съобщение" rows="4" placeholder="Съобщение или поръчка" required></textarea>
-        <button type="submit" class="btn">Изпрати</button>
-      </form>
-    </section>
-  </main>
+      <div class="col-md-4">
+        <div class="card product-card">
+          <img src="https://images.unsplash.com/photo-1581578017427-5457f8a1705f?w=500" class="card-img-top" alt="Дезинфектант">
+          <div class="card-body">
+            <h5 class="card-title" data-bg="Дезинфектант" data-en="Disinfectant">Дезинфектант</h5>
+            <p class="card-text" data-bg="Антибактериален гел, 500 мл." data-en="Antibacterial gel, 500 ml.">Антибактериален гел, 500 мл.</p>
+            <p><strong>5.40 лв</strong></p>
+            <a href="#" class="btn btn-primary">Купи</a>
+          </div>
+        </div>
+      </div>
 
-  <footer>© 2025 SEYTA EOOD</footer>
+      <div class="col-md-4">
+        <div class="card product-card">
+          <img src="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=500" class="card-img-top" alt="Универсален препарат">
+          <div class="card-body">
+            <h5 class="card-title" data-bg="Универсален препарат" data-en="All-Purpose Cleaner">Универсален препарат</h5>
+            <p class="card-text" data-bg="Силен препарат за кухня и баня." data-en="Strong cleaner for kitchen and bathroom.">Силен препарат за кухня и баня.</p>
+            <p><strong>6.70 лв</strong></p>
+            <a href="#" class="btn btn-primary">Купи</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const langSelect = document.getElementById("languageSelect");
+    langSelect.addEventListener("change", () => {
+      const lang = langSelect.value;
+      document.querySelectorAll("[data-bg]").forEach(el => {
+        el.innerText = el.getAttribute(`data-${lang}`);
+      });
+
+      // Заглавия
+      document.getElementById("mainTitle").innerText =
+        lang === "en" ? "Seyta EOOD Online Store" : "Онлайн магазин на Сейта ЕООД";
+      document.getElementById("subtitle").innerText =
+        lang === "en" ? "High quality products for home and business" : "Качествени продукти за дома и бизнеса";
+    });
+  </script>
+
 </body>
 </html>
+
 
