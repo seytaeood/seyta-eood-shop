@@ -1,162 +1,71 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SEYTA EOOD Магазин</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .product-card img {
-      height: 200px;
-      object-fit: cover;
-    }
-    .currency-switcher {
-      width: auto;
-    }
-    .filter-section {
-      margin-top: 1rem;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEYTA EOOD - Онлайн магазин</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <a class="navbar-brand" href="#">SEYTA EOOD</a>
-    <div class="ms-auto d-flex align-items-center">
-      <select id="currencySelect" class="form-select me-2 currency-switcher">
-        <option value="BGN" selected>BGN</option>
-        <option value="EUR">EUR</option>
-        <option value="USD">USD</option>
-      </select>
-      <input id="searchInput" type="text" placeholder="Търси продукт..." class="form-control me-2">
-      <button onclick="searchProducts()" class="btn btn-outline-light">Търси</button>
-      <a href="#cart" class="btn btn-success ms-3">🛒 Количка</a>
-    </div>
-  </nav>
+  <!-- Езиков превключвател и валутен конвертор -->
+  <div class="container mt-3 d-flex justify-content-between">
+    <select id="language-switcher" class="form-select w-auto">
+      <option value="bg">Български</option>
+      <option value="en">English</option>
+      <option value="al">Shqip</option>
+      <option value="ks">Kosovar</option>
+      <option value="tr">Türkçe</option>
+      <option value="ro">Română</option>
+      <option value="de">Deutsch</option>
+    </select>
+    <select id="currency-switcher" class="form-select w-auto">
+      <option value="BGN">BGN</option>
+      <option value="EUR">EUR</option>
+      <option value="USD">USD</option>
+    </select>
+  </div>
 
   <div class="container mt-4">
-    <div class="row filter-section">
+    <h1 class="text-center">SEYTA EOOD - Онлайн магазин</h1>
+    
+    <!-- Търсачка -->
+    <input type="text" id="searchBar" class="form-control my-3" placeholder="Търси продукт..." onkeyup="filterProducts()" />
+    
+    <!-- Филтри -->
+    <div class="row mb-3">
       <div class="col-md-4">
-        <label>Категория</label>
-        <select class="form-select" onchange="filterProducts()" id="categoryFilter">
-          <option value="">Всички</option>
-          <option value="почистване">Почистване</option>
-          <option value="домакинство">Домакинство</option>
-          <option value="индустриални">Индустриални</option>
+        <select id="categoryFilter" class="form-select" onchange="filterProducts()">
+          <option value="">Всички категории</option>
+          <option value="почистване">Препарати за почистване</option>
+          <option value="дезинфекция">Дезинфектанти</option>
+          <option value="санитария">Санитарни продукти</option>
         </select>
       </div>
       <div class="col-md-4">
-        <label>Цена (макс. в BGN)</label>
-        <input type="range" id="priceRange" min="0" max="100" value="100" class="form-range" oninput="filterProducts()">
-        <div id="priceValue">до 100 BGN</div>
+        <select id="priceFilter" class="form-select" onchange="filterProducts()">
+          <option value="">Всички цени</option>
+          <option value="0-5">до 5 лв</option>
+          <option value="5-10">5 - 10 лв</option>
+          <option value="10-20">над 10 лв</option>
+        </select>
       </div>
     </div>
 
-    <div class="row mt-4" id="productList">
-      <!-- Продуктите ще се заредят тук -->
+    <!-- Продукти -->
+    <div id="product-list" class="row">
+      <!-- Ще добавим продуктите в следващата стъпка -->
+    </div>
+
+    <!-- Количка -->
+    <div class="mt-5">
+      <h3>Количка</h3>
+      <ul id="cart-items" class="list-group mb-3"></ul>
+      <button class="btn btn-success" onclick="checkout()">Плати</button>
     </div>
   </div>
 
-  <div class="container mt-5" id="cart">
-    <h3>🛒 Вашата количка</h3>
-    <ul id="cartItems" class="list-group mb-3"></ul>
-    <div><strong>Общо:</strong> <span id="cartTotal">0</span> <span id="currency">BGN</span></div>
-    <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-primary mt-3">Плати</a>
-  </div>
-
-  <script>
-    const products = [
-      { id: 1, title: "Универсален почистващ препарат", price: 10, image: "https://source.unsplash.com/400x300/?cleaning", category: "почистване" },
-      { id: 2, title: "Дезинфектант за ръце", price: 8, image: "https://source.unsplash.com/400x300/?disinfectant", category: "почистване" },
-      { id: 3, title: "Прах за пране", price: 12, image: "https://source.unsplash.com/400x300/?detergent", category: "домакинство" },
-      { id: 4, title: "Миеща гъба", price: 3, image: "https://source.unsplash.com/400x300/?sponge", category: "домакинство" },
-      { id: 5, title: "Индустриален обезмаслител", price: 25, image: "https://source.unsplash.com/400x300/?degreaser", category: "индустриални" },
-      { id: 6, title: "Препарат за стъкла", price: 7, image: "https://source.unsplash.com/400x300/?window-cleaner", category: "почистване" },
-      { id: 7, title: "Четка за под", price: 14, image: "https://source.unsplash.com/400x300/?brush", category: "домакинство" },
-      { id: 8, title: "Моп с кофа", price: 30, image: "https://source.unsplash.com/400x300/?mop", category: "домакинство" },
-      { id: 9, title: "Течен сапун", price: 5, image: "https://source.unsplash.com/400x300/?soap", category: "домакинство" },
-      { id: 10, title: "Антибактериални кърпички", price: 4, image: "https://source.unsplash.com/400x300/?wipes", category: "почистване" },
-      { id: 11, title: "Прахосмукачка", price: 110, image: "https://source.unsplash.com/400x300/?vacuum-cleaner", category: "индустриални" },
-      { id: 12, title: "Препарат за под", price: 6, image: "https://source.unsplash.com/400x300/?floor-cleaner", category: "почистване" },
-      { id: 13, title: "Домакински ръкавици", price: 3, image: "https://source.unsplash.com/400x300/?gloves", category: "домакинство" },
-      { id: 14, title: "Кош за боклук", price: 15, image: "https://source.unsplash.com/400x300/?trash-bin", category: "домакинство" },
-      { id: 15, title: "Индустриална четка", price: 22, image: "https://source.unsplash.com/400x300/?industrial-brush", category: "индустриални" },
-      { id: 16, title: "Препарат за баня", price: 9, image: "https://source.unsplash.com/400x300/?bathroom-cleaner", category: "почистване" },
-      { id: 17, title: "Кухненска кърпа", price: 6, image: "https://source.unsplash.com/400x300/?kitchen-towel", category: "домакинство" },
-      { id: 18, title: "Ароматизатор за помещения", price: 8, image: "https://source.unsplash.com/400x300/?air-freshener", category: "домакинство" },
-      { id: 19, title: "Течност за съдове", price: 4, image: "https://source.unsplash.com/400x300/?dish-soap", category: "домакинство" },
-      { id: 20, title: "Индустриална почистваща машина", price: 150, image: "https://source.unsplash.com/400x300/?cleaning-machine", category: "индустриални" }
-    ];
-
-    let currency = "BGN";
-    let cart = [];
-
-    function renderProducts() {
-      const productList = document.getElementById("productList");
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const category = document.getElementById("categoryFilter").value;
-      const maxPrice = parseFloat(document.getElementById("priceRange").value);
-      document.getElementById("priceValue").textContent = `до ${maxPrice} BGN`;
-
-      productList.innerHTML = "";
-      products.filter(p => {
-        const matchCategory = !category || p.category === category;
-        const matchSearch = p.title.toLowerCase().includes(search);
-        const matchPrice = p.price <= maxPrice;
-        return matchCategory && matchSearch && matchPrice;
-      }).forEach(product => {
-        const price = convertCurrency(product.price);
-        productList.innerHTML += `
-          <div class="col-md-4 mb-4">
-            <div class="card product-card">
-              <img src="${product.image}" class="card-img-top" alt="${product.title}">
-              <div class="card-body">
-                <h5 class="card-title">${product.title}</h5>
-                <p class="card-text">${price.toFixed(2)} ${currency}</p>
-                <button class="btn btn-primary" onclick="addToCart(${product.id})">Добави в количката</button>
-              </div>
-            </div>
-          </div>`;
-      });
-    }
-
-    function addToCart(productId) {
-      const item = products.find(p => p.id === productId);
-      cart.push(item);
-      updateCart();
-    }
-
-    function updateCart() {
-      const cartList = document.getElementById("cartItems");
-      const total = cart.reduce((sum, p) => sum + convertCurrency(p.price), 0);
-      cartList.innerHTML = cart.map(p => `<li class="list-group-item">${p.title} - ${convertCurrency(p.price).toFixed(2)} ${currency}</li>`).join("");
-      document.getElementById("cartTotal").textContent = total.toFixed(2);
-      document.getElementById("currency").textContent = currency;
-    }
-
-    function convertCurrency(priceBGN) {
-      switch (currency) {
-        case "EUR": return priceBGN / 1.95;
-        case "USD": return priceBGN / 1.80;
-        default: return priceBGN;
-      }
-    }
-
-    function filterProducts() {
-      renderProducts();
-    }
-
-    function searchProducts() {
-      renderProducts();
-    }
-
-    document.getElementById("currencySelect").addEventListener("change", function () {
-      currency = this.value;
-      renderProducts();
-      updateCart();
-    });
-
-    // Start
-    renderProducts();
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="shop.js"></script>
 </body>
 </html>
