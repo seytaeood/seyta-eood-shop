@@ -1,30 +1,11 @@
-<!-- Допълнителни продукти -->
-<script>
-  // Продължение на масива с продукти (след първите 20)
-  const moreProducts = [
-    {id:21, name:"Domestos Original", desc:"Препарат за дезинфекция и почистване", priceBGN:7.20 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71TLzDtqgFL._SL1500_.jpg", cat:"почистващи", brand:"Domestos"},
-    {id:22, name:"Fairy Platinum Plus", desc:"Течен препарат за съдове", priceBGN:5.50 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/fairy-platinum.jpg", cat:"детергенти", brand:"Fairy"},
-    {id:23, name:"Lenor Gold Orchid 2L", desc:"Омекотител с аромат на орхидея", priceBGN:12.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71U34XwFJ2L._AC_SL1500_.jpg", cat:"омекотители", brand:"Lenor"},
-    {id:24, name:"Persil Gel Color 2L", desc:"Гел за цветно пране", priceBGN:16.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71v3P2JfG1L._AC_SL1500_.jpg", cat:"перилни", brand:"Persil"},
-    {id:25, name:"Cif Power Cream", desc:"Крем почистващ препарат", priceBGN:4.80 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71-+zqku6nL._SL1500_.jpg", cat:"почистващи", brand:"Cif"},
-    {id:26, name:"Dove Beauty Cream Bar", desc:"Крем сапун Dove за кожа", priceBGN:3.50 * 0.75, img:"https://m.media-amazon.com/images/I/41a37qyxRUL._SL1000_.jpg", cat:"сапуни", brand:"Dove"},
-    {id:27, name:"Head & Shoulders Smooth", desc:"Шампоан против пърхот", priceBGN:7.20 * 0.75, img:"https://m.media-amazon.com/images/I/71Vf47ViWlL._SL1500_.jpg", cat:"шампоани", brand:"Head & Shoulders"},
-    {id:28, name:"Tide Pods 3in1", desc:"Капсули за пране Tide", priceBGN:26.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/81MTFY5y6FL._AC_SL1500_.jpg", cat:"перилни", brand:"Tide"},
-    {id:29, name:"Bref WC Fresh", desc:"Тоалетен блок", priceBGN:4.50 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71VKK20o6JL._SL1500_.jpg", cat:"почистващи", brand:"Bref"},
-    {id:30, name:"Mr. Proper Floor", desc:"Препарат за подове", priceBGN:5.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71DvyieBVeL._SL1500_.jpg", cat:"почистващи", brand:"Mr. Proper"},
-    {id:31, name:"Ariel Liquid 2L", desc:"Течен препарат Ariel", priceBGN:18.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71wh1vePU0L._SL1500_.jpg", cat:"перилни", brand:"Ariel"},
-    {id:32, name:"Vernel Softener", desc:"Омекотител за пране", priceBGN:8.50 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/81AsRH06aOL._AC_SL1500_.jpg", cat:"омекотители", brand:"Vernel"},
-    {id:33, name:"Palmolive Shower Cream", desc:"Гел за душ", priceBGN:6.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71v5G6QlVdL._SL1500_.jpg", cat:"почистващи", brand:"Palmolive"},
-    {id:34, name:"Fairy Lemon 1L", desc:"Течен препарат за съдове", priceBGN:4.00 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/fairy-lemon.jpg", cat:"детергенти", brand:"Fairy"},
-    {id:35, name:"Persil Sensitive Gel 3L", desc:"Препарат за чувствителна кожа", priceBGN:19.50 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71vrzKuoyLL._AC_SL1500_.jpg", cat:"перилни", brand:"Persil"},
-    {id:36, name:"Lenor Unstoppables 210g", desc:"Парфюмни гранули за пране", priceBGN:14.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71KOWntczHL._SL1500_.jpg", cat:"омекотители", brand:"Lenor"},
-    {id:37, name:"Dove Nutritive Shampoo", desc:"Подхранващ шампоан", priceBGN:7.50 * 0.75, img:"https://m.media-amazon.com/images/I/71juK3JowDL._SL1500_.jpg", cat:"шампоани", brand:"Dove"},
-    {id:38, name:"Tide Liquid 2.5L", desc:"Течен препарат за пране", priceBGN:18.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71wh1vePU0L._SL1500_.jpg", cat:"перилни", brand:"Tide"},
-    {id:39, name:"Mr. Muscle Kitchen Cleaner", desc:"Препарат за кухня", priceBGN:6.50 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/61rZNYMZLaL._SL1000_.jpg", cat:"почистващи", brand:"Mr. Muscle"},
-    {id:40, name:"Cif Power Spray", desc:"Почистващ спрей", priceBGN:5.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/81zH5X+QaUL._SL1500_.jpg", cat:"почистващи", brand:"Cif"}
-  ];
-
-  // Добави тези продукти към масива products и после пре-render
-  products.push(...moreProducts);
-  renderProducts();
-</script>
+<div class="col-md-3">
+  <div class="card mb-4">
+    <img src="images/cleaner1.jpg" class="card-img-top" alt="Спрей за кухня">
+    <div class="card-body">
+      <h5 class="card-title">Спрей за кухня</h5>
+      <p class="card-text">Мощен обезмаслител за всички повърхности. Подходящ за професионална и домашна употреба.</p>
+      <p class="card-text"><strong>Цена: 5.99 лв</strong></p>
+      <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-success">Купи</a>
+    </div>
+  </div>
+</div>
