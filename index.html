@@ -1,266 +1,30 @@
-<!DOCTYPE html>
-<html lang="bg">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SEYTA EOOD - Онлайн магазин перилни препарати</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    body { background: #f0f8ff; }
-    header { background-color: #004080; color: white; padding: 1rem 0; }
-    .product-img { height: 180px; object-fit: contain; }
-    .cart-count { font-weight: bold; color: #fff; background: #dc3545; border-radius: 50%; padding: 0 7px; font-size: 0.8rem; vertical-align: super; }
-    .btn-pay { background: #00a650; color: white; }
-    .btn-pay:hover { background: #007a3d; color: white; }
-    .lang-select { max-width: 140px; }
-  </style>
-</head>
-<body>
-
-<header class="text-center">
-  <h1>SEYTA EOOD</h1>
-  <p>Продажба на едро на перилни препарати и детергенти</p>
-</header>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
-  <a class="navbar-brand" href="#">SEYTA Shop</a>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav me-auto">
-      <li class="nav-item"><a class="nav-link active" href="#">Начало</a></li>
-      <li class="nav-item"><a class="nav-link" href="#productsSection">Продукти</a></li>
-      <li class="nav-item"><a class="nav-link" href="#contactSection">Контакти</a></li>
-    </ul>
-    <select id="langSelect" class="form-select lang-select" aria-label="Избор на език">
-      <option value="bg" selected>Български</option>
-      <option value="en">English</option>
-      <option value="ro">Română</option>
-      <option value="de">Deutsch</option>
-      <option value="tr">Türkçe</option>
-      <option value="sq">Shqip (Албански)</option>
-      <option value="xk">Kosovë (Косовски)</option>
-    </select>
-    <button class="btn btn-danger ms-3 position-relative cart-btn" onclick="toggleCart()">
-      🛒 Количка <span id="cartCount" class="cart-count">0</span>
-    </button>
-  </div>
-</nav>
-
-<main class="container my-4">
-
-  <section id="productsSection">
-    <h2 class="mb-4">Нашите продукти</h2>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="productGrid">
-      <!-- Продукти ще се зареждат тук -->
-    </div>
-  </section>
-
-  <section id="contactSection" class="mt-5">
-    <h3>Свържете се с нас</h3>
-    <form id="contactForm" class="row g-3 needs-validation" novalidate>
-      <div class="col-md-6">
-        <label for="inputName" class="form-label">Име</label>
-        <input type="text" class="form-control" id="inputName" placeholder="Вашето име" required />
-        <div class="invalid-feedback">Моля, въведете име.</div>
-      </div>
-      <div class="col-md-6">
-        <label for="inputEmail" class="form-label">Имейл</label>
-        <input type="email" class="form-control" id="inputEmail" placeholder="email@example.com" required />
-        <div class="invalid-feedback">Въведете валиден имейл.</div>
-      </div>
-      <div class="col-md-6">
-        <label for="inputPhone" class="form-label">Телефон</label>
-        <input type="tel" class="form-control" id="inputPhone" placeholder="+359 8XXXXXXXX" required />
-        <div class="invalid-feedback">Въведете телефонен номер.</div>
-      </div>
-      <div class="col-md-12">
-        <label for="inputMessage" class="form-label">Съобщение</label>
-        <textarea class="form-control" id="inputMessage" rows="3"></textarea>
-      </div>
-      <div class="col-12">
-        <button class="btn btn-primary" type="submit">Изпрати</button>
-      </div>
-    </form>
-  </section>
-
-</main>
-
-<!-- Пазарска количка с Offcanvas -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="cartCanvas" aria-labelledby="cartCanvasLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="cartCanvasLabel">Количка</h5>
-    <button type="button" class="btn-close" aria-label="Close" onclick="toggleCart()"></button>
-  </div>
-  <div class="offcanvas-body d-flex flex-column">
-    <ul class="list-group mb-3" id="cartList">
-      <!-- Съдържание на количката -->
-    </ul>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <strong>Общо:</strong>
-      <span id="cartTotal">0.00</span> лв.
-    </div>
-    <button class="btn btn-pay w-100" onclick="checkout()">Плати</button>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<!-- Допълнителни продукти -->
 <script>
-  // Данни за продуктите (примерни, с реални снимки от интернет)
-  const products = [
-    {id:1, name:"Perwoll Black 3L", desc:"Препарат за черни и тъмни тъкани", priceBGN:12.00 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/perwoll_black.jpg", cat:"перилни", brand:"Perwoll"},
-    {id:2, name:"Fairy Aloe Vera 800ml", desc:"Течен препарат за съдове с алое вера", priceBGN:4.20 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/aloevera.jpg", cat:"детергенти", brand:"Fairy"},
-    {id:3, name:"ABC Pro 5L", desc:"Професионален препарат за почистване", priceBGN:15.50 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/ABC_Pro.jpg", cat:"перилни", brand:"ABC"},
-    {id:4, name:"Persil Color Gel 3L", desc:"Гел за цветно пране", priceBGN:18.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/81NW6eRmR5L._AC_SL1500_.jpg", cat:"перилни", brand:"Persil"},
-    {id:5, name:"Lenor Gold Orchid 1.5L", desc:"Омекотител с аромат на орхидея", priceBGN:10.50 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71U34XwFJ2L._AC_SL1500_.jpg", cat:"омекотители", brand:"Lenor"},
-    {id:6, name:"Dove Beauty Bar", desc:"Крем сапун Dove за нежна кожа", priceBGN:3.00 * 0.75, img:"https://m.media-amazon.com/images/I/41a37qyxRUL._SL1000_.jpg", cat:"сапуни", brand:"Dove"},
-    {id:7, name:"Head & Shoulders Classic", desc:"Шампоан против пърхот", priceBGN:7.00 * 0.75, img:"https://m.media-amazon.com/images/I/71Vf47ViWlL._SL1500_.jpg", cat:"шампоани", brand:"Head & Shoulders"},
-    {id:8, name:"Tide Original 4.43kg", desc:"Прах за пране Tide", priceBGN:20.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/81NJWxc2u8L._SL1500_.jpg", cat:"прах", brand:"Tide"},
-    {id:9, name:"Bref Power Fresh", desc:"Тоалетен блок за свежест", priceBGN:4.50 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71VKK20o6JL._SL1500_.jpg", cat:"почистващи", brand:"Bref"},
-    {id:10, name:"Mr. Proper Lemon", desc:"Мултифункционален почистващ препарат", priceBGN:5.50 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71DvyieBVeL._SL1500_.jpg", cat:"почистващи", brand:"Mr. Proper"},
-    {id:11, name:"Ariel 3in1 Pods", desc:"Капсули за пране Ariel", priceBGN:25.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/81MTFY5y6FL._AC_SL1500_.jpg", cat:"перилни", brand:"Ariel"},
-    {id:12, name:"Cif Cream Cleaner", desc:"Крем за почистване", priceBGN:4.80 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71-+zqku6nL._SL1500_.jpg", cat:"почистващи", brand:"Cif"},
-    {id:13, name:"Vernel Fresh", desc:"Омекотител с аромат на свежест", priceBGN:8.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/81AsRH06aOL._AC_SL1500_.jpg", cat:"омекотители", brand:"Vernel"},
-    {id:14, name:"Palmolive Shower Gel", desc:"Гел за душ Palmolive", priceBGN:6.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71v5G6QlVdL._SL1500_.jpg", cat:"почистващи", brand:"Palmolive"},
-    {id:15, name:"Fairy Lemon 800ml", desc:"Течен препарат за съдове с лимон", priceBGN:4.00 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/fairy-lemon.jpg", cat:"детергенти", brand:"Fairy"},
-    {id:16, name:"Persil Sensitive", desc:"Перилен препарат за чувствителна кожа", priceBGN:19.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71vrzKuoyLL._AC_SL1500_.jpg", cat:"перилни", brand:"Persil"},
-    {id:17, name:"Lenor Unstoppables", desc:"Парфюмни гранули за пране", priceBGN:14.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71KOWntczHL._SL1500_.jpg", cat:"омекотители", brand:"Lenor"},
-    {id:18, name:"Dove Shampoo Nutritive", desc:"Подхранващ шампоан Dove", priceBGN:7.50 * 0.75, img:"https://m.media-amazon.com/images/I/71juK3JowDL._SL1500_.jpg", cat:"шампоани", brand:"Dove"},
-    {id:19, name:"Tide Liquid 2L", desc:"Течен препарат Tide", priceBGN:18.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71wh1vePU0L._SL1500_.jpg", cat:"перилни", brand:"Tide"},
-    {id:20, name:"Mr. Muscle Kitchen", desc:"Препарат за кухня Mr. Muscle", priceBGN:6.50 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/61rZNYMZLaL._SL1000_.jpg", cat:"почистващи", brand:"Mr. Muscle"}
+  // Продължение на масива с продукти (след първите 20)
+  const moreProducts = [
+    {id:21, name:"Domestos Original", desc:"Препарат за дезинфекция и почистване", priceBGN:7.20 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71TLzDtqgFL._SL1500_.jpg", cat:"почистващи", brand:"Domestos"},
+    {id:22, name:"Fairy Platinum Plus", desc:"Течен препарат за съдове", priceBGN:5.50 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/fairy-platinum.jpg", cat:"детергенти", brand:"Fairy"},
+    {id:23, name:"Lenor Gold Orchid 2L", desc:"Омекотител с аромат на орхидея", priceBGN:12.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71U34XwFJ2L._AC_SL1500_.jpg", cat:"омекотители", brand:"Lenor"},
+    {id:24, name:"Persil Gel Color 2L", desc:"Гел за цветно пране", priceBGN:16.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71v3P2JfG1L._AC_SL1500_.jpg", cat:"перилни", brand:"Persil"},
+    {id:25, name:"Cif Power Cream", desc:"Крем почистващ препарат", priceBGN:4.80 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71-+zqku6nL._SL1500_.jpg", cat:"почистващи", brand:"Cif"},
+    {id:26, name:"Dove Beauty Cream Bar", desc:"Крем сапун Dove за кожа", priceBGN:3.50 * 0.75, img:"https://m.media-amazon.com/images/I/41a37qyxRUL._SL1000_.jpg", cat:"сапуни", brand:"Dove"},
+    {id:27, name:"Head & Shoulders Smooth", desc:"Шампоан против пърхот", priceBGN:7.20 * 0.75, img:"https://m.media-amazon.com/images/I/71Vf47ViWlL._SL1500_.jpg", cat:"шампоани", brand:"Head & Shoulders"},
+    {id:28, name:"Tide Pods 3in1", desc:"Капсули за пране Tide", priceBGN:26.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/81MTFY5y6FL._AC_SL1500_.jpg", cat:"перилни", brand:"Tide"},
+    {id:29, name:"Bref WC Fresh", desc:"Тоалетен блок", priceBGN:4.50 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71VKK20o6JL._SL1500_.jpg", cat:"почистващи", brand:"Bref"},
+    {id:30, name:"Mr. Proper Floor", desc:"Препарат за подове", priceBGN:5.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71DvyieBVeL._SL1500_.jpg", cat:"почистващи", brand:"Mr. Proper"},
+    {id:31, name:"Ariel Liquid 2L", desc:"Течен препарат Ariel", priceBGN:18.00 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71wh1vePU0L._SL1500_.jpg", cat:"перилни", brand:"Ariel"},
+    {id:32, name:"Vernel Softener", desc:"Омекотител за пране", priceBGN:8.50 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/81AsRH06aOL._AC_SL1500_.jpg", cat:"омекотители", brand:"Vernel"},
+    {id:33, name:"Palmolive Shower Cream", desc:"Гел за душ", priceBGN:6.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71v5G6QlVdL._SL1500_.jpg", cat:"почистващи", brand:"Palmolive"},
+    {id:34, name:"Fairy Lemon 1L", desc:"Течен препарат за съдове", priceBGN:4.00 * 0.75, img:"https://cdn.shopify.com/s/files/1/0558/6433/8229/products/fairy-lemon.jpg", cat:"детергенти", brand:"Fairy"},
+    {id:35, name:"Persil Sensitive Gel 3L", desc:"Препарат за чувствителна кожа", priceBGN:19.50 * 0.75, img:"https://images-eu.ssl-images-amazon.com/images/I/71vrzKuoyLL._AC_SL1500_.jpg", cat:"перилни", brand:"Persil"},
+    {id:36, name:"Lenor Unstoppables 210g", desc:"Парфюмни гранули за пране", priceBGN:14.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71KOWntczHL._SL1500_.jpg", cat:"омекотители", brand:"Lenor"},
+    {id:37, name:"Dove Nutritive Shampoo", desc:"Подхранващ шампоан", priceBGN:7.50 * 0.75, img:"https://m.media-amazon.com/images/I/71juK3JowDL._SL1500_.jpg", cat:"шампоани", brand:"Dove"},
+    {id:38, name:"Tide Liquid 2.5L", desc:"Течен препарат за пране", priceBGN:18.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/71wh1vePU0L._SL1500_.jpg", cat:"перилни", brand:"Tide"},
+    {id:39, name:"Mr. Muscle Kitchen Cleaner", desc:"Препарат за кухня", priceBGN:6.50 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/61rZNYMZLaL._SL1000_.jpg", cat:"почистващи", brand:"Mr. Muscle"},
+    {id:40, name:"Cif Power Spray", desc:"Почистващ спрей", priceBGN:5.00 * 0.75, img:"https://images-na.ssl-images-amazon.com/images/I/81zH5X+QaUL._SL1500_.jpg", cat:"почистващи", brand:"Cif"}
   ];
 
-  // Валути и курсове (примерни)
-  let currency = 'BGN';
-  const rates = {
-    BGN: 1,
-    EUR: 0.51,
-    USD: 0.55,
-  };
-  const currencySymbols = {
-    BGN: "лв.",
-    EUR: "€",
-    USD: "$",
-  };
-
-  // Езикови текстове
-  const langTexts = {
-    bg: { addToCart: "Добави в количката", cart: "Количка", pay: "Плати" },
-    en: { addToCart: "Add to Cart", cart: "Cart", pay: "Pay" },
-    ro: { addToCart: "Adaugă în coș", cart: "Coș", pay: "Plătește" },
-    de: { addToCart: "In den Warenkorb", cart: "Warenkorb", pay: "Bezahlen" },
-    tr: { addToCart: "Sepete Ekle", cart: "Sepet", pay: "Öde" },
-    sq: { addToCart: "Shto në karrocë", cart: "Karrocë", pay: "Paguaj" },
-    xk: { addToCart: "Shto në karrocë", cart: "Karrocë", pay: "Paguaj" },
-  };
-
-  let cart = [];
-
-  function formatPrice(price) {
-    return (price * rates[currency]).toFixed(2);
-  }
-
-  function renderProducts() {
-    const container = document.getElementById("productGrid");
-    container.innerHTML = "";
-    const lang = document.getElementById("langSelect").value;
-    products.forEach(p => {
-      const priceFormatted = formatPrice(p.priceBGN);
-      const card = document.createElement("div");
-      card.className = "col";
-      card.innerHTML = `
-        <div class="card h-100">
-          <img src="${p.img}" alt="${p.name}" class="card-img-top product-img" />
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">${p.name}</h5>
-            <p class="card-text">${p.desc}</p>
-            <p class="fw-bold">${priceFormatted} ${currencySymbols[currency]}</p>
-            <button class="btn btn-primary mt-auto" onclick="addToCart(${p.id})">${langTexts[lang]?.addToCart || "Добави в количката"}</button>
-          </div>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-  }
-
-  function addToCart(id) {
-    const prod = products.find(p => p.id === id);
-    if (!prod) return;
-    const cartItem = cart.find(c => c.id === id);
-    if (cartItem) {
-      cartItem.qty++;
-    } else {
-      cart.push({ id: prod.id, name: prod.name, priceBGN: prod.priceBGN, qty: 1 });
-    }
-    updateCart();
-  }
-
-  function updateCart() {
-    const cartList = document.getElementById("cartList");
-    cartList.innerHTML = "";
-    let total = 0;
-    cart.forEach(item => {
-      const price = (item.priceBGN * rates[currency] * item.qty).toFixed(2);
-      total += parseFloat(price);
-      const li = document.createElement("li");
-      li.className = "list-group-item d-flex justify-content-between align-items-center";
-      li.innerHTML = `
-        ${item.name} x${item.qty}
-        <button class="btn btn-sm btn-danger" onclick="removeFromCart(${item.id})">&times;</button>
-        <span>${price} ${currencySymbols[currency]}</span>
-      `;
-      cartList.appendChild(li);
-    });
-    document.getElementById("cartCount").textContent = cart.length;
-    document.getElementById("cartTotal").textContent = total.toFixed(2);
-  }
-
-  function removeFromCart(id) {
-    cart = cart.filter(item => item.id !== id);
-    updateCart();
-  }
-
-  function toggleCart() {
-    const canvas = document.getElementById("cartCanvas");
-    const bsOffcanvas = bootstrap.Offcanvas.getInstance(canvas);
-    if (bsOffcanvas) {
-      bsOffcanvas.hide();
-    } else {
-      new bootstrap.Offcanvas(canvas).show();
-    }
-  }
-
-  function checkout() {
-    if (cart.length === 0) {
-      alert("Количката е празна!");
-      return;
-    }
-    // Твоят линк за плащане - отвори в нов прозорец
-    window.open("https://pay.vivawallet.com/seyta-eood", "_blank");
-  }
-
-  // Обработка на езиковия избор
-  document.getElementById("langSelect").addEventListener("change", () => {
-    renderProducts();
-    // Можеш тук да добавиш и смяна на други текстове по страницата
-  });
-
-  // Валидация и изпращане на контактната форма (проста демонстрация)
-  document.getElementById("contactForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!e.target.checkValidity()) {
-      e.target.classList.add("was-validated");
-      return;
-    }
-    alert("Благодарим Ви, съобщението беше изпратено!");
-    e.target.reset();
-    e.target.classList.remove("was-validated");
-  });
-
-  // Зареждаме продуктите при стартиране
+  // Добави тези продукти към масива products и после пре-render
+  products.push(...moreProducts);
   renderProducts();
-  updateCart();
-
 </script>
-
-</body>
-</html>
