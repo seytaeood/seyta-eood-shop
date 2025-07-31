@@ -3,503 +3,365 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SEYTA EOOD - Онлайн Магазин</title>
+<title>SEYTA EOOD - Перилни препарати и почистващи средства</title>
 <style>
-  :root {
-    --primary-color: #004080;
-    --secondary-color: #0073e6;
-    --accent-color: #ffcc00;
-    --background-color: #f9fafb;
-    --text-color: #222;
-
-    --btn-color-1: #0073e6;
-    --btn-color-2: #e67e22;
-    --btn-color-3: #16a085;
-    --btn-color-4: #c0392b;
-    --btn-color-5: #8e44ad;
-  }
-
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--background-color);
-    margin: 0;
-    padding: 0;
-    color: var(--text-color);
-    line-height: 1.6;
+    background: #f0f4f8;
+    margin: 0; padding: 0; color: #333;
   }
-
   header {
-    background: var(--primary-color);
+    background: #004080;
     color: white;
-    padding: 40px 20px 30px;
+    padding: 20px 15px;
     text-align: center;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
     position: relative;
   }
   header h1 {
-    margin: 0 0 10px;
-    font-weight: 800;
-    font-size: 3rem;
-    letter-spacing: 2px;
+    margin: 0;
+    font-weight: 700;
   }
   header p {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 600;
-    font-style: italic;
+    margin: 5px 0 0;
+    font-size: 1.1rem;
   }
-
-  /* Езиков избор горе вляво */
-  #language-switcher {
+  #language-select {
     position: absolute;
     top: 18px;
-    left: 20px;
-    background: white;
-    border-radius: 10px;
-    padding: 6px 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-  }
-  #language-switcher select {
-    font-weight: 600;
+    right: 15px;
+    padding: 5px 8px;
+    border-radius: 5px;
     border: none;
-    outline: none;
-    background: transparent;
-    cursor: pointer;
     font-size: 1rem;
   }
-
   nav {
-    background: var(--secondary-color);
-    padding: 14px 0;
-    text-align: center;
-    box-shadow: inset 0 -4px 10px rgba(0, 0, 0, 0.15);
+    background: #0074d9;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
   }
   nav a {
     color: white;
-    margin: 0 25px;
+    margin: 0 18px;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 1.15rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
+    font-weight: 600;
+    font-size: 1.05rem;
     transition: color 0.3s ease;
   }
   nav a:hover {
-    color: var(--accent-color);
+    color: #ffcc00;
   }
-
-  .container {
-    max-width: 1250px;
-    margin: 40px auto;
-    padding: 0 25px;
+  main {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 0 15px;
   }
-
-  .products-grid {
+  #products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(270px,1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 20px;
   }
-
   .product-card {
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 5px 18px rgb(0 0 0 / 0.12);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
   }
   .product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgb(0 0 0 / 0.25);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 15px rgb(0 0 0 / 0.15);
   }
   .product-card img {
-    width: 100%;
-    height: 200px;
+    border-radius: 10px;
     object-fit: contain;
-    border-radius: 12px;
-    background: #f5f5f5;
-    margin-bottom: 15px;
+    max-height: 180px;
+    margin-bottom: 12px;
+    background: #f9f9f9;
   }
   .product-card h3 {
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    font-weight: 700;
+    font-size: 1.15rem;
+    margin: 0 0 8px 0;
+    color: #004080;
   }
   .product-card p {
-    font-weight: 700;
+    margin: 0 0 15px 0;
+    font-weight: 600;
     font-size: 1.1rem;
-    margin-bottom: 18px;
-    color: #111;
+    color: #0074d9;
   }
-
   .product-card button {
-    background-color: var(--btn-color-1);
+    background: #ff6f00;
+    border: none;
+    padding: 10px 15px;
+    font-weight: 700;
+    color: white;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .product-card button:hover {
+    background: #e65c00;
+  }
+  /* Cart styles */
+  .cart-toggle-btn {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    background: #0074d9;
     color: white;
     border: none;
-    padding: 12px 28px;
-    font-size: 1.1rem;
-    border-radius: 12px;
+    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    font-size: 22px;
     cursor: pointer;
-    font-weight: 700;
-    box-shadow: 0 5px 15px rgb(0 115 230 / 0.3);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  .product-card:nth-child(2) button {
-    background-color: var(--btn-color-2);
-    box-shadow: 0 5px 15px rgb(230 126 34 / 0.3);
-  }
-  .product-card:nth-child(2):hover button {
-    background-color: #b35f00;
-    box-shadow: 0 7px 22px rgb(179 95 0 / 0.5);
-  }
-  .product-card:nth-child(3) button {
-    background-color: var(--btn-color-3);
-    box-shadow: 0 5px 15px rgb(22 160 133 / 0.3);
-  }
-  .product-card:nth-child(3):hover button {
-    background-color: #0e6655;
-    box-shadow: 0 7px 22px rgb(14 102 85 / 0.5);
-  }
-  .product-card:nth-child(4) button {
-    background-color: var(--btn-color-4);
-    box-shadow: 0 5px 15px rgb(192 57 43 / 0.3);
-  }
-  .product-card:nth-child(4):hover button {
-    background-color: #7a241c;
-    box-shadow: 0 7px 22px rgb(122 36 28 / 0.5);
-  }
-  .product-card:nth-child(5) button {
-    background-color: var(--btn-color-5);
-    box-shadow: 0 5px 15px rgb(142 68 173 / 0.3);
-  }
-  .product-card:nth-child(5):hover button {
-    background-color: #5e3370;
-    box-shadow: 0 7px 22px rgb(94 51 112 / 0.5);
-  }
-  .product-card:nth-child(n+6) button {
-    background-color: var(--btn-color-1);
-  }
-  .product-card:nth-child(n+6):hover button {
-    background-color: var(--btn-color-1);
-  }
-
-  .cart {
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    width: 350px;
-    max-height: 80vh;
-    background: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    border-radius: 15px;
-    overflow-y: auto;
+    box-shadow: 0 3px 7px rgb(0 0 0 / 0.3);
     z-index: 9999;
+  }
+  #cart {
+    position: fixed;
+    top: 0; right: 0;
+    width: 320px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 15px rgb(0 0 0 / 0.2);
     padding: 15px;
     display: none;
     flex-direction: column;
+    z-index: 10000;
   }
-  .cart h3 {
-    margin: 0 0 15px;
-    font-weight: 800;
-    color: var(--primary-color);
-    font-size: 1.6rem;
-    text-align: center;
+  #cart h3 {
+    margin: 0 0 15px 0;
+    color: #004080;
   }
-  .cart-list {
+  #cart-list {
     flex-grow: 1;
     overflow-y: auto;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   .cart-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
     padding-bottom: 8px;
   }
-  .cart-item span {
-    flex: 1;
-  }
   .cart-item button {
-    background: #c0392b;
+    background: transparent;
     border: none;
-    color: white;
-    padding: 5px 9px;
+    color: #ff3b3b;
     font-weight: 700;
-    font-size: 0.9rem;
-    border-radius: 7px;
+    font-size: 20px;
     cursor: pointer;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
+    line-height: 1;
   }
-  .cart-item button:hover {
-    background: #7a241c;
-  }
-  .cart-total {
-    font-weight: 900;
-    font-size: 1.3rem;
+  #cart-total {
+    font-weight: 700;
+    font-size: 1.2rem;
     margin-bottom: 15px;
-    text-align: right;
+    color: #0074d9;
   }
-  .cart-close {
-    background: var(--secondary-color);
-    border: none;
-    color: white;
-    padding: 12px 15px;
-    border-radius: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-bottom: 10px;
-    text-align: center;
-    transition: background-color 0.3s ease;
-  }
-  .cart-close:hover {
-    background: #004080;
-  }
-
-  .cart-toggle-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--accent-color);
-    border: none;
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    font-size: 1.7rem;
-    cursor: pointer;
-    font-weight: 700;
-    color: var(--primary-color);
-    box-shadow: 0 7px 20px rgba(255 204 0 / 0.6);
-    transition: background-color 0.3s ease;
-    z-index: 10000;
-  }
-  .cart-toggle-btn:hover {
-    background: #e6b800;
-  }
-
-  .payment {
-    text-align: center;
-    margin: 50px 0 40px;
-  }
-  .payment a {
-    background: #28a745;
-    color: white;
-    padding: 18px 48px;
-    font-size: 1.4rem;
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 800;
-    box-shadow: 0 6px 20px rgb(40 167 69 / 0.4);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block;
-  }
-  .payment a:hover {
-    background: #1e7e34;
-    box-shadow: 0 9px 25px rgb(30 126 52 / 0.7);
-  }
-
-  form {
-    max-width: 600px;
-    margin: 50px auto 70px;
-    background: white;
-    padding: 30px 35px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgb(0 0 0 / 0.12);
-  }
-  form h3 {
-    margin-bottom: 30px;
-    color: var(--primary-color);
-    font-weight: 800;
-    font-size: 2rem;
-    text-align: center;
-    letter-spacing: 1.1px;
-  }
-  form input,
-  form textarea {
-    width: 100%;
-    padding: 14px 18px;
-    margin: 12px 0 26px;
-    border: 2px solid #ddd;
-    border-radius: 14px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: border-color 0.3s ease;
-  }
-  form input:focus,
-  form textarea:focus {
-    border-color: var(--secondary-color);
-    outline: none;
-  }
-  form button {
-    background: var(--primary-color);
-    color: white;
-    font-weight: 800;
-    font-size: 1.25rem;
-    padding: 16px 0;
-    width: 100%;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    box-shadow: 0 7px 24px rgb(0 64 128 / 0.4);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  form button:hover {
-    background: #00274d;
-    box-shadow: 0 10px 30px rgb(0 40 85 / 0.6);
-  }
-
-  footer {
-    background: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 24px 12px;
-    font-size: 1rem;
-  }
-  footer p {
-    margin: 6px 0;
-  }
-  footer a {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: 700;
-  }
-
-  /* Нов бутон плати в количката */
   #cart-pay-btn {
-    background-color: #28a745;
-    color: white;
-    font-weight: 800;
-    font-size: 1.25rem;
-    padding: 12px 0;
-    width: 100%;
+    background: #28a745;
     border: none;
-    border-radius: 16px;
+    padding: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 7px 24px rgb(40 167 69 / 0.6);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background 0.3s ease;
+    width: 100%;
   }
   #cart-pay-btn:hover {
-    background-color: #1e7e34;
-    box-shadow: 0 10px 30px rgb(30 126 52 / 0.9);
+    background: #218838;
+  }
+  #cart-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: #004080;
+  }
+  /* Contact form */
+  form {
+    max-width: 480px;
+    margin: 40px auto 60px;
+    background: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgb(0 0 0 / 0.1);
+  }
+  form h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #004080;
+  }
+  form input, form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border-radius: 7px;
+    border: 1.5px solid #ccc;
+    font-size: 1rem;
+    resize: vertical;
+    font-family: inherit;
+  }
+  form textarea {
+    min-height: 90px;
+  }
+  form button {
+    background: #0074d9;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+  }
+  form button:hover {
+    background: #005fa3;
+  }
+  footer {
+    background: #004080;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+  }
+  footer p {
+    margin: 4px 0;
+    font-size: 0.95rem;
   }
 </style>
 </head>
 <body>
-
 <header>
-  <div id="language-switcher" aria-label="Избор на език">
-    <select id="language-select" aria-describedby="language-switcher">
-      <option value="bg" selected>Български</option>
-      <option value="en">English</option>
-      <option value="sq">Shqip (Албански)</option>
-      <option value="xk">Косовски</option>
-      <option value="tr">Türkçe (Турски)</option>
-      <option value="ro">Română (Румънски)</option>
-      <option value="de">Deutsch (Немски)</option>
-    </select>
-  </div>
-
   <h1>SEYTA EOOD</h1>
-  <p>Продажба на едро на перилни препарати и детергенти от Турция</p>
+  <p>Продажба на перилни препарати и почистващи средства на едро</p>
+  <select id="language-select" aria-label="Избор на език">
+    <option value="bg" selected>Български</option>
+    <option value="en">English</option>
+    <option value="sq">Shqip (Албански)</option>
+    <option value="xk">Kosovo</option>
+    <option value="tr">Türkçe</option>
+    <option value="ro">Română</option>
+    <option value="de">Deutsch</option>
+  </select>
 </header>
 
 <nav>
-  <a href="#products">Продукти</a>
-  <a href="#contact">Контакти</a>
-  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener">Плащане</a>
+  <a href="#" id="nav-products">Продукти</a>
+  <a href="#contact-form" id="nav-contact">Контакти</a>
 </nav>
 
-<div class="container" id="products">
-  <div class="products-grid" id="products-grid">
-    <!-- Продукти ще се добавят динамично -->
-  </div>
-</div>
+<main>
+  <section id="products-grid" aria-label="Продукти">
 
-<div class="payment">
-  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener">Направи поръчка и плати</a>
-</div>
+    <!-- Продуктите ще се заредят динамично тук -->
 
-<form id="contact" aria-label="Форма за контакт">
-  <h3>Свържи се с нас</h3>
-  <input type="text" id="contact-name" placeholder="Име" required />
-  <input type="email" id="contact-email" placeholder="Имейл" required />
-  <input type="tel" id="contact-phone" placeholder="Телефон" required />
-  <textarea id="contact-message" rows="4" placeholder="Съобщение"></textarea>
-  <button type="submit">Изпрати</button>
-</form>
+  </section>
 
-<footer>
-  <p>&copy; 2025 SEYTA EOOD</p>
-  <p>Имейл: <a href="mailto:epron1eood@gmail.com">epron1eood@gmail.com</a> | Тел: +359896600310</p>
-</footer>
+  <form id="contact-form" aria-label="Форма за контакт">
+    <h3>Свържете се с нас</h3>
+    <input type="text" id="contact-name" name="name" placeholder="Име" required />
+    <input type="email" id="contact-email" name="email" placeholder="Имейл" required />
+    <input type="tel" id="contact-phone" name="phone" placeholder="Телефон" required />
+    <textarea id="contact-message" name="message" placeholder="Съобщение"></textarea>
+    <button type="submit">Изпрати</button>
+  </form>
+</main>
 
-<button class="cart-toggle-btn" aria-label="Покажи количката">🛒<span id="cart-count" style="font-weight:900; margin-left:6px;">0</span></button>
+<button class="cart-toggle-btn" aria-label="Отвори количката">🛒<span id="cart-count" style="position:absolute; top:2px; right:8px; font-size:0.8rem; background:#ff6f00; color:#fff; border-radius:50%; padding:0 6px; display:none;"></span></button>
 
-<div class="cart" id="cart" aria-live="polite" aria-label="Количка с продукти">
-  <button class="cart-close" id="cart-close">Затвори</button>
+<aside id="cart" role="region" aria-label="Пазарска количка">
+  <button id="cart-close" aria-label="Затвори количката">&times;</button>
   <h3>Количка</h3>
-  <div class="cart-list" id="cart-list">
+  <div id="cart-list" tabindex="0">
     <p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>
   </div>
-  <div class="cart-total" id="cart-total"></div>
+  <div id="cart-total"></div>
   <button id="cart-pay-btn" style="display:none;">Плати</button>
-</div>
+</aside>
+
+<footer>
+  <p>Имейл: <a href="mailto:epron1eood@gmail.com" style="color:#ffcc00;">epron1eood@gmail.com</a> | Тел: +359 896 600 310</p>
+  <p>&copy; 2025 SEYTA EOOD. Всички права запазени.</p>
+</footer>
 
 <script>
   const productsData = [
     {
-      id: 'perwoll-black-3l',
-      name: 'Perwoll Black 3L',
-      price: 12.00,
-      img: 'https://images.unsplash.com/photo-1584205001204-43f0de69e77c?auto=format&fit=crop&w=400&q=80',
-      alt: 'Perwoll Black 3L'
-    },
-    {
-      id: 'fairy-aloe-vera-800ml',
-      name: 'Fairy Aloe Vera 800ml',
-      price: 4.20,
-      img: 'https://images.unsplash.com/photo-1583479369323-1a5f7f7ab10e?auto=format&fit=crop&w=400&q=80',
-      alt: 'Fairy Aloe Vera 800ml'
-    },
-    {
-      id: 'abc-pro-5l',
-      name: 'ABC Pro 5L',
-      price: 15.50,
-      img: 'https://images.unsplash.com/photo-1562157873-7e3675977f93?auto=format&fit=crop&w=400&q=80',
-      alt: 'ABC Pro 5L'
+      id: 'persil-liquid-3l',
+      name: 'Persil Течен перилен препарат 3L',
+      price: 18.00 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/010/021/persil-liquid-3l.png',
+      alt: 'Persil Течен перилен препарат 3L'
     },
     {
       id: 'persil-prah-7kg',
       name: 'Persil Прах 7 кг',
-      price: 18.00,
-      img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80',
+      price: 24.00 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/010/010/persil-prah-7kg.png',
       alt: 'Persil Прах 7 кг'
     },
     {
-      id: 'bio-techen-perilen-5l',
-      name: 'Bio Течен перилен 5L',
-      price: 16.50,
-      img: 'https://images.unsplash.com/photo-1582515073490-39981333a0ec?auto=format&fit=crop&w=400&q=80',
-      alt: 'Bio Течен перилен 5L'
+      id: 'fairy-800ml',
+      name: 'Fairy Зелен чай 800ml',
+      price: 5.60 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/009/892/fairy-800ml.png',
+      alt: 'Fairy Зелен чай 800ml'
     },
     {
-      id: 'natural-soap',
-      name: 'Натурален сапун',
-      price: 3.90,
-      img: 'https://images.unsplash.com/photo-1585059896163-6d796d4b88cc?auto=format&fit=crop&w=400&q=80',
-      alt: 'Натурален сапун'
+      id: 'vix-10kg',
+      name: 'VIX Прах 10 кг',
+      price: 20.00 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/008/693/vix-10kg.png',
+      alt: 'VIX Прах 10 кг'
     },
     {
-      id: 'shampoo-1l',
+      id: 'mr-proper-1l',
+      name: 'Mr. Proper Универсален препарат 1L',
+      price: 4.80 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/007/792/mr-proper-1l.png',
+      alt: 'Mr. Proper Универсален препарат 1L'
+    },
+    {
+      id: 'domestos-750ml',
+      name: 'Domestos Белина 750ml',
+      price: 3.50 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/008/317/domestos-750ml.png',
+      alt: 'Domestos Белина 750ml'
+    },
+    {
+      id: 'lenor-fabric-softener-1l',
+      name: 'Lenor Омекотител 1L',
+      price: 6.40 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/008/366/lenor-fabric-softener-1l.png',
+      alt: 'Lenor Омекотител 1L'
+    },
+    {
+      id: 'sapun-naturalen',
+      name: 'Натурален сапун 150g',
+      price: 2.40 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/004/700/sapun-naturalen.png',
+      alt: 'Натурален сапун 150g'
+    },
+    {
+      id: 'champoo-1l',
       name: 'Шампоан 1L',
-      price: 5.80,
-      img: 'https://images.unsplash.com/photo-1590080877777-0c6c7c49181c?auto=format&fit=crop&w=400&q=80',
+      price: 5.00 * 0.75,
+      img: 'https://chistdom.com/files/products/images/000/007/100/champoo-1l.png',
       alt: 'Шампоан 1L'
     }
   ];
@@ -513,19 +375,20 @@
   const cartCount = document.getElementById('cart-count');
   const cartPayBtn = document.getElementById('cart-pay-btn');
   const languageSelect = document.getElementById('language-select');
+  const contactForm = document.getElementById('contact-form');
 
   let cart = {};
 
   function renderProducts() {
     productsGrid.innerHTML = '';
     productsData.forEach(product => {
-      const card = document.createElement('div');
+      const card = document.createElement('article');
       card.className = 'product-card';
       card.innerHTML = `
         <img src="${product.img}" alt="${product.alt}" loading="lazy" />
         <h3>${product.name}</h3>
         <p>${product.price.toFixed(2)} лв</p>
-        <button data-id="${product.id}">Добави в количката</button>
+        <button data-id="${product.id}" aria-label="Добави ${product.name} в количката">Добави в количката</button>
       `;
       productsGrid.appendChild(card);
     });
@@ -537,7 +400,7 @@
     if (items.length === 0) {
       cartList.innerHTML = '<p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>';
       cartTotalEl.textContent = '';
-      cartCount.textContent = '0';
+      cartCount.style.display = 'none';
       cartPayBtn.style.display = 'none';
       return;
     }
@@ -551,13 +414,15 @@
       div.innerHTML = `
         <span>${item.name} x ${item.qty}</span>
         <span>${(item.price * item.qty).toFixed(2)} лв</span>
-        <button data-id="${item.id}" aria-label="Премахни ${item.name}">×</button>
+        <button data-id="${item.id}" aria-label="Премахни ${item.name} от количката">×</button>
       `;
       cartList.appendChild(div);
     });
     cartTotalEl.textContent = `Общо: ${total.toFixed(2)} лв`;
+    cartCount.style.display = 'inline-block';
     cartCount.textContent = count;
     cartPayBtn.style.display = 'block';
+    cartPayBtn.textContent = 'Плати';
   }
 
   function addToCart(id) {
@@ -593,12 +458,9 @@
   });
 
   cartToggleBtn.addEventListener('click', () => {
-    if (cartEl.style.display === 'flex') {
-      cartEl.style.display = 'none';
-    } else {
-      cartEl.style.display = 'flex';
-    }
+    cartEl.style.display = cartEl.style.display === 'flex' ? 'none' : 'flex';
   });
+
   cartCloseBtn.addEventListener('click', () => {
     cartEl.style.display = 'none';
   });
@@ -608,80 +470,25 @@
       alert('Количката е празна!');
       return;
     }
-    // Пренасочване към Vivawallet плащане - може да се надгради с повече логика
+    // Тук пренасочваме към Vivawallet плащане, може да добавиш повече логика по желание.
     window.open('https://pay.vivawallet.com/seyta-eood', '_blank');
   });
 
-  document.getElementById('contact').addEventListener('submit', e => {
-    e.preventDefault();
-    alert('Благодарим за съобщението! Ще се свържем с Вас скоро.');
-    e.target.reset();
-  });
-
-  // Пример за превод на елементи (много базово)
-  const translations = {
-    bg: {
-      products: "Продукти",
-      contacts: "Контакти",
-      payment: "Плащане",
-      contactUs: "Свържи се с нас",
-      name: "Име",
-      email: "Имейл",
-      phone: "Телефон",
-      message: "Съобщение",
-      send: "Изпрати",
-      cartEmpty: "Количката е празна",
-      cart: "Количка",
-      pay: "Плати",
-      orderPaid: "Благодарим за поръчката!"
-    },
-    en: {
-      products: "Products",
-      contacts: "Contacts",
-      payment: "Payment",
-      contactUs: "Contact Us",
-      name: "Name",
-      email: "Email",
-      phone: "Phone",
-      message: "Message",
-      send: "Send",
-      cartEmpty: "Cart is empty",
-      cart: "Cart",
-      pay: "Pay",
-      orderPaid: "Thank you for your order!"
-    }
-    // Можеш да добавиш преводи и за другите езици по същия принцип
-  };
-
-  function setLanguage(lang) {
-    document.querySelectorAll('nav a')[0].textContent = translations[lang]?.products || "Продукти";
-    document.querySelectorAll('nav a')[1].textContent = translations[lang]?.contacts || "Контакти";
-    document.querySelectorAll('nav a')[2].textContent = translations[lang]?.payment || "Плащане";
-    document.querySelector('form h3').textContent = translations[lang]?.contactUs || "Свържи се с нас";
-    document.getElementById('contact-name').placeholder = translations[lang]?.name || "Име";
-    document.getElementById('contact-email').placeholder = translations[lang]?.email || "Имейл";
-    document.getElementById('contact-phone').placeholder = translations[lang]?.phone || "Телефон";
-    document.getElementById('contact-message').placeholder = translations[lang]?.message || "Съобщение";
-    document.querySelector('form button').textContent = translations[lang]?.send || "Изпрати";
-    document.querySelector('.cart h3').textContent = translations[lang]?.cart || "Количка";
-    if(Object.values(cart).length === 0) {
-      cartList.innerHTML = `<p style="text-align:center; color:#777; font-style: italic;">${translations[lang]?.cartEmpty || "Количката е празна"}</p>`;
-      cartPayBtn.textContent = '';
-    } else {
-      cartPayBtn.textContent = translations[lang]?.pay || "Плати";
-    }
-  }
-
   languageSelect.addEventListener('change', e => {
-    setLanguage(e.target.value);
+    alert('Смяната на езика ще бъде добавена скоро!');
+    // Тук можеш да добавиш преводи и динамична смяна на текстове, ако искаш.
+    // За момента само показва alert.
   });
 
-  // Инициализация
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Благодарим Ви! Ще се свържем с Вас скоро.');
+    contactForm.reset();
+  });
+
+  // Първоначално зареждане на продукти и количка
   renderProducts();
   updateCartUI();
-  setLanguage(languageSelect.value);
-
 </script>
-
 </body>
 </html>
