@@ -1,93 +1,193 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <title>SEYTA EOOD Магазин</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seyta EOOD Магазин</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
   <style>
-    .product-card img {
+    body {
+      background-color: #f8f9fa;
+    }
+    .card-img-top {
       height: 200px;
       object-fit: cover;
     }
+    .product-card {
+      margin-bottom: 20px;
+    }
+    .currency-switcher {
+      float: right;
+      margin-top: 10px;
+    }
+    .search-bar {
+      margin-bottom: 20px;
+    }
   </style>
 </head>
-<body class="bg-light">
-  <div class="container py-4">
-    <h1 class="text-center mb-4">SEYTA EOOD Онлайн Магазин</h1>
+<body>
 
-    <!-- Филтри и търсачка -->
-    <div class="row mb-4">
-      <div class="col-md-4">
-        <input type="text" id="search" class="form-control" placeholder="Търси продукт...">
-      </div>
-      <div class="col-md-4">
-        <select id="categoryFilter" class="form-select">
-          <option value="">Всички категории</option>
-          <option value="почистване">Препарати за почистване</option>
-          <option value="санитария">Санитария</option>
-          <option value="инструменти">Инструменти</option>
-        </select>
-      </div>
-      <div class="col-md-4">
-        <select id="priceFilter" class="form-select">
-          <option value="">Всички цени</option>
-          <option value="low">Под 10 лв</option>
-          <option value="medium">10 - 25 лв</option>
-          <option value="high">Над 25 лв</option>
-        </select>
-      </div>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Seyta EOOD Онлайн магазин</h1>
+    <select id="currency" class="form-select w-auto currency-switcher">
+      <option value="1" selected>BGN</option>
+      <option value="0.51">EUR</option>
+      <option value="0.56">USD</option>
+    </select>
+  </div>
+
+  <input type="text" id="searchInput" class="form-control search-bar" placeholder="Търси продукт...">
+
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <select id="categoryFilter" class="form-select">
+        <option value="">Всички категории</option>
+        <option value="почистващи">Почистващи</option>
+        <option value="дезинфектанти">Дезинфектанти</option>
+      </select>
     </div>
-
-    <!-- Продукти -->
-    <div class="row" id="product-list">
-      <!-- Примерен продукт -->
-      <div class="col-md-4 mb-4 product-card" data-category="почистване" data-price="12" data-name="Универсален препарат">
-        <div class="card">
-          <img src="images/preparat1.jpg" class="card-img-top" alt="Препарат">
-          <div class="card-body">
-            <h5 class="card-title">Универсален препарат</h5>
-            <p class="card-text">Силен обезмаслител за кухни и бани.</p>
-            <p class="text-success fw-bold">12.00 лв</p>
-            <a href="#" class="btn btn-primary">Добави в количката</a>
-          </div>
-        </div>
-      </div>
-      <!-- Добави още подобни продукти тук -->
+    <div class="col-md-3">
+      <select id="priceFilter" class="form-select">
+        <option value="">Всички цени</option>
+        <option value="low">До 5 лв.</option>
+        <option value="mid">5 - 10 лв.</option>
+        <option value="high">Над 10 лв.</option>
+      </select>
     </div>
   </div>
 
-  <!-- JS за филтриране -->
-  <script>
-    const searchInput = document.getElementById('search');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const priceFilter = document.getElementById('priceFilter');
-    const products = document.querySelectorAll('.product-card');
+  <div class="row" id="productList">
+    <!-- Продукт 1 -->
+    <div class="col-md-4 product-card" data-category="почистващи" data-price="7.20">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc695d" class="card-img-top" alt="Препарат за баня">
+        <div class="card-body">
+          <h5 class="card-title">Препарат за баня</h5>
+          <p class="card-text">Ефективен препарат за почистване на баня. 500мл</p>
+          <p class="price">Цена: <span class="price-val">7.20</span> <span class="currency">лв.</span></p>
+          <button class="btn btn-primary add-to-cart">Добави в количката</button>
+        </div>
+      </div>
+    </div>
 
-    function filterProducts() {
-      const search = searchInput.value.toLowerCase();
-      const category = categoryFilter.value;
-      const price = priceFilter.value;
+    <!-- Продукт 2 -->
+    <div class="col-md-4 product-card" data-category="почистващи" data-price="5.90">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1600185365927-3fe7e146e1f5" class="card-img-top" alt="Универсален почистващ препарат">
+        <div class="card-body">
+          <h5 class="card-title">Универсален почистващ препарат</h5>
+          <p class="card-text">Подходящ за всякакви повърхности. 1л</p>
+          <p class="price">Цена: <span class="price-val">5.90</span> <span class="currency">лв.</span></p>
+          <button class="btn btn-primary add-to-cart">Добави в количката</button>
+        </div>
+      </div>
+    </div>
 
-      products.forEach(product => {
-        const name = product.dataset.name.toLowerCase();
-        const productCategory = product.dataset.category;
-        const productPrice = parseFloat(product.dataset.price);
+    <!-- Продукт 3 -->
+    <div class="col-md-4 product-card" data-category="дезинфектанти" data-price="9.00">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1603394426817-0c0c60af994e" class="card-img-top" alt="Дезинфектант за ръце">
+        <div class="card-body">
+          <h5 class="card-title">Дезинфектант за ръце</h5>
+          <p class="card-text">Бързосъхнещ гел с 70% алкохол. 300мл</p>
+          <p class="price">Цена: <span class="price-val">9.00</span> <span class="currency">лв.</span></p>
+          <button class="btn btn-primary add-to-cart">Добави в количката</button>
+        </div>
+      </div>
+    </div>
 
-        let matchesSearch = name.includes(search);
-        let matchesCategory = category === '' || category === productCategory;
-        let matchesPrice =
-          price === '' ||
-          (price === 'low' && productPrice < 10) ||
-          (price === 'medium' && productPrice >= 10 && productPrice <= 25) ||
-          (price === 'high' && productPrice > 25);
+    <!-- Продукт 4 -->
+    <div class="col-md-4 product-card" data-category="дезинфектанти" data-price="11.50">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1588776814546-b52c2c8a0876" class="card-img-top" alt="Повърхностен дезинфектант">
+        <div class="card-body">
+          <h5 class="card-title">Повърхностен дезинфектант</h5>
+          <p class="card-text">Убива 99.9% от бактериите. 750мл</p>
+          <p class="price">Цена: <span class="price-val">11.50</span> <span class="currency">лв.</span></p>
+          <button class="btn btn-primary add-to-cart">Добави в количката</button>
+        </div>
+      </div>
+    </div>
 
-        product.style.display = matchesSearch && matchesCategory && matchesPrice ? 'block' : 'none';
-      });
-    }
+    <!-- Продукт 5 -->
+    <div class="col-md-4 product-card" data-category="почистващи" data-price="4.80">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1590080877634-3403f922ad96" class="card-img-top" alt="Спрей за прозорци">
+        <div class="card-body">
+          <h5 class="card-title">Спрей за прозорци</h5>
+          <p class="card-text">Прозрачност без следи. 500мл</p>
+          <p class="price">Цена: <span class="price-val">4.80</span> <span class="currency">лв.</span></p>
+          <button class="btn btn-primary add-to-cart">Добави в количката</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    searchInput.addEventListener('input', filterProducts);
-    categoryFilter.addEventListener('change', filterProducts);
-    priceFilter.addEventListener('change', filterProducts);
-  </script>
+  <h3>Количка</h3>
+  <ul id="cart" class="list-group mb-4"></ul>
+  <button id="checkoutBtn" class="btn btn-success">Плати</button>
+</div>
+
+<script>
+  const currencySelect = document.getElementById('currency');
+  const prices = document.querySelectorAll('.price-val');
+  const currencyLabel = document.querySelectorAll('.currency');
+
+  currencySelect.addEventListener('change', () => {
+    const rate = parseFloat(currencySelect.value);
+    prices.forEach((p, i) => {
+      const base = parseFloat(p.getAttribute('data-base') || p.textContent);
+      if (!p.getAttribute('data-base')) {
+        p.setAttribute('data-base', base);
+      }
+      p.textContent = (base * rate).toFixed(2);
+    });
+    const label = currencySelect.options[currencySelect.selectedIndex].text;
+    currencyLabel.forEach(c => c.textContent = label === 'BGN' ? 'лв.' : label);
+  });
+
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const productName = btn.closest('.card-body').querySelector('.card-title').textContent;
+      const li = document.createElement('li');
+      li.className = 'list-group-item';
+      li.textContent = productName;
+      document.getElementById('cart').appendChild(li);
+    });
+  });
+
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    alert("Благодарим за поръчката! Плащане ще бъде уредено.");
+  });
+
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('.product-card').forEach(card => {
+      const name = card.querySelector('.card-title').textContent.toLowerCase();
+      card.style.display = name.includes(query) ? '' : 'none';
+    });
+  });
+
+  document.getElementById('categoryFilter').addEventListener('change', function () {
+    const category = this.value;
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.style.display = (!category || card.dataset.category === category) ? '' : 'none';
+    });
+  });
+
+  document.getElementById('priceFilter').addEventListener('change', function () {
+    const filter = this.value;
+    document.querySelectorAll('.product-card').forEach(card => {
+      const price = parseFloat(card.dataset.price);
+      let show = true;
+      if (filter === 'low') show = price <= 5;
+      else if (filter === 'mid') show = price > 5 && price <= 10;
+      else if (filter === 'high') show = price > 10;
+      card.style.display = show ? '' : 'none';
+    });
+  });
+</script>
+
 </body>
 </html>
