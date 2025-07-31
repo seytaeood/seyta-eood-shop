@@ -1,11 +1,51 @@
-<div class="col-md-3">
-  <div class="card mb-4">
-    <img src="images/cleaner1.jpg" class="card-img-top" alt="Спрей за кухня">
-    <div class="card-body">
-      <h5 class="card-title">Спрей за кухня</h5>
-      <p class="card-text">Мощен обезмаслител за всички повърхности. Подходящ за професионална и домашна употреба.</p>
-      <p class="card-text"><strong>Цена: 5.99 лв</strong></p>
-      <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-success">Купи</a>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SEYTA EOOD – Онлайн магазин</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>SEYTA EOOD</h1>
+    <nav>
+      <a href="#products">Продукти</a>
+      <a href="#contact">Контакт</a>
+    </nav>
+  </header>
+  <section id="products" class="product-grid">
+    <div class="product-card">
+      <img src="prod1.jpg" alt="Продукт 1">
+      <h2>Урея Узбекистан</h2>
+      <p>Азотен тор, 50 кг чувал</p>
+      <p class="price">≈ 790 лв/тон</p>
+      <a class="btn" href="https://paypal.me/твояПП/790" target="_blank">Купи с PayPal</a>
     </div>
-  </div>
-</div>
+    <div class="product-card">
+      <img src="prod2.jpg" alt="Продукт 2">
+      <h2>Амониев нитрат</h2>
+      <p>Кристален тор, 34 % N</p>
+      <p class="price">≈ 720 лв/тон</p>
+      <a class="btn" href="https://paypal.me/твояПП/720" target="_blank">Купи с PayPal</a>
+    </div>
+    <div class="product-card">
+      <img src="prod3.jpg" alt="Продукт 3">
+      <h2>Диамониев фосфат (DAP)</h2>
+      <p>Пресен внос, 46 % N+P₂O₅</p>
+      <p class="price">≈ 850 лв/тон</p>
+      <a class="btn" href="https://paypal.me/твояПП/850" target="_blank">Купи с PayPal</a>
+    </div>
+  </section>
+  <section id="contact" class="contact-section">
+    <h2>Свържи се с нас</h2>
+    <form action="mailto:seytaeood@gmail.com" method="post" enctype="text/plain">
+      <input type="text" name="Име" placeholder="Вашето име" required>
+      <input type="email" name="Имейл" placeholder="Имейл адрес" required>
+      <textarea name="Съобщение" rows="4" placeholder="Съобщение или поръчка" required></textarea>
+      <button type="submit" class="btn">Изпрати</button>
+    </form>
+  </section>
+  <footer>© 2025 SEYTA EOOD</footer>
+</body>
+</html>
