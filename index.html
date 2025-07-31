@@ -49,6 +49,28 @@
     font-style: italic;
   }
 
+  /* Езиков избор горе вляво */
+  #language-switcher {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    background: white;
+    border-radius: 10px;
+    padding: 6px 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+  }
+  #language-switcher select {
+    font-weight: 600;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
   nav {
     background: var(--secondary-color);
     padding: 14px 0;
@@ -169,7 +191,7 @@
     position: fixed;
     top: 80px;
     right: 20px;
-    width: 320px;
+    width: 350px;
     max-height: 80vh;
     background: white;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -347,11 +369,42 @@
     text-decoration: none;
     font-weight: 700;
   }
+
+  /* Нов бутон плати в количката */
+  #cart-pay-btn {
+    background-color: #28a745;
+    color: white;
+    font-weight: 800;
+    font-size: 1.25rem;
+    padding: 12px 0;
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    box-shadow: 0 7px 24px rgb(40 167 69 / 0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  #cart-pay-btn:hover {
+    background-color: #1e7e34;
+    box-shadow: 0 10px 30px rgb(30 126 52 / 0.9);
+  }
 </style>
 </head>
 <body>
 
 <header>
+  <div id="language-switcher" aria-label="Избор на език">
+    <select id="language-select" aria-describedby="language-switcher">
+      <option value="bg" selected>Български</option>
+      <option value="en">English</option>
+      <option value="sq">Shqip (Албански)</option>
+      <option value="xk">Косовски</option>
+      <option value="tr">Türkçe (Турски)</option>
+      <option value="ro">Română (Румънски)</option>
+      <option value="de">Deutsch (Немски)</option>
+    </select>
+  </div>
+
   <h1>SEYTA EOOD</h1>
   <p>Продажба на едро на перилни препарати и детергенти от Турция</p>
 </header>
@@ -395,6 +448,7 @@
     <p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>
   </div>
   <div class="cart-total" id="cart-total"></div>
+  <button id="cart-pay-btn" style="display:none;">Плати</button>
 </div>
 
 <script>
@@ -403,49 +457,49 @@
       id: 'perwoll-black-3l',
       name: 'Perwoll Black 3L',
       price: 12.00,
-      img: 'https://cdn.pixabay.com/photo/2017/08/02/11/08/detergent-2575722_1280.jpg',
+      img: 'https://images.unsplash.com/photo-1584205001204-43f0de69e77c?auto=format&fit=crop&w=400&q=80',
       alt: 'Perwoll Black 3L'
     },
     {
       id: 'fairy-aloe-vera-800ml',
       name: 'Fairy Aloe Vera 800ml',
       price: 4.20,
-      img: 'https://cdn.pixabay.com/photo/2018/01/31/06/52/fairy-3121551_1280.jpg',
+      img: 'https://images.unsplash.com/photo-1583479369323-1a5f7f7ab10e?auto=format&fit=crop&w=400&q=80',
       alt: 'Fairy Aloe Vera 800ml'
     },
     {
       id: 'abc-pro-5l',
       name: 'ABC Pro 5L',
       price: 15.50,
-      img: 'https://cdn.pixabay.com/photo/2016/11/18/16/44/soap-1839345_1280.jpg',
+      img: 'https://images.unsplash.com/photo-1562157873-7e3675977f93?auto=format&fit=crop&w=400&q=80',
       alt: 'ABC Pro 5L'
     },
     {
       id: 'persil-prah-7kg',
       name: 'Persil Прах 7 кг',
       price: 18.00,
-      img: 'https://cdn.pixabay.com/photo/2017/07/04/14/18/laundry-2471366_1280.jpg',
+      img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80',
       alt: 'Persil Прах 7 кг'
     },
     {
       id: 'bio-techen-perilen-5l',
       name: 'Bio Течен перилен 5L',
       price: 16.50,
-      img: 'https://cdn.pixabay.com/photo/2017/08/02/11/08/detergent-2575722_1280.jpg',
+      img: 'https://images.unsplash.com/photo-1582515073490-39981333a0ec?auto=format&fit=crop&w=400&q=80',
       alt: 'Bio Течен перилен 5L'
     },
     {
       id: 'natural-soap',
       name: 'Натурален сапун',
       price: 3.90,
-      img: 'https://cdn.pixabay.com/photo/2016/11/18/16/44/soap-1839345_1280.jpg',
+      img: 'https://images.unsplash.com/photo-1585059896163-6d796d4b88cc?auto=format&fit=crop&w=400&q=80',
       alt: 'Натурален сапун'
     },
     {
       id: 'shampoo-1l',
       name: 'Шампоан 1L',
       price: 5.80,
-      img: 'https://cdn.pixabay.com/photo/2018/01/31/06/52/shampoo-3121553_1280.jpg',
+      img: 'https://images.unsplash.com/photo-1590080877777-0c6c7c49181c?auto=format&fit=crop&w=400&q=80',
       alt: 'Шампоан 1L'
     }
   ];
@@ -457,6 +511,8 @@
   const cartList = document.getElementById('cart-list');
   const cartTotalEl = document.getElementById('cart-total');
   const cartCount = document.getElementById('cart-count');
+  const cartPayBtn = document.getElementById('cart-pay-btn');
+  const languageSelect = document.getElementById('language-select');
 
   let cart = {};
 
@@ -482,6 +538,7 @@
       cartList.innerHTML = '<p style="text-align:center; color:#777; font-style: italic;">Количката е празна</p>';
       cartTotalEl.textContent = '';
       cartCount.textContent = '0';
+      cartPayBtn.style.display = 'none';
       return;
     }
     let total = 0;
@@ -500,6 +557,7 @@
     });
     cartTotalEl.textContent = `Общо: ${total.toFixed(2)} лв`;
     cartCount.textContent = count;
+    cartPayBtn.style.display = 'block';
   }
 
   function addToCart(id) {
@@ -545,15 +603,84 @@
     cartEl.style.display = 'none';
   });
 
+  cartPayBtn.addEventListener('click', () => {
+    if(Object.keys(cart).length === 0) {
+      alert('Количката е празна!');
+      return;
+    }
+    // Пренасочване към Vivawallet плащане - може да се надгради с повече логика
+    window.open('https://pay.vivawallet.com/seyta-eood', '_blank');
+  });
+
   document.getElementById('contact').addEventListener('submit', e => {
     e.preventDefault();
     alert('Благодарим за съобщението! Ще се свържем с Вас скоро.');
     e.target.reset();
   });
 
+  // Пример за превод на елементи (много базово)
+  const translations = {
+    bg: {
+      products: "Продукти",
+      contacts: "Контакти",
+      payment: "Плащане",
+      contactUs: "Свържи се с нас",
+      name: "Име",
+      email: "Имейл",
+      phone: "Телефон",
+      message: "Съобщение",
+      send: "Изпрати",
+      cartEmpty: "Количката е празна",
+      cart: "Количка",
+      pay: "Плати",
+      orderPaid: "Благодарим за поръчката!"
+    },
+    en: {
+      products: "Products",
+      contacts: "Contacts",
+      payment: "Payment",
+      contactUs: "Contact Us",
+      name: "Name",
+      email: "Email",
+      phone: "Phone",
+      message: "Message",
+      send: "Send",
+      cartEmpty: "Cart is empty",
+      cart: "Cart",
+      pay: "Pay",
+      orderPaid: "Thank you for your order!"
+    }
+    // Можеш да добавиш преводи и за другите езици по същия принцип
+  };
+
+  function setLanguage(lang) {
+    document.querySelectorAll('nav a')[0].textContent = translations[lang]?.products || "Продукти";
+    document.querySelectorAll('nav a')[1].textContent = translations[lang]?.contacts || "Контакти";
+    document.querySelectorAll('nav a')[2].textContent = translations[lang]?.payment || "Плащане";
+    document.querySelector('form h3').textContent = translations[lang]?.contactUs || "Свържи се с нас";
+    document.getElementById('contact-name').placeholder = translations[lang]?.name || "Име";
+    document.getElementById('contact-email').placeholder = translations[lang]?.email || "Имейл";
+    document.getElementById('contact-phone').placeholder = translations[lang]?.phone || "Телефон";
+    document.getElementById('contact-message').placeholder = translations[lang]?.message || "Съобщение";
+    document.querySelector('form button').textContent = translations[lang]?.send || "Изпрати";
+    document.querySelector('.cart h3').textContent = translations[lang]?.cart || "Количка";
+    if(Object.values(cart).length === 0) {
+      cartList.innerHTML = `<p style="text-align:center; color:#777; font-style: italic;">${translations[lang]?.cartEmpty || "Количката е празна"}</p>`;
+      cartPayBtn.textContent = '';
+    } else {
+      cartPayBtn.textContent = translations[lang]?.pay || "Плати";
+    }
+  }
+
+  languageSelect.addEventListener('change', e => {
+    setLanguage(e.target.value);
+  });
+
   // Инициализация
   renderProducts();
   updateCartUI();
+  setLanguage(languageSelect.value);
+
 </script>
 
 </body>
