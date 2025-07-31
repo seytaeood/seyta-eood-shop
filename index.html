@@ -1,48 +1,421 @@
-<div class="container mt-4">
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-    <!-- Вмъкни тук HTML картите на продуктите -->
-  </div>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SEYTA EOOD Онлайн Магазин</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+  body { padding-bottom: 140px; }
+  .product-img { height: 180px; object-fit: cover; cursor:pointer; }
+  .lang-switch, .currency-switch {
+    position: fixed; top: 10px; z-index: 1050; background: #fff; padding: 4px 8px; border-radius: 5px; box-shadow: 0 0 8px rgba(0,0,0,0.15);
+  }
+  .lang-switch { left: 10px; }
+  .currency-switch { left: 120px; }
+  .cart-btn {
+    position: fixed; bottom: 20px; right: 20px; z-index: 1050;
+  }
+  .offcanvas-body { display:flex; flex-direction: column; }
+  .cart-list { flex-grow: 1; overflow-y: auto; max-height: 400px; }
+  .btn-remove {
+    border:none; background:none; color:red; font-weight:bold; font-size:18px; cursor:pointer;
+  }
+  footer { background:#003366; color:#fff; padding: 20px 0; }
+  footer a { color:#aaddff; }
+</style>
+</head>
+<body>
+
+<!-- Език -->
+<div class="lang-switch">
+  <select id="langSelect" class="form-select form-select-sm" aria-label="Language select">
+    <option value="bg">BG</option>
+    <option value="en">EN</option>
+    <option value="tr">TR</option>
+    <option value="de">DE</option>
+    <option value="ro">RO</option>
+    <option value="al">AL</option>
+    <option value="xk">XK</option>
+  </select>
 </div>
-<div class="col">
-  <div class="card product-card h-100">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Fairy_Lemon.jpg/600px-Fairy_Lemon.jpg" class="card-img-top" alt="Fairy Lemon">
-    <div class="card-body">
-      <h5 class="card-title">Fairy Lemon 500ml</h5>
-      <p class="card-text">2.80 лв</p>
-      <button class="btn btn-success w-100">Добави в количката</button>
+
+<!-- Валута -->
+<div class="currency-switch">
+  <select id="currencySelect" class="form-select form-select-sm" aria-label="Currency select">
+    <option value="BGN">BGN</option>
+    <option value="EUR">EUR</option>
+    <option value="USD">USD</option>
+  </select>
+</div>
+
+<div class="container py-4">
+  <h1 id="siteTitle" class="text-center">SEYTA EOOD</h1>
+  <p id="siteSub" class="text-center text-muted">Онлайн магазин за перилни и почистващи продукти</p>
+
+  <div class="row mb-3">
+    <div class="col-md-6 mb-2">
+      <select id="catFilter" class="form-select" aria-label="Filter by category">
+        <option value="all">Всички категории</option>
+        <option value="perilni">Перилни</option>
+        <option value="detergenti">Детергенти</option>
+        <option value="shampoo">Шампоани</option>
+        <option value="sapuni">Сапуни</option>
+      </select>
     </div>
+    <div class="col-md-6 mb-2">
+      <select id="sortFilter" class="form-select" aria-label="Sort products">
+        <option value="default">Подреди по</option>
+        <option value="price-asc">Цена - възходящо</option>
+        <option value="price-desc">Цена - низходящо</option>
+        <option value="brand-asc">Марка A-Я</option>
+        <option value="brand-desc">Марка Я-А</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="productGrid"></div>
+</div>
+
+<button class="btn btn-primary cart-btn" onclick="toggleCart()">🛒 Количка (<span id="cartCount">0</span>)</button>
+
+<!-- Количка -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartCanvas" aria-labelledby="cartCanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="cartCanvasLabel">Количка</h5>
+    <button type="button" class="btn-close" aria-label="Close" onclick="toggleCart()"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    <ul class="list-group cart-list mb-3" id="cartList"></ul>
+    <div>
+      <strong>Общо: <span id="cartTotal">0.00</span> <span id="currencySymbol">лв</span></strong>
+    </div>
+    <button class="btn btn-success w-100 mt-2" onclick="checkout()">Плати</button>
   </div>
 </div>
 
-<div class="col">
-  <div class="card product-card h-100">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Ariel_Pods.jpg/640px-Ariel_Pods.jpg" class="card-img-top" alt="Ariel Pods">
-    <div class="card-body">
-      <h5 class="card-title">Ariel Pods (30 бр.)</h5>
-      <p class="card-text">18.50 лв</p>
-      <button class="btn btn-success w-100">Добави в количката</button>
-    </div>
+<!-- Модален прозорец продукт -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-lg modal-dialog-centered">
+  <div class="modal-content">
+   <div class="modal-header">
+     <h5 class="modal-title" id="productModalLabel"></h5>
+     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body">
+     <img id="modalImg" src="" alt="" class="img-fluid mb-3" style="max-height:350px; object-fit:contain;"/>
+     <p id="modalDesc"></p>
+     <p><strong>Цена:</strong> <span id="modalPrice"></span> <span id="modalCurrencySymbol"></span></p>
+     <button id="modalAddBtn" class="btn btn-primary">Добави в количката</button>
+   </div>
   </div>
+ </div>
 </div>
 
-<div class="col">
-  <div class="card product-card h-100">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Vanish_gel.jpg/600px-Vanish_gel.jpg" class="card-img-top" alt="Vanish">
-    <div class="card-body">
-      <h5 class="card-title">Vanish петнопочистващ гел 500ml</h5>
-      <p class="card-text">6.75 лв</p>
-      <button class="btn btn-success w-100">Добави в количката</button>
-    </div>
+<!-- Контакт -->
+<footer>
+  <div class="container">
+    <h5>Свържете се с нас</h5>
+    <form id="contactForm" class="row g-3" novalidate>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="contactName" placeholder="Име" required />
+        <div class="invalid-feedback">Моля, въведете име.</div>
+      </div>
+      <div class="col-md-4">
+        <input type="email" class="form-control" id="contactEmail" placeholder="Имейл" required />
+        <div class="invalid-feedback">Моля, въведете валиден имейл.</div>
+      </div>
+      <div class="col-md-4">
+        <input type="tel" class="form-control" id="contactPhone" placeholder="Телефон" required />
+        <div class="invalid-feedback">Моля, въведете телефон.</div>
+      </div>
+      <div class="col-12">
+        <textarea class="form-control" id="contactMessage" placeholder="Съобщение" rows="3"></textarea>
+      </div>
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-primary">Изпрати</button>
+      </div>
+    </form>
   </div>
-</div>
+</footer>
 
-<div class="col">
-  <div class="card product-card h-100">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Domestos_lime.jpg/600px-Domestos_lime.jpg" class="card-img-top" alt="Domestos">
-    <div class="card-body">
-      <h5 class="card-title">Domestos 750ml – Лайм</h5>
-      <p class="card-text">3.90 лв</p>
-      <button class="btn btn-success w-100">Добави в количката</button>
-    </div>
-  </div>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const products = [
+  {id:1,brand:"Perwoll",name:"Perwoll Black 3L",cat:"perilni",priceBGN:12.00,img:"https://i.imgur.com/Ua3hRAE.jpg",desc:"Перилен препарат за черни и тъмни дрехи."},
+  {id:2,brand:"Fairy",name:"Fairy Lemon 800ml",cat:"detergenti",priceBGN:4.20,img:"https://i.imgur.com/KCmG4xD.jpg",desc:"Течен препарат за съдове с аромат на лимон."},
+  {id:3,brand:"Ariel",name:"Ariel Pods 30 бр.",cat:"perilni",priceBGN:22.00,img:"https://i.imgur.com/TJc6mQo.jpg",desc:"Гел капсули за пране."},
+  {id:4,brand:"Vanish",name:"Vanish Gel 500ml",cat:"detergenti",priceBGN:7.50,img:"https://i.imgur.com/M72N2od.jpg",desc:"Петнопочистващ гел."},
+  {id:5,brand:"Domestos",name:"Domestos Lime 750ml",cat:"detergenti",priceBGN:5.20,img:"https://i.imgur.com/HZbY2wz.jpg",desc:"Дезинфектант с аромат на лайм."},
+  {id:6,brand:"Lenor",name:"Lenor Softener 1L",cat:"perilni",priceBGN:6.80,img:"https://i.imgur.com/ZzIyfDN.jpg",desc:"Омекотител за пране."},
+  {id:7,brand:"Dove",name:"Dove Liquid Soap 500ml",cat:"sapuni",priceBGN:5.20,img:"https://i.imgur.com/4VvduMd.jpg",desc:"Течен сапун за ръце."},
+  {id:8,brand:"Head & Shoulders",name:"Head & Shoulders Shampoo 400ml",cat:"shampoo",priceBGN:7.00,img:"https://i.imgur.com/Ug5fI5n.jpg",desc:"Шампоан против пърхот."},
+  {id:9,brand:"Cif",name:"Cif Cream 500ml",cat:"detergenti",priceBGN:6.00,img:"https://i.imgur.com/Q37P7ya.jpg",desc:"Крем препарат за почистване."},
+  {id:10,brand:"Glade",name:"Glade Aerosol 300ml",cat:"detergenti",priceBGN:4.50,img:"https://i.imgur.com/vWCO9LZ.jpg",desc:"Освежител за въздух."},
+  {id:11,brand:"Palmolive",name:"Palmolive Shower Gel 500ml",cat:"sapuni",priceBGN:5.50,img:"https://i.imgur.com/72N5w7M.jpg",desc:"Гел за душ."},
+  {id:12,brand:"Nivea",name:"Nivea Cream 150ml",cat:"sapuni",priceBGN:8.00,img:"https://i.imgur.com/eTxFFZp.jpg",desc:"Овлажняващ крем за тяло."}
+];
+
+let cart = [];
+let currency = "BGN";
+const rates = { BGN:1, EUR:0.51, USD:0.57 };
+const currencySymbols = { BGN:"лв", EUR:"€", USD:"$" };
+
+const langTexts = {
+  bg: {
+    siteTitle:"SEYTA EOOD",
+    siteSub:"Онлайн магазин за перилни и почистващи продукти",
+    cart:"Количка",
+    addToCart:"Добави в количката",
+    remove:"Премахни",
+    total:"Общо",
+    pay:"Плати",
+    contactName:"Име",
+    contactEmail:"Имейл",
+    contactPhone:"Телефон",
+    contactMessage:"Съобщение",
+    contactSend:"Изпрати",
+    categories: {
+      all:"Всички категории",
+      perilni:"Перилни",
+      detergenti:"Детергенти",
+      shampoo:"Шампоани",
+      sapuni:"Сапуни"
+    },
+    sortOptions: {
+      default:"Подреди по",
+      priceAsc:"Цена - възходящо",
+      priceDesc:"Цена - низходящо",
+      brandAsc:"Марка A-Я",
+      brandDesc:"Марка Я-А"
+    }
+  },
+  en: {
+    siteTitle:"SEYTA EOOD",
+    siteSub:"Online detergent and cleaning products store",
+    cart:"Cart",
+    addToCart:"Add to cart",
+    remove:"Remove",
+    total:"Total",
+    pay:"Pay",
+    contactName:"Name",
+    contactEmail:"Email",
+    contactPhone:"Phone",
+    contactMessage:"Message",
+    contactSend:"Send",
+    categories: {
+      all:"All categories",
+      perilni:"Laundry",
+      detergenti:"Detergents",
+      shampoo:"Shampoos",
+      sapuni:"Soaps"
+    },
+    sortOptions: {
+      default:"Sort by",
+      priceAsc:"Price - ascending",
+      priceDesc:"Price - descending",
+      brandAsc:"Brand A-Z",
+      brandDesc:"Brand Z-A"
+    }
+  }
+};
+
+function translatePage(){
+  const lang = document.getElementById("langSelect").value;
+  const t = langTexts[lang] || langTexts.bg;
+  document.getElementById("siteTitle").textContent = t.siteTitle;
+  document.getElementById("siteSub").textContent = t.siteSub;
+  document.getElementById("catFilter").options[0].text = t.categories.all;
+  document.getElementById("catFilter").options[1].text = t.categories.perilni;
+  document.getElementById("catFilter").options[2].text = t.categories.detergenti;
+  document.getElementById("catFilter").options[3].text = t.categories.shampoo;
+  document.getElementById("catFilter").options[4].text = t.categories.sapuni;
+  document.getElementById("sortFilter").options[0].text = t.sortOptions.default;
+  document.getElementById("sortFilter").options[1].text = t.sortOptions.priceAsc;
+  document.getElementById("sortFilter").options[2].text = t.sortOptions.priceDesc;
+  document.getElementById("sortFilter").options[3].text = t.sortOptions.brandAsc;
+  document.getElementById("sortFilter").options[4].text = t.sortOptions.brandDesc;
+  document.querySelector(".cart-btn").textContent = "🛒 "+ t.cart +" (" + cart.length + ")";
+  document.getElementById("cartTotalLabel")?.textContent = t.total;
+  document.getElementById("contactName").placeholder = t.contactName;
+  document.getElementById("contactEmail").placeholder = t.contactEmail;
+  document.getElementById("contactPhone").placeholder = t.contactPhone;
+  document.getElementById("contactMessage").placeholder = t.contactMessage;
+  document.querySelector("#contactForm button").textContent = t.contactSend;
+  document.getElementById("productModalLabel").textContent = "";
+}
+
+function formatPrice(price) {
+  return (price * rates[currency]).toFixed(2);
+}
+
+function renderProducts(){
+  let filtered = products;
+  const cat = document.getElementById("catFilter").value;
+  const sort = document.getElementById("sortFilter").value;
+
+  if(cat !== "all"){
+    filtered = filtered.filter(p=>p.cat===cat);
+  }
+
+  if(sort==="price-asc"){
+    filtered = filtered.sort((a,b)=>a.priceBGN - b.priceBGN);
+  } else if(sort==="price-desc"){
+    filtered = filtered.sort((a,b)=>b.priceBGN - a.priceBGN);
+  } else if(sort==="brand-asc"){
+    filtered = filtered.sort((a,b)=>a.brand.localeCompare(b.brand));
+  } else if(sort==="brand-desc"){
+    filtered = filtered.sort((a,b)=>b.brand.localeCompare(a.brand));
+  }
+
+  const container = document.getElementById("productGrid");
+  container.innerHTML = "";
+
+  filtered.forEach(p=>{
+    const priceFormatted = formatPrice(p.priceBGN);
+    const item = document.createElement("div");
+    item.className = "col";
+    item.innerHTML = `
+      <div class="card h-100">
+        <img src="${p.img}" alt="${p.name}" class="card-img-top product-img" data-id="${p.id}" />
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">${p.name}</h5>
+          <p class="card-text fw-bold">${priceFormatted} ${currencySymbols[currency]}</p>
+          <button class="btn btn-primary mt-auto" data-id="${p.id}">${langTexts[document.getElementById("langSelect").value]?.addToCart || "Добави в количката"}</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+
+  // Add click listeners for product images (show modal)
+  document.querySelectorAll(".product-img").forEach(img=>{
+    img.addEventListener("click", ()=>{
+      const id = parseInt(img.getAttribute("data-id"));
+      openProductModal(id);
+    });
+  });
+
+  // Add click listeners for add buttons
+  document.querySelectorAll(".btn-primary").forEach(btn=>{
+    btn.addEventListener("click", e=>{
+      const id = parseInt(e.target.getAttribute("data-id"));
+      addToCart(id);
+    });
+  });
+}
+
+function openProductModal(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const lang = document.getElementById("langSelect").value;
+  document.getElementById("productModalLabel").textContent = p.name;
+  document.getElementById("modalImg").src = p.img;
+  document.getElementById("modalImg").alt = p.name;
+  document.getElementById("modalDesc").textContent = p.desc;
+  document.getElementById("modalPrice").textContent = formatPrice(p.priceBGN);
+  document.getElementById("modalCurrencySymbol").textContent = currencySymbols[currency];
+  const addBtn = document.getElementById("modalAddBtn");
+  addBtn.textContent = langTexts[lang]?.addToCart || "Добави в количката";
+  addBtn.onclick = ()=>{ addToCart(p.id); var modal = bootstrap.Modal.getInstance(document.getElementById('productModal')); modal.hide(); };
+  const modal = new bootstrap.Modal(document.getElementById('productModal'));
+  modal.show();
+}
+
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const cartItem = cart.find(x=>x.id===id);
+  if(cartItem){
+    cartItem.qty++;
+  } else {
+    cart.push({id:p.id, name:p.name, priceBGN:p.priceBGN, qty:1});
+  }
+  updateCart();
+}
+
+function removeFromCart(id){
+  cart = cart.filter(x=>x.id!==id);
+  updateCart();
+}
+
+function updateCart(){
+  const list = document.getElementById("cartList");
+  list.innerHTML = "";
+  let total = 0;
+  cart.forEach(item=>{
+    const priceConverted = (item.priceBGN * rates[currency] * item.qty).toFixed(2);
+    total += parseFloat(priceConverted);
+    const li = document.createElement("li");
+    li.className = "list-group-item d-flex justify-content-between align-items-center";
+    li.innerHTML = `
+      ${item.name} x${item.qty}
+      <button class="btn-remove" onclick="removeFromCart(${item.id})">&times;</button>
+      <span>${priceConverted} ${currencySymbols[currency]}</span>
+    `;
+    list.appendChild(li);
+  });
+  document.getElementById("cartCount").textContent = cart.length;
+  document.getElementById("cartTotal").textContent = total.toFixed(2);
+  document.getElementById("currencySymbol").textContent = currencySymbols[currency];
+  document.querySelector(".cart-btn").textContent = `🛒 ${langTexts[document.getElementById("langSelect").value]?.cart || "Количка"} (${cart.length})`;
+}
+
+function toggleCart(){
+  const canvas = document.getElementById("cartCanvas");
+  const bsOffcanvas = bootstrap.Offcanvas.getInstance(canvas);
+  if(bsOffcanvas) {
+    bsOffcanvas.hide();
+  } else {
+    new bootstrap.Offcanvas(canvas).show();
+  }
+}
+
+function checkout(){
+  if(cart.length === 0) {
+    alert("Количката е празна!");
+    return;
+  }
+  // Тук добави своя линк за плащане - примерен
+  window.open("https://pay.vivawallet.com/seyta-eood", "_blank");
+}
+
+// Валутен избор
+document.getElementById("currencySelect").addEventListener("change", (e)=>{
+  currency = e.target.value;
+  updateCart();
+  renderProducts();
+});
+
+// Категории и сортиране
+document.getElementById("catFilter").addEventListener("change", renderProducts);
+document.getElementById("sortFilter").addEventListener("change", renderProducts);
+
+// Езикова смяна
+document.getElementById("langSelect").addEventListener("change", ()=>{
+  translatePage();
+  renderProducts();
+  updateCart();
+});
+
+// Контакт форма
+document.getElementById("contactForm").addEventListener("submit", (e)=>{
+  e.preventDefault();
+  if(!e.target.checkValidity()){
+    e.target.classList.add("was-validated");
+    return;
+  }
+  alert("Благодарим за запитването! Ще се свържем с вас скоро.");
+  e.target.reset();
+});
+
+// При зареждане
+window.addEventListener("load", () => {
+  translatePage();
+  renderProducts();
+  updateCart();
+});
+</script>
+
+</body>
+</html>
