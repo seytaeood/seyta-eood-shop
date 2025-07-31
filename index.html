@@ -1,239 +1,22 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SEYTA EOOD - Онлайн Магазин</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fafb;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background: #004080;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    }
-    header h1 {
-      margin: 0 0 8px;
-      font-weight: 700;
-      font-size: 2.5rem;
-    }
-    header p {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-    nav {
-      background: #0066cc;
-      padding: 12px 0;
-      text-align: center;
-      box-shadow: inset 0 -3px 8px rgba(0, 0, 0, 0.1);
-    }
-    nav a {
-      color: white;
-      margin: 0 20px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #ffcc00;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-      gap: 25px;
-    }
-    .product-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 3px 15px rgb(0 0 0 / 0.1);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
-    }
-    .product-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: contain;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      background: #f0f0f0;
-      padding: 10px;
-    }
-    .product-card h3 {
-      margin: 0 0 8px;
-      font-size: 1.2rem;
-      color: #004080;
-    }
-    .product-card p {
-      font-weight: 600;
-      font-size: 1.05rem;
-      margin: 0 0 12px;
-      color: #222;
-    }
-    .product-card button {
-      background-color: #0066cc;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 7px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .product-card button:hover {
-      background-color: #004080;
-    }
-    .payment {
-      text-align: center;
-      margin: 40px 0 30px;
-    }
-    .payment a {
-      background: #28a745;
-      color: white;
-      padding: 16px 40px;
-      font-size: 1.2rem;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      box-shadow: 0 5px 15px rgb(40 167 69 / 0.4);
-      transition: background-color 0.3s ease;
-      display: inline-block;
-    }
-    .payment a:hover {
-      background: #1e7e34;
-      box-shadow: 0 8px 20px rgb(30 126 52 / 0.7);
-    }
-    form {
-      max-width: 550px;
-      margin: 40px auto 60px;
-      background: white;
-      padding: 25px 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgb(0 0 0 / 0.1);
-    }
-    form h3 {
-      margin-bottom: 20px;
-      color: #004080;
-      font-weight: 700;
-      font-size: 1.5rem;
-      text-align: center;
-    }
-    form input, form textarea {
-      width: 100%;
-      padding: 12px 15px;
-      margin: 10px 0 20px;
-      border: 1.8px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-    }
-    form input:focus, form textarea:focus {
-      border-color: #0066cc;
-      outline: none;
-    }
-    form button {
-      background: #004080;
-      color: white;
-      font-weight: 600;
-      font-size: 1.1rem;
-      padding: 14px 0;
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    form button:hover {
-      background: #002f5b;
-    }
-    footer {
-      background: #004080;
-      color: white;
-      text-align: center;
-      padding: 20px 10px;
-      font-size: 0.9rem;
-    }
-    footer p {
-      margin: 5px 0;
-    }
-    @media (max-width: 600px) {
-      nav a {
-        display: block;
-        margin: 8px 0;
-      }
-      .products-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <h1>SEYTA EOOD</h1>
-  <p>Продажба на едро на перилни препарати и детергенти от Турция</p>
-</header>
-
-<nav>
-  <a href="#products">Продукти</a>
-  <a href="#contact">Контакти</a>
-  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener">Плащане</a>
-</nav>
-
-<div class="container" id="products">
-  <div class="products-grid">
-
-    <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/perwoll_black.jpg" alt="Perwoll Black 3L" />
-      <h3>Perwoll Black 3L</h3>
-      <p>12.00 лв</p>
-      <button>Добави в количката</button>
-    </div>
-
-    <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/aloevera.jpg" alt="Fairy Aloe Vera 800ml" />
-      <h3>Fairy Aloe Vera 800ml</h3>
-      <p>4.20 лв</p>
-      <button>Добави в количката</button>
-    </div>
-
-    <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/ABC_Pro.jpg" alt="ABC Pro 5L" />
-      <h3>ABC Pro 5L</h3>
-<!DOCTYPE html>
-<html lang="bg">
-<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SEYTA EOOD - Онлайн Магазин</title>
 <style>
-  /* Основни цветове */
   :root {
     --primary-color: #004080;
     --secondary-color: #0073e6;
     --accent-color: #ffcc00;
     --background-color: #f9fafb;
     --text-color: #222;
-    --button-bg: var(--secondary-color);
-    --button-hover-bg: #005bb5;
+
+    --btn-color-1: #0073e6;
+    --btn-color-2: #e67e22;
+    --btn-color-3: #16a085;
+    --btn-color-4: #c0392b;
+    --btn-color-5: #8e44ad;
   }
 
   body {
@@ -251,6 +34,7 @@
     padding: 40px 20px 30px;
     text-align: center;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    position: relative;
   }
   header h1 {
     margin: 0 0 10px;
@@ -263,6 +47,30 @@
     font-size: 1.2rem;
     font-weight: 600;
     font-style: italic;
+  }
+
+  /* Език секция горе вдясно */
+  .language-switcher {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 5px 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    user-select: none;
+  }
+  .language-switcher select {
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    outline: none;
   }
 
   nav {
@@ -329,8 +137,10 @@
     margin-bottom: 18px;
     color: #111;
   }
+
+  /* Различни цветове на бутоните за всеки продукт */
   .product-card button {
-    background-color: var(--button-bg);
+    background-color: var(--btn-color-1);
     color: white;
     border: none;
     padding: 12px 28px;
@@ -341,9 +151,44 @@
     box-shadow: 0 5px 15px rgb(0 115 230 / 0.3);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .product-card button:hover {
-    background-color: var(--button-hover-bg);
-    box-shadow: 0 7px 22px rgb(0 90 180 / 0.5);
+  .product-card:nth-child(2) button {
+    background-color: var(--btn-color-2);
+    box-shadow: 0 5px 15px rgb(230 126 34 / 0.3);
+  }
+  .product-card:nth-child(2):hover button {
+    background-color: #b35f00;
+    box-shadow: 0 7px 22px rgb(179 95 0 / 0.5);
+  }
+  .product-card:nth-child(3) button {
+    background-color: var(--btn-color-3);
+    box-shadow: 0 5px 15px rgb(22 160 133 / 0.3);
+  }
+  .product-card:nth-child(3):hover button {
+    background-color: #0e6655;
+    box-shadow: 0 7px 22px rgb(14 102 85 / 0.5);
+  }
+  .product-card:nth-child(4) button {
+    background-color: var(--btn-color-4);
+    box-shadow: 0 5px 15px rgb(192 57 43 / 0.3);
+  }
+  .product-card:nth-child(4):hover button {
+    background-color: #7a241c;
+    box-shadow: 0 7px 22px rgb(122 36 28 / 0.5);
+  }
+  .product-card:nth-child(5) button {
+    background-color: var(--btn-color-5);
+    box-shadow: 0 5px 15px rgb(142 68 173 / 0.3);
+  }
+  .product-card:nth-child(5):hover button {
+    background-color: #5e3370;
+    box-shadow: 0 7px 22px rgb(94 51 112 / 0.5);
+  }
+  /* For other buttons (6+) - default style */
+  .product-card:nth-child(n+6) button {
+    background-color: var(--btn-color-1);
+  }
+  .product-card:nth-child(n+6):hover button {
+    background-color: var(--btn-color-1);
   }
 
   .payment {
@@ -448,6 +293,11 @@
       margin: 40px 20px 60px;
       padding: 25px 20px;
     }
+    .language-switcher {
+      position: static;
+      margin: 10px auto 0;
+      text-align: center;
+    }
   }
 </style>
 </head>
@@ -456,6 +306,18 @@
 <header>
   <h1>SEYTA EOOD</h1>
   <p>Продажба на едро на перилни препарати и детергенти от Турция</p>
+  <div class="language-switcher">
+    <label for="lang-select">Език: </label>
+    <select id="lang-select" aria-label="Избор на език">
+      <option value="bg" selected>Български</option>
+      <option value="en">English</option>
+      <option value="sq">Shqip (Албански)</option>
+      <option value="xk">Kosovë (Косовски)</option>
+      <option value="tr">Türkçe (Турски)</option>
+      <option value="ro">Română (Румънски)</option>
+      <option value="de">Deutsch (Немски)</option>
+    </select>
+  </div>
 </header>
 
 <nav>
@@ -468,84 +330,71 @@
   <div class="products-grid">
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/perwoll_black.jpg" alt="Perwoll Black 3L" />
+      <img src="https://images-na.ssl-images-amazon.com/images/I/71lnYWeIxQL._AC_SL1500_.jpg" alt="Perwoll Black 3L" />
       <h3>Perwoll Black 3L</h3>
       <p>12.00 лв</p>
       <button>Добави в количката</button>
     </div>
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/aloevera.jpg" alt="Fairy Aloe Vera 800ml" />
+      <img src="https://images-na.ssl-images-amazon.com/images/I/61H7zZogsiL._AC_SL1500_.jpg" alt="Fairy Aloe Vera 800ml" />
       <h3>Fairy Aloe Vera 800ml</h3>
       <p>4.20 лв</p>
       <button>Добави в количката</button>
     </div>
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/ABC_Pro.jpg" alt="ABC Pro 5L" />
+      <img src="https://images-na.ssl-images-amazon.com/images/I/61Q+Q2jjXSL._AC_SL1500_.jpg" alt="ABC Pro 5L" />
       <h3>ABC Pro 5L</h3>
       <p>15.50 лв</p>
       <button>Добави в количката</button>
     </div>
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/persil_powder.jpg" alt="Persil Прах 7 кг" />
+      <img src="https://images-na.ssl-images-amazon.com/images/I/81AOq9XBzJL._AC_SL1500_.jpg" alt="Persil Прах 7 кг" />
       <h3>Persil Прах 7 кг</h3>
       <p>18.00 лв</p>
       <button>Добави в количката</button>
     </div>
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/bio_detergent.jpg" alt="Bio Течен перилен 5L" />
+      <img src="https://images-na.ssl-images-amazon.com/images/I/61o8OnqIY0L._AC_SL1000_.jpg" alt="Bio Течен перилен 5L" />
       <h3>Bio Течен перилен 5L</h3>
       <p>16.50 лв</p>
       <button>Добави в количката</button>
     </div>
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/savon_soap.jpg" alt="Натурален сапун" />
+      <img src="https://cdn.pixabay.com/photo/2016/11/18/16/44/soap-1839345_1280.jpg" alt="Натурален сапун" />
       <h3>Натурален сапун</h3>
       <p>3.90 лв</p>
       <button>Добави в количката</button>
     </div>
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/shampoo_bottle.jpg" alt="Шампоан 1L" />
+      <img src="https://images-na.ssl-images-amazon.com/images/I/61hYjqYK3bL._AC_SL1500_.jpg" alt="Шампоан 1L" />
       <h3>Шампоан 1L</h3>
       <p>5.80 лв</p>
       <button>Добави в количката</button>
     </div>
 
     <div class="product-card">
-      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/liquid_detergent.jpg" alt="Течен перилен препарат 4L" />
+      <img src="https://images-na.ssl-images-amazon.com/images/I/71E19lIFuRL._AC_SL1500_.jpg" alt="Течен перилен препарат 4L" />
       <h3>Течен перилен препарат 4L</h3>
       <p>13.90 лв</p>
       <button>Добави в количката</button>
     </div>
 
-  </div>
-</div>
+    <div class="product-card">
+      <img src="https://images-na.ssl-images-amazon.com/images/I/61ZpFvZPiyL._AC_SL1200_.jpg" alt="Гел за пране 3L" />
+      <h3>Гел за пране 3L</h3>
+      <p>14.00 лв</p>
+      <button>Добави в количката</button>
+    </div>
 
-<div class="payment">
-  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener">Направи поръчка и плати</a>
-</div>
-
-<div class="container" id="contact">
-  <form>
-    <h3>Свържи се с нас</h3>
-    <input type="text" placeholder="Име" required />
-    <input type="email" placeholder="Имейл" required />
-    <input type="tel" placeholder="+359896600310" required />
-    <textarea rows="4" placeholder="Съобщение"></textarea>
-    <button type="submit">Изпрати</button>
-  </form>
-</div>
-
-<footer>
-  <p>Имейл: <a href="mailto:epron1eood@gmail.com" style="color: var(--accent-color); font-weight: 700;">epron1eood@gmail.com</a> | Тел: +359896600310</p>
-  <p>© 2025 SEYTA EOOD. Всички права запазени.</p>
-</footer>
-
-</body>
-</html>
-
+    <div class="product-card">
+      <img src="https://images-na.ssl-images-amazon.com/images/I/61-Cy4WXAiL._AC_SL1200_.jpg" alt="Течен препарат за съдове 1L" />
+      <h3>Течен препарат за съдове 1L</h3>
+      <p>4.50 лв</p>
+      <button>Добави в количката</button>
+    </div
