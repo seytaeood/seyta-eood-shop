@@ -1,84 +1,78 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SEYTA EOOD Shop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEYTA EOOD - Онлайн Магазин</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f2f2f2;
-      color: #222;
-    }
-
-    header {
-      background-color: #004a99;
-      color: white;
-      padding: 1em;
-      text-align: center;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      padding: 2em;
-      text-align: center;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #004a99;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 16px;
-      margin-top: 1em;
-    }
-
-    .btn:hover {
-      background-color: #003066;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1em;
-      background-color: #ddd;
-      margin-top: 2em;
-    }
+    body { font-family: Arial; background: #f5f5f5; margin: 0; padding: 0; }
+    header { background: #003366; color: white; padding: 20px; text-align: center; }
+    nav { background: #0055aa; text-align: center; padding: 10px; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; }
+    .product { background: white; border: 1px solid #ccc; border-radius: 10px; width: 250px; margin: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .product img { width: 100%; height: auto; border-radius: 8px; }
+    .product h3 { margin: 10px 0 5px; }
+    .product p { margin: 5px 0; }
+    .product button { background: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+    .payment { text-align: center; margin: 30px 0; }
+    .payment a { background: green; color: white; padding: 15px 25px; text-decoration: none; border-radius: 8px; }
+    form { max-width: 500px; margin: auto; }
+    input, textarea { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+    footer { background: #003366; color: white; text-align: center; padding: 20px; margin-top: 40px; }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>SEYTA EOOD - Онлайн Магазин</h1>
-    <nav>
-      <a href="#products">Продукти</a>
-      <a href="#contact">Контакти</a>
-    </nav>
+    <h1>SEYTA EOOD</h1>
+    <p>Продажба на перилни и почистващи препарати</p>
   </header>
 
-  <main>
-    <h2>Добре дошли в нашия магазин!</h2>
-    <p>Очаквайте скоро невероятни продукти на страхотни цени.</p>
-    <a href="mailto:seyta@example.com" class="btn">Свържи се с нас</a>
-  </main>
+  <nav>
+    <a href="#">Начало</a>
+    <a href="#">Продукти</a>
+    <a href="#">Контакти</a>
+  </nav>
+
+  <div class="container">
+    <div class="product">
+      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/perwoll_black.jpg" alt="Perwoll Black">
+      <h3>Perwoll Black 3L</h3>
+      <p>12.00 лв</p>
+      <button>Добави в количката</button>
+    </div>
+    <div class="product">
+      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/aloevera.jpg" alt="Fairy Aloe">
+      <h3>Fairy Aloe Vera 800ml</h3>
+      <p>4.20 лв</p>
+      <button>Добави в количката</button>
+    </div>
+    <div class="product">
+      <img src="https://cdn.shopify.com/s/files/1/0558/6433/8229/products/ABC_Pro.jpg" alt="ABC Pro">
+      <h3>ABC Pro 5L</h3>
+      <p>15.50 лв</p>
+      <button>Добави в количката</button>
+    </div>
+  </div>
+
+  <div class="payment">
+    <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">Направи поръчка и плати</a>
+  </div>
+
+  <div class="container">
+    <form>
+      <h3>Свържи се с нас</h3>
+      <input type="text" placeholder="Име" required>
+      <input type="email" placeholder="Имейл" required>
+      <input type="tel" placeholder="Телефон" required>
+      <textarea rows="4" placeholder="Съобщение"></textarea>
+      <button type="submit">Изпрати</button>
+    </form>
+  </div>
 
   <footer>
-    &copy; 2025 SEYTA EOOD. Всички права запазени.
+    <p>&copy; 2025 SEYTA EOOD</p>
+    <p>Имейл: info@seytaeood.com | Тел: +359 88 123 4567</p>
   </footer>
-
 </body>
 </html>
