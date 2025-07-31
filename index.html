@@ -2,101 +2,92 @@
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SEYTA EOOD – Онлайн магазин</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>SEYTA EOOD Магазин</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <style>
     .product-card img {
       height: 200px;
       object-fit: cover;
     }
-    .lang-switcher {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
   </style>
 </head>
-<body>
-  <div class="container py-3">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1>SEYTA EOOD</h1>
-      <select class="form-select w-auto lang-switcher" id="languageSelect">
-        <option value="bg">Български</option>
-        <option value="en">English</option>
-        <option value="sq">Shqip</option>
-        <option value="ks">Kosovare</option>
-        <option value="tr">Türkçe</option>
-        <option value="ro">Română</option>
-        <option value="de">Deutsch</option>
-      </select>
-      <button class="btn btn-success" onclick="checkout()">Плати</button>
+<body class="bg-light">
+  <div class="container py-4">
+    <h1 class="text-center mb-4">SEYTA EOOD Онлайн Магазин</h1>
+
+    <!-- Филтри и търсачка -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <input type="text" id="search" class="form-control" placeholder="Търси продукт...">
+      </div>
+      <div class="col-md-4">
+        <select id="categoryFilter" class="form-select">
+          <option value="">Всички категории</option>
+          <option value="почистване">Препарати за почистване</option>
+          <option value="санитария">Санитария</option>
+          <option value="инструменти">Инструменти</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <select id="priceFilter" class="form-select">
+          <option value="">Всички цени</option>
+          <option value="low">Под 10 лв</option>
+          <option value="medium">10 - 25 лв</option>
+          <option value="high">Над 25 лв</option>
+        </select>
+      </div>
     </div>
 
-    <div class="row" id="productList">
-      <!-- Продуктите ще се заредят тук с JavaScript -->
+    <!-- Продукти -->
+    <div class="row" id="product-list">
+      <!-- Примерен продукт -->
+      <div class="col-md-4 mb-4 product-card" data-category="почистване" data-price="12" data-name="Универсален препарат">
+        <div class="card">
+          <img src="images/preparat1.jpg" class="card-img-top" alt="Препарат">
+          <div class="card-body">
+            <h5 class="card-title">Универсален препарат</h5>
+            <p class="card-text">Силен обезмаслител за кухни и бани.</p>
+            <p class="text-success fw-bold">12.00 лв</p>
+            <a href="#" class="btn btn-primary">Добави в количката</a>
+          </div>
+        </div>
+      </div>
+      <!-- Добави още подобни продукти тук -->
     </div>
   </div>
 
+  <!-- JS за филтриране -->
   <script>
-    const products = [
-      { name: "Универсален почистващ препарат", price: 3.75, image: "https://chistdom.com/images/thumbs/0000511_350.png" },
-      { name: "Препарат за стъкла", price: 2.25, image: "https://chistdom.com/images/thumbs/0000493_350.png" },
-      { name: "Белина 1л", price: 1.80, image: "https://chistdom.com/images/thumbs/0000472_350.png" },
-      { name: "Препарат за под", price: 2.99, image: "https://chistdom.com/images/thumbs/0000494_350.png" },
-      { name: "Препарат за кухня", price: 3.20, image: "https://chistdom.com/images/thumbs/0000512_350.png" },
-      { name: "Сапун течен", price: 2.10, image: "https://chistdom.com/images/thumbs/0000513_350.png" },
-      { name: "Прах за пране", price: 8.99, image: "https://chistdom.com/images/thumbs/0000521_350.png" },
-      { name: "Омекотител", price: 4.20, image: "https://chistdom.com/images/thumbs/0000524_350.png" },
-      { name: "Течност за тоалетна", price: 3.00, image: "https://chistdom.com/images/thumbs/0000473_350.png" },
-      { name: "Гъби за чинии", price: 1.00, image: "https://chistdom.com/images/thumbs/0000528_350.png" },
-      { name: "Препарат за баня", price: 3.40, image: "https://chistdom.com/images/thumbs/0000480_350.png" },
-      { name: "Универсален парфюм за пране", price: 5.10, image: "https://chistdom.com/images/thumbs/0000530_350.png" },
-      { name: "Миеща гъба голяма", price: 1.20, image: "https://chistdom.com/images/thumbs/0000531_350.png" },
-      { name: "Течен сапун 5л", price: 9.90, image: "https://chistdom.com/images/thumbs/0000532_350.png" },
-      { name: "Подова кърпа", price: 2.50, image: "https://chistdom.com/images/thumbs/0000533_350.png" },
-      { name: "Почистващ препарат антибактериален", price: 3.85, image: "https://chistdom.com/images/thumbs/0000517_350.png" },
-      { name: "Крем за ръце", price: 2.90, image: "https://chistdom.com/images/thumbs/0000518_350.png" },
-      { name: "Почистващ спрей универсален", price: 3.60, image: "https://chistdom.com/images/thumbs/0000519_350.png" },
-      { name: "Гел за съдове", price: 2.60, image: "https://chistdom.com/images/thumbs/0000520_350.png" },
-      { name: "Прах за ръчно пране", price: 4.50, image: "https://chistdom.com/images/thumbs/0000522_350.png" },
-    ];
+    const searchInput = document.getElementById('search');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    const products = document.querySelectorAll('.product-card');
 
-    let cart = [];
+    function filterProducts() {
+      const search = searchInput.value.toLowerCase();
+      const category = categoryFilter.value;
+      const price = priceFilter.value;
 
-    const productList = document.getElementById("productList");
+      products.forEach(product => {
+        const name = product.dataset.name.toLowerCase();
+        const productCategory = product.dataset.category;
+        const productPrice = parseFloat(product.dataset.price);
 
-    products.forEach((product, index) => {
-      const col = document.createElement("div");
-      col.className = "col-md-3 mb-4";
-      col.innerHTML = `
-        <div class="card product-card h-100">
-          <img src="${product.image}" class="card-img-top" alt="${product.name}">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">${product.name}</h5>
-            <p class="card-text">Цена: ${product.price.toFixed(2)} лв.</p>
-            <button class="btn btn-primary mt-auto" onclick="addToCart(${index})">Добави в количката</button>
-          </div>
-        </div>`;
-      productList.appendChild(col);
-    });
+        let matchesSearch = name.includes(search);
+        let matchesCategory = category === '' || category === productCategory;
+        let matchesPrice =
+          price === '' ||
+          (price === 'low' && productPrice < 10) ||
+          (price === 'medium' && productPrice >= 10 && productPrice <= 25) ||
+          (price === 'high' && productPrice > 25);
 
-    function addToCart(index) {
-      cart.push(products[index]);
-      alert("Продуктът е добавен в количката!");
+        product.style.display = matchesSearch && matchesCategory && matchesPrice ? 'block' : 'none';
+      });
     }
 
-    function checkout() {
-      if (cart.length === 0) {
-        alert("Количката е празна!");
-        return;
-      }
-      window.open("https://pay.vivawallet.com/seyta-eood", "_blank");
-    }
-
-    document.getElementById("languageSelect").addEventListener("change", function () {
-      alert("Смяната на език ще бъде активна в следваща версия.");
-    });
+    searchInput.addEventListener('input', filterProducts);
+    categoryFilter.addEventListener('change', filterProducts);
+    priceFilter.addEventListener('change', filterProducts);
   </script>
 </body>
 </html>
