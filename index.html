@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seyta EOOD - Онлайн магазин</title>
+    <!-- Snipcart -->
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.css" />
+    <!-- Ваши стилове -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Seyta EOOD</h1>
+        <button class="snipcart-checkout">Количка (<span class="snipcart-items-count">0</span>)</button>
+    </header>
+
+    <main>
+        <div id="products" class="product-grid"></div>
+    </main>
+
+    <!-- Snipcart количка -->
+    <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
+    
+    <!-- Скриптове -->
+    <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
