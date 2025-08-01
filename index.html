@@ -1,26 +1,103 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SEYTA - Магазин</title>
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SEYTA - Магазин</title>
+<style>
+  body {font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f9f9f9; color: #222;}
+  header {display:flex; justify-content:space-between; align-items:center; background:#222; color:#f2aa4c; padding: 10px 20px;}
+  #language-switch {padding: 5px;}
+  #search {width: 100%; max-width: 400px; padding: 10px; margin: 20px 0; border-radius: 4px; border: 1px solid #ccc;}
+  #products {display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 15px;}
+  .product {background: white; padding: 15px; border-radius: 6px; box-shadow: 0 0 8px rgba(0,0,0,0.1); text-align: center;}
+  .product img {width: 100%; height: auto; border-radius: 4px;}
+  .price {color: #27ae60; font-weight: bold; margin: 10px 0;}
+  button {background:#f2aa4c; border:none; padding: 10px 15px; border-radius: 5px; cursor:pointer;}
+  button:hover {background:#d1912d;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>SEYTA</h1>
-    <select id="language-switch">
-      <option value="bg" selected>BG</option>
-      <option value="en">EN</option>
-    </select>
-  </header>
 
-  <input type="search" id="search" placeholder="Търсене..." />
+<header>
+  <h1>SEYTA</h1>
+  <select id="language-switch">
+    <option value="bg" selected>BG</option>
+    <option value="en">EN</option>
+  </select>
+</header>
 
-  <main>
-    <div id="products"></div>
-  </main>
+<input type="search" id="search" placeholder="Търсене..." />
 
-  <script src="js/app.js"></script>
+<main>
+  <div id="products"></div>
+</main>
+
+<script>
+  const products = [
+    {
+      id: "product-1",
+      name: { bg: "Органичен шампоан", en: "Organic Shampoo" },
+      price: 24.99,
+      image: "images/shampoo.jpg",
+      description: {
+        bg: "Натурален шампоан без сулфати.",
+        en: "Natural sulfate-free shampoo."
+      }
+    },
+    {
+      id: "product-2",
+      name: { bg: "Крем за лице", en: "Face Cream" },
+      price: 32.5,
+      image: "images/face-cream.jpg",
+      description: {
+        bg: "Хидратиращ крем с витамин Е.",
+        en: "Moisturizing cream with vitamin E."
+      }
+    }
+  ];
+
+  let currentLang = "bg";
+  const productsContainer = document.getElementById("products");
+  const searchInput = document.getElementById("search");
+  const languageSwitch = document.getElementById("language-switch");
+
+  function renderProducts(filter = "") {
+    productsContainer.innerHTML = "";
+    const filteredProducts = products.filter(product => {
+      return product.name[currentLang].toLowerCase().includes(filter.toLowerCase());
+    });
+    if(filteredProducts.length === 0) {
+      productsContainer.innerHTML = "<p>Няма намерени продукти.</p>";
+      return;
+    }
+    filteredProducts.forEach(product => {
+      const productEl = document.createElement("div");
+      productEl.className = "product";
+      productEl.innerHTML = `
+        <img src="${product.image}" alt="${product.name[currentLang]}" />
+        <h3>${product.name[currentLang]}</h3>
+        <p>${product.description[currentLang]}</p>
+        <p class="price">${product.price.toFixed(2)} лв.</p>
+        <button onclick="alert('Добавен ${product.name[currentLang]} в количката!')">Добави в количка</button>
+      `;
+      productsContainer.appendChild(productEl);
+    });
+  }
+
+  searchInput.addEventListener("input", e => {
+    renderProducts(e.target.value);
+  });
+
+  languageSwitch.addEventListener("change", e => {
+    currentLang = e.target.value;
+    renderProducts(searchInput.value);
+  });
+
+  window.onload = () => {
+    renderProducts();
+  }
+</script>
+
 </body>
 </html>
