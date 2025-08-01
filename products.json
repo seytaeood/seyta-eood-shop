@@ -1,0 +1,18 @@
+{
+    "products": [
+        {
+            "id": "product-1",
+            "name": "Органичен шампоан",
+            "price": 24.99,
+            "image": "/images/shampoo.jpg",
+            "description": "Натурален шампоан без сулфати."
+        },
+        {
+            "id": "product-2",
+            "name": "Крем за лице",
+            "price": 32.50,
+            "image": "/images/face-cream.jpg",
+            "description": "Хидратиращ крем с витамин Е."
+        }
+    ]
+}
