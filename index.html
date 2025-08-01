@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seyta EOOD - Магазин</title>
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.css" />
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEYTA EOOD Shop</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <h1>Seyta EOOD</h1>
-        <button class="snipcart-checkout">Количка (<span class="snipcart-items-count">0</span>)</button>
-    </header>
+  <header>
+    <img src="images/logo.png" alt="Seyta Logo" class="logo" />
+    <h1>Онлайн магазин на SEYTA EOOD</h1>
+    <button id="lang-toggle">EN</button>
+  </header>
 
-    <main>
-        <div id="products" class="product-grid"></div>
-    </main>
+  <section class="filters">
+    <input type="text" id="search" placeholder="Търсене по име...">
+    <select id="category-filter">
+      <option value="">Всички категории</option>
+      <option value="пластмаса">Пластмаса</option>
+      <option value="метал">Метал</option>
+      <option value="гранулат">Гранулат</option>
+    </select>
+    <select id="currency-selector">
+      <option value="BGN">лв</option>
+      <option value="EUR">€</option>
+      <option value="USD">$</option>
+    </select>
+  </section>
 
-    <div hidden id="snipcart" data-api-key="ВАШ_API_КЛЮЧ"></div>
-    <script async src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
-    <script src="/js/app.js"></script>
+  <main id="product-list">
+    <!-- Продуктите се зареждат от JS -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SEYTA EOOD. Всички права запазени.</p>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
