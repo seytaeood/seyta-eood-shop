@@ -1,8 +1,26 @@
-<!-- бутон за плащане -->
-<a href="https://pay.vivawallet.com/seyta-eood" class="checkout-btn" target="_blank">Плати с Viva Wallet</a>
-function addToCart(id) {
-  // Демонстрация, по-късно реална интеграция
-  alert('Продуктът е добавен в количката!');
-}
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEYTA - Магазин</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>SEYTA</h1>
+    <select id="language-switch">
+      <option value="bg" selected>BG</option>
+      <option value="en">EN</option>
+    </select>
+  </header>
 
+  <input type="search" id="search" placeholder="Търсене..." />
 
+  <main>
+    <div id="products"></div>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

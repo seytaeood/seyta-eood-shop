@@ -1,94 +1,68 @@
 const products = [
   {
-    id: 'product-1',
-    name: { bg: 'Органичен шампоан', en: 'Organic Shampoo' },
-    category: 'beauty',
+    id: "product-1",
+    name: { bg: "Органичен шампоан", en: "Organic Shampoo" },
     price: 24.99,
-    image: 'images/shampoo.jpg',
+    image: "images/shampoo.jpg",
     description: {
-      bg: 'Натурален шампоан без сулфати.',
-      en: 'Natural sulfate-free shampoo.'
-    }
+      bg: "Натурален шампоан без сулфати.",
+      en: "Natural sulfate-free shampoo.",
+    },
   },
   {
-    id: 'product-2',
-    name: { bg: 'Крем за лице', en: 'Face Cream' },
-    category: 'beauty',
+    id: "product-2",
+    name: { bg: "Крем за лице", en: "Face Cream" },
     price: 32.5,
-    image: 'images/face-cream.jpg',
+    image: "images/face-cream.jpg",
     description: {
-      bg: 'Хидратиращ крем с витамин Е.',
-      en: 'Moisturizing cream with vitamin E.'
-    }
+      bg: "Хидратиращ крем с витамин Е.",
+      en: "Moisturizing cream with vitamin E.",
+    },
   },
-  // ... още продукти ...
 ];
 
-// Текущ език
-let currentLang = 'bg';
+let currentLang = "bg";
 
-// Зареждане на продукти
-function displayProducts(filter = '') {
-  const container = document.getElementById('products');
-  container.innerHTML = '';
+const productsContainer = document.getElementById("products");
+const searchInput = document.getElementById("search");
+const languageSwitch = document.getElementById("language-switch");
 
-  const filtered = products.filter(p =>
-    filter ? p.category === filter : true
-  );
+function renderProducts(filter = "") {
+  productsContainer.innerHTML = "";
 
-  filtered.forEach(product => {
-    const productEl = document.createElement('div');
-    productEl.className = 'product';
+  const filteredProducts = products.filter((product) => {
+    const name = product.name[currentLang].toLowerCase();
+    return name.includes(filter.toLowerCase());
+  });
+
+  if (filteredProducts.length === 0) {
+    productsContainer.innerHTML = "<p>Няма намерени продукти.</p>";
+    return;
+  }
+
+  filteredProducts.forEach((product) => {
+    const productEl = document.createElement("div");
+    productEl.className = "product";
     productEl.innerHTML = `
-      <img src="${product.image}" alt="${product.name[currentLang]}">
+      <img src="${product.image}" alt="${product.name[currentLang]}" />
       <h3>${product.name[currentLang]}</h3>
       <p>${product.description[currentLang]}</p>
       <p class="price">${product.price.toFixed(2)} лв.</p>
-      <button class="buy-btn" onclick="addToCart('${product.id}')">Добави в количка</button>
+      <button onclick="alert('Добавен ${product.name[currentLang]} в количката!')">Добави в количка</button>
     `;
-    container.appendChild(productEl);
+    productsContainer.appendChild(productEl);
   });
 }
 
-// Смяна на език
-function setLanguage(lang) {
-  currentLang = lang;
-  displayProducts();
-  document.documentElement.lang = lang;
-}
-
-// Търсене
-document.getElementById('search').addEventListener('input', e => {
-  const query = e.target.value.toLowerCase();
-  const filtered = products.filter(p =>
-    p.name[currentLang].toLowerCase().includes(query)
-  );
-  const container = document.getElementById('products');
-  container.innerHTML = '';
-  filtered.forEach(product => {
-    const productEl = document.createElement('div');
-    productEl.className = 'product';
-    productEl.innerHTML = `
-      <img src="${product.image}" alt="${product.name[currentLang]}">
-      <h3>${product.name[currentLang]}</h3>
-      <p>${product.description[currentLang]}</p>
-      <p class="price">${product.price.toFixed(2)} лв.</p>
-      <button class="buy-btn" onclick="addToCart('${product.id}')">Добави в количка</button>
-    `;
-    container.appendChild(productEl);
-  });
+searchInput.addEventListener("input", (e) => {
+  renderProducts(e.target.value);
 });
 
-// Добавяне в количка (просто демо)
-function addToCart(productId) {
-  alert(`Продукт ${productId} добавен в количката!`);
-}
+languageSwitch.addEventListener("change", (e) => {
+  currentLang = e.target.value;
+  renderProducts(searchInput.value);
+});
 
-// Инициализация
 window.onload = () => {
-  displayProducts();
-  // Свържи езиковия селектор
-  document.getElementById('language-switch').addEventListener('change', e => {
-    setLanguage(e.target.value);
-  });
+  renderProducts();
 };

@@ -1,118 +1,63 @@
-/* Основен стил */
 body {
-  font-family: 'Urbanist', sans-serif;
-  background: #f4f4f4;
+  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 0 1rem;
+  background: #f9f9f9;
   color: #222;
 }
 
 header {
-  background: #101820;
-  color: #f2aa4c;
-  padding: 1rem 2rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-}
-
-header h1 {
-  margin: 0;
-  font-weight: 700;
-  font-size: 1.8rem;
-  letter-spacing: 2px;
-}
-
-#language-switch {
-  background: #f2aa4c;
-  border: none;
-  padding: 0.3rem 0.6rem;
-  font-weight: 700;
-  cursor: pointer;
-  border-radius: 4px;
-  color: #101820;
+  align-items: center;
+  padding: 1rem 0;
+  background-color: #222;
+  color: white;
 }
 
 #search {
-  width: 60%;
-  margin: 1rem auto;
-  display: block;
-  padding: 0.7rem 1rem;
-  border: 2px solid #101820;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #101820;
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 #products {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 1.2rem;
-  padding: 1rem 2rem 3rem 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
 }
 
 .product {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+  border-radius: 6px;
   padding: 1rem;
+  box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
   text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.product:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
 }
 
 .product img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 0.8rem;
-}
-
-.product h3 {
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-  color: #101820;
-}
-
-.product p {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 1rem;
-  min-height: 40px;
+  max-width: 100%;
+  border-radius: 4px;
 }
 
 .price {
-  font-weight: 700;
-  color: #f2aa4c;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #27ae60;
+  margin: 0.5rem 0;
 }
 
-.buy-btn {
-  background-color: #f2aa4c;
+button {
+  background: #27ae60;
   border: none;
-  padding: 0.7rem 1.2rem;
-  font-weight: 700;
-  color: #101820;
-  border-radius: 6px;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.buy-btn:hover {
-  background-color: #d1912d;
-}
-
-@media (max-width: 600px) {
-  #search {
-    width: 90%;
-  }
-  header {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+button:hover {
+  background: #219150;
 }
