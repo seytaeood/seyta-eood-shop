@@ -1,93 +1,94 @@
-// Примерен масив с продукти (може да го разшириш допълнително)
 const products = [
   {
-    id: 1,
-    name: { bg: "Мед от липа", en: "Linden Honey" },
-    price: 12,
-    currency: "BGN",
-    category: "Храни",
-    image: "images/linden-honey.jpg"
+    id: 'product-1',
+    name: { bg: 'Органичен шампоан', en: 'Organic Shampoo' },
+    category: 'beauty',
+    price: 24.99,
+    image: 'images/shampoo.jpg',
+    description: {
+      bg: 'Натурален шампоан без сулфати.',
+      en: 'Natural sulfate-free shampoo.'
+    }
   },
   {
-    id: 2,
-    name: { bg: "Сапун с лавандула", en: "Lavender Soap" },
-    price: 5,
-    currency: "BGN",
-    category: "Козметика",
-    image: "images/lavender-soap.jpg"
+    id: 'product-2',
+    name: { bg: 'Крем за лице', en: 'Face Cream' },
+    category: 'beauty',
+    price: 32.5,
+    image: 'images/face-cream.jpg',
+    description: {
+      bg: 'Хидратиращ крем с витамин Е.',
+      en: 'Moisturizing cream with vitamin E.'
+    }
   },
-  {
-    id: 3,
-    name: { bg: "Чай от мащерка", en: "Thyme Tea" },
-    price: 8,
-    currency: "BGN",
-    category: "Храни",
-    image: "images/thyme-tea.jpg"
-  },
-  {
-    id: 4,
-    name: { bg: "Пчелен восък", en: "Beeswax" },
-    price: 6.5,
-    currency: "BGN",
-    category: "Други",
-    image: "images/beeswax.jpg"
-  }
+  // ... още продукти ...
 ];
 
-let lang = "bg"; // по подразбиране
-let currencyRate = 0.51; // 1 BGN = 0.51 EUR
+// Текущ език
+let currentLang = 'bg';
 
-function renderProducts() {
-  const productList = document.getElementById("product-list");
-  productList.innerHTML = "";
+// Зареждане на продукти
+function displayProducts(filter = '') {
+  const container = document.getElementById('products');
+  container.innerHTML = '';
 
-  const search = document.getElementById("search").value.toLowerCase();
-  const category = document.getElementById("category").value;
-  const minPrice = parseFloat(document.getElementById("min-price").value) || 0;
-  const maxPrice = parseFloat(document.getElementById("max-price").value) || Infinity;
+  const filtered = products.filter(p =>
+    filter ? p.category === filter : true
+  );
 
-  products
-    .filter(p =>
-      p.name[lang].toLowerCase().includes(search) &&
-      (category === "" || p.category === category) &&
-      p.price >= minPrice && p.price <= maxPrice
-    )
-    .forEach(p => {
-      const div = document.createElement("div");
-      div.className = "product";
-      div.innerHTML = `
-        <img src="${p.image}" alt="${p.name[lang]}">
-        <div class="product-info">
-          <h3>${p.name[lang]}</h3>
-          <p>${p.category}</p>
-          <div class="product-price">
-            ${convertPrice(p.price, p.currency)}
-          </div>
-        </div>
-      `;
-      productList.appendChild(div);
-    });
+  filtered.forEach(product => {
+    const productEl = document.createElement('div');
+    productEl.className = 'product';
+    productEl.innerHTML = `
+      <img src="${product.image}" alt="${product.name[currentLang]}">
+      <h3>${product.name[currentLang]}</h3>
+      <p>${product.description[currentLang]}</p>
+      <p class="price">${product.price.toFixed(2)} лв.</p>
+      <button class="buy-btn" onclick="addToCart('${product.id}')">Добави в количка</button>
+    `;
+    container.appendChild(productEl);
+  });
 }
 
-function convertPrice(price, currency) {
-  if (currency === "BGN") {
-    return lang === "bg"
-      ? `${price.toFixed(2)} лв.`
-      : `€${(price * currencyRate).toFixed(2)}`;
-  }
-  return `${price} ${currency}`;
+// Смяна на език
+function setLanguage(lang) {
+  currentLang = lang;
+  displayProducts();
+  document.documentElement.lang = lang;
 }
 
-function toggleLang() {
-  lang = lang === "bg" ? "en" : "bg";
-  document.getElementById("lang-toggle").textContent = lang === "bg" ? "EN" : "BG";
-  renderProducts();
+// Търсене
+document.getElementById('search').addEventListener('input', e => {
+  const query = e.target.value.toLowerCase();
+  const filtered = products.filter(p =>
+    p.name[currentLang].toLowerCase().includes(query)
+  );
+  const container = document.getElementById('products');
+  container.innerHTML = '';
+  filtered.forEach(product => {
+    const productEl = document.createElement('div');
+    productEl.className = 'product';
+    productEl.innerHTML = `
+      <img src="${product.image}" alt="${product.name[currentLang]}">
+      <h3>${product.name[currentLang]}</h3>
+      <p>${product.description[currentLang]}</p>
+      <p class="price">${product.price.toFixed(2)} лв.</p>
+      <button class="buy-btn" onclick="addToCart('${product.id}')">Добави в количка</button>
+    `;
+    container.appendChild(productEl);
+  });
+});
+
+// Добавяне в количка (просто демо)
+function addToCart(productId) {
+  alert(`Продукт ${productId} добавен в количката!`);
 }
 
-document.getElementById("search").addEventListener("input", renderProducts);
-document.getElementById("category").addEventListener("change", renderProducts);
-document.getElementById("min-price").addEventListener("input", renderProducts);
-document.getElementById("max-price").addEventListener("input", renderProducts);
-document.getElementById("lang-toggle").addEventListener("click", toggleLang);
-
-renderProducts();
+// Инициализация
+window.onload = () => {
+  displayProducts();
+  // Свържи езиковия селектор
+  document.getElementById('language-switch').addEventListener('change', e => {
+    setLanguage(e.target.value);
+  });
+};

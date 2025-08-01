@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<html lang="bg">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SEYTA EOOD Shop</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <img src="images/logo.png" alt="Seyta Logo" class="logo" />
-    <h1>Онлайн магазин на SEYTA EOOD</h1>
-    <button id="lang-toggle">EN</button>
-  </header>
+<!-- бутон за плащане -->
+<a href="https://pay.vivawallet.com/seyta-eood" class="checkout-btn" target="_blank">Плати с Viva Wallet</a>
+function addToCart(id) {
+  // Демонстрация, по-късно реална интеграция
+  alert('Продуктът е добавен в количката!');
+}
 
-  <section class="filters">
-    <input type="text" id="search" placeholder="Търсене по име...">
-    <select id="category-filter">
-      <option value="">Всички категории</option>
-      <option value="пластмаса">Пластмаса</option>
-      <option value="метал">Метал</option>
-      <option value="гранулат">Гранулат</option>
-    </select>
-    <select id="currency-selector">
-      <option value="BGN">лв</option>
-      <option value="EUR">€</option>
-      <option value="USD">$</option>
-    </select>
-  </section>
 
-  <main id="product-list">
-    <!-- Продуктите се зареждат от JS -->
-  </main>
-
-  <footer>
-    <p>&copy; 2025 SEYTA EOOD. Всички права запазени.</p>
-  </footer>
-
-  <script src="app.js"></script>
-</body>
-</html>
