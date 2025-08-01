@@ -1,103 +1,222 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SEYTA - Магазин</title>
-<style>
-  body {font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f9f9f9; color: #222;}
-  header {display:flex; justify-content:space-between; align-items:center; background:#222; color:#f2aa4c; padding: 10px 20px;}
-  #language-switch {padding: 5px;}
-  #search {width: 100%; max-width: 400px; padding: 10px; margin: 20px 0; border-radius: 4px; border: 1px solid #ccc;}
-  #products {display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 15px;}
-  .product {background: white; padding: 15px; border-radius: 6px; box-shadow: 0 0 8px rgba(0,0,0,0.1); text-align: center;}
-  .product img {width: 100%; height: auto; border-radius: 4px;}
-  .price {color: #27ae60; font-weight: bold; margin: 10px 0;}
-  button {background:#f2aa4c; border:none; padding: 10px 15px; border-radius: 5px; cursor:pointer;}
-  button:hover {background:#d1912d;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEYTA - Магазин</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <header>
+    <h1>SEYTA</h1>
+    <select id="language-switch">
+      <option value="bg" selected>BG</option>
+      <option value="en">EN</option>
+    </select>
+  </header>
 
-<header>
-  <h1>SEYTA</h1>
-  <select id="language-switch">
-    <option value="bg" selected>BG</option>
-    <option value="en">EN</option>
-  </select>
-</header>
+  <input type="search" id="search" placeholder="Търсене..." />
 
-<input type="search" id="search" placeholder="Търсене..." />
+  <div id="filters">
+    <button data-filter="all" class="active">Всички</button>
+    <button data-filter="beauty">Козметика</button>
+    <button data-filter="hygiene">Хигиена</button>
+  </div>
 
-<main>
-  <div id="products"></div>
-</main>
+  <main>
+    <div id="products"></div>
+  </main>
 
-<script>
-  const products = [
-    {
-      id: "product-1",
-      name: { bg: "Органичен шампоан", en: "Organic Shampoo" },
-      price: 24.99,
-      image: "images/shampoo.jpg",
-      description: {
-        bg: "Натурален шампоан без сулфати.",
-        en: "Natural sulfate-free shampoo."
-      }
-    },
-    {
-      id: "product-2",
-      name: { bg: "Крем за лице", en: "Face Cream" },
-      price: 32.5,
-      image: "images/face-cream.jpg",
-      description: {
-        bg: "Хидратиращ крем с витамин Е.",
-        en: "Moisturizing cream with vitamin E."
-      }
-    }
-  ];
-
-  let currentLang = "bg";
-  const productsContainer = document.getElementById("products");
-  const searchInput = document.getElementById("search");
-  const languageSwitch = document.getElementById("language-switch");
-
-  function renderProducts(filter = "") {
-    productsContainer.innerHTML = "";
-    const filteredProducts = products.filter(product => {
-      return product.name[currentLang].toLowerCase().includes(filter.toLowerCase());
-    });
-    if(filteredProducts.length === 0) {
-      productsContainer.innerHTML = "<p>Няма намерени продукти.</p>";
-      return;
-    }
-    filteredProducts.forEach(product => {
-      const productEl = document.createElement("div");
-      productEl.className = "product";
-      productEl.innerHTML = `
-        <img src="${product.image}" alt="${product.name[currentLang]}" />
-        <h3>${product.name[currentLang]}</h3>
-        <p>${product.description[currentLang]}</p>
-        <p class="price">${product.price.toFixed(2)} лв.</p>
-        <button onclick="alert('Добавен ${product.name[currentLang]} в количката!')">Добави в количка</button>
-      `;
-      productsContainer.appendChild(productEl);
-    });
-  }
-
-  searchInput.addEventListener("input", e => {
-    renderProducts(e.target.value);
-  });
-
-  languageSwitch.addEventListener("change", e => {
-    currentLang = e.target.value;
-    renderProducts(searchInput.value);
-  });
-
-  window.onload = () => {
-    renderProducts();
-  }
-</script>
-
+  <script src="js/app.js"></script>
 </body>
 </html>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem 2rem;
+  background: #f9f9f9;
+  color: #222;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+#language-switch {
+  padding: 0.3rem 0.6rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+#search {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#filters {
+  margin-bottom: 1rem;
+}
+
+#filters button {
+  background: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#filters button.active,
+#filters button:hover {
+  background: #f2aa4c;
+  color: #fff;
+}
+
+#products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.product {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.price {
+  color: #27ae60;
+  font-weight: 700;
+  margin: 0.7rem 0;
+}
+
+button.buy-btn {
+  background: #f2aa4c;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #101820;
+  font-weight: 700;
+  transition: background 0.3s ease;
+}
+
+button.buy-btn:hover {
+  background: #d1912d;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+}
+const products = [
+  {
+    id: "product-1",
+    name: { bg: "Органичен шампоан", en: "Organic Shampoo" },
+    category: "beauty",
+    price: 24.99,
+    image: "images/shampoo.jpg",
+    description: {
+      bg: "Натурален шампоан без сулфати.",
+      en: "Natural sulfate-free shampoo."
+    }
+  },
+  {
+    id: "product-2",
+    name: { bg: "Крем за лице", en: "Face Cream" },
+    category: "beauty",
+    price: 32.5,
+    image: "images/face-cream.jpg",
+    description: {
+      bg: "Хидратиращ крем с витамин Е.",
+      en: "Moisturizing cream with vitamin E."
+    }
+  },
+  {
+    id: "product-3",
+    name: { bg: "Дезинфектант", en: "Disinfectant" },
+    category: "hygiene",
+    price: 15.0,
+    image: "images/disinfectant.jpg",
+    description: {
+      bg: "Ефективен срещу бактерии и вируси.",
+      en: "Effective against bacteria and viruses."
+    }
+  }
+];
+
+let currentLang = "bg";
+let currentFilter = "all";
+
+const productsContainer = document.getElementById("products");
+const searchInput = document.getElementById("search");
+const languageSwitch = document.getElementById("language-switch");
+const filters = document.querySelectorAll("#filters button");
+
+function renderProducts(filterText = "") {
+  productsContainer.innerHTML = "";
+  const filteredProducts = products.filter(product => {
+    const matchesFilter = currentFilter === "all" || product.category === currentFilter;
+    const matchesSearch = product.name[currentLang].toLowerCase().includes(filterText.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
+  if(filteredProducts.length === 0) {
+    productsContainer.innerHTML = "<p>Няма намерени продукти.</p>";
+    return;
+  }
+
+  filteredProducts.forEach(product => {
+    const productEl = document.createElement("div");
+    productEl.className = "product";
+    productEl.innerHTML = `
+      <img src="${product.image}" alt="${product.name[currentLang]}">
+      <h3>${product.name[currentLang]}</h3>
+      <p>${product.description[currentLang]}</p>
+      <p class="price">${product.price.toFixed(2)} лв.</p>
+      <button class="buy-btn" onclick="alert('Добавен ${product.name[currentLang]} в количката!')">Добави в количка</button>
+    `;
+    productsContainer.appendChild(productEl);
+  });
+}
+
+searchInput.addEventListener("input", e => {
+  renderProducts(e.target.value);
+});
+
+languageSwitch.addEventListener("change", e => {
+  currentLang = e.target.value;
+  renderProducts(searchInput.value);
+});
+
+filters.forEach(button => {
+  button.addEventListener("click", () => {
+    filters.forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+    currentFilter = button.getAttribute("data-filter");
+    renderProducts(searchInput.value);
+  });
+});
+
+window.onload = () => {
+  renderProducts();
+};
