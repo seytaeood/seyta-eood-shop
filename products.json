@@ -10,9 +10,23 @@
         {
             "id": "product-2",
             "name": "Крем за лице",
-            "price": 32.50,
+            "price": 32.5,
             "image": "/images/face-cream.jpg",
             "description": "Хидратиращ крем с витамин Е."
+        },
+        {
+            "id": "product-3",
+            "name": "Натурален сапун",
+            "price": 7.9,
+            "image": "/images/soap.jpg",
+            "description": "Ръчно направен сапун с етерични масла."
+        },
+        {
+            "id": "product-4",
+            "name": "Балсам за устни",
+            "price": 5.5,
+            "image": "/images/lip-balm.jpg",
+            "description": "Балсам за устни с мед и алое вера."
         }
     ]
 }
