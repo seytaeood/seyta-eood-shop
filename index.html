@@ -1,228 +1,155 @@
-
 <!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seyta EOOD Каталог</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <script src="https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.js"></script>
-  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.css">
+  <title>Сейта ЕООД – Билки, Род и Земя</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
   <style>
-    body { background-color: #fff; font-family: 'Segoe UI', sans-serif; }
-    header { background-color: #ffe4ec; padding: 2rem; text-align: center; }
-    .product-card { border: 1px solid #ccc; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 2rem; }
-    .product-card img { max-width: 100%; height: auto; border-radius: 6px; }
-    .category-section { margin-bottom: 4rem; }
+    body {
+      font-family: 'Marcellus', serif;
+      margin: 0;
+      background: #f4f1ec;
+      color: #2b2b2b;
+    }
+    header {
+      background: #8c644c;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    nav {
+      background: #3e2f23;
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    nav a {
+      color: #fff3e5;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      background: url('https://images.unsplash.com/photo-1628178455055-06dbcc2c6c32') center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 1px 1px 6px #000;
+      font-size: 2rem;
+      padding: 2rem;
+      text-align: center;
+    }
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      color: #654b35;
+      border-bottom: 2px solid #bca28c;
+      padding-bottom: 0.5rem;
+    }
+    footer {
+      background: #3e2f23;
+      color: #fff3e5;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+    input, textarea, button {
+      padding: 0.75rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+    button {
+      background-color: #8c644c;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #6b4c37;
+    }
   </style>
 </head>
 <body>
-<header>
-  <h1>SEYTA EOOD - Онлайн Каталог</h1>
-  <p>Асортимент от произведени в Турция продукти: сапуни, шампоани, розови масла и почистващи препарати</p>
-</header>
-<main class="container py-4">
-
-<section class="category-section"><h2 class="mb-4">Сапуни</h2><div class="row">
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/rose-soap.jpg" alt="Сапун с розово масло">
-            <h3>Сапун с розово масло</h3>
-            <p>Натурален сапун с розово масло, 125 г</p>
-            <p><strong>4.90 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="soap001"
-              data-item-name="Сапун с розово масло"
-              data-item-price="4.9"
-              data-item-url="/"
-              data-item-description="Натурален сапун с розово масло, 125 г">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/olive-soap.jpg" alt="Сапун с маслиново масло">
-            <h3>Сапун с маслиново масло</h3>
-            <p>Ръчно изработен сапун с маслиново масло</p>
-            <p><strong>5.20 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="soap002"
-              data-item-name="Сапун с маслиново масло"
-              data-item-price="5.2"
-              data-item-url="/"
-              data-item-description="Ръчно изработен сапун с маслиново масло">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/lavender-soap.jpg" alt="Сапун с лавандула">
-            <h3>Сапун с лавандула</h3>
-            <p>Сапун с лавандулово масло, успокояващ аромат</p>
-            <p><strong>4.50 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="soap003"
-              data-item-name="Сапун с лавандула"
-              data-item-price="4.5"
-              data-item-url="/"
-              data-item-description="Сапун с лавандулово масло, успокояващ аромат">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-</div></section>
-<section class="category-section"><h2 class="mb-4">Шампоани</h2><div class="row">
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/argan-shampoo.jpg" alt="Шампоан с арган">
-            <h3>Шампоан с арган</h3>
-            <p>Шампоан с арганово масло, 400 мл</p>
-            <p><strong>6.90 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="shampoo001"
-              data-item-name="Шампоан с арган"
-              data-item-price="6.9"
-              data-item-url="/"
-              data-item-description="Шампоан с арганово масло, 400 мл">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/anti-dandruff-shampoo.jpg" alt="Шампоан против пърхот">
-            <h3>Шампоан против пърхот</h3>
-            <p>Шампоан против пърхот, 500 мл</p>
-            <p><strong>7.50 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="shampoo002"
-              data-item-name="Шампоан против пърхот"
-              data-item-price="7.5"
-              data-item-url="/"
-              data-item-description="Шампоан против пърхот, 500 мл">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-</div></section>
-<section class="category-section"><h2 class="mb-4">Прахове и почистващи препарати</h2><div class="row">
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/universal-cleaner.jpg" alt="Универсален препарат">
-            <h3>Универсален препарат</h3>
-            <p>Универсален почистващ препарат, 1 л</p>
-            <p><strong>6.80 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="cleaner001"
-              data-item-name="Универсален препарат"
-              data-item-price="6.8"
-              data-item-url="/"
-              data-item-description="Универсален почистващ препарат, 1 л">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/dish-gel.jpg" alt="Гел за съдове">
-            <h3>Гел за съдове</h3>
-            <p>Концентриран гел за съдове, лимон, 750 мл</p>
-            <p><strong>3.90 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="cleaner002"
-              data-item-name="Гел за съдове"
-              data-item-price="3.9"
-              data-item-url="/"
-              data-item-description="Концентриран гел за съдове, лимон, 750 мл">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/bathroom-cleaner.jpg" alt="Препарат за баня">
-            <h3>Препарат за баня</h3>
-            <p>Спрей за почистване на баня, 500 мл</p>
-            <p><strong>5.60 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="cleaner003"
-              data-item-name="Препарат за баня"
-              data-item-price="5.6"
-              data-item-url="/"
-              data-item-description="Спрей за почистване на баня, 500 мл">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-</div></section>
-<section class="category-section"><h2 class="mb-4">Розови масла и аромати</h2><div class="row">
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/rose-oil.jpg" alt="Розово масло 10 мл">
-            <h3>Розово масло 10 мл</h3>
-            <p>100% натурално розово масло от Турция</p>
-            <p><strong>14.50 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="rose001"
-              data-item-name="Розово масло 10 мл"
-              data-item-price="14.5"
-              data-item-url="/"
-              data-item-description="100% натурално розово масло от Турция">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-
-        <div class="col-md-4">
-          <div class="product-card">
-            <img src="img/rose-spray.jpg" alt="Спрей с розова вода">
-            <h3>Спрей с розова вода</h3>
-            <p>Освежаващ спрей с розова вода, 150 мл</p>
-            <p><strong>6.30 лв.</strong></p>
-            <button 
-              class="btn btn-primary snipcart-add-item"
-              data-item-id="rose002"
-              data-item-name="Спрей с розова вода"
-              data-item-price="6.3"
-              data-item-url="/"
-              data-item-description="Освежаващ спрей с розова вода, 150 мл">
-              Добави в количката
-            </button>
-          </div>
-        </div>
-        
-</div></section>
-
-</main>
-<div hidden id="snipcart" data-api-key="YOUR_SNIPCART_PUBLIC_API_KEY"></div>
+  <header>
+    <h1>Сейта ЕООД</h1>
+    <p>Родова билкова ферма с мисия – от природата до душата</p>
+  </header>
+  <nav>
+    <a href="#about">За нас</a>
+    <a href="#products">Продукти</a>
+    <a href="#mission">Мисия</a>
+    <a href="#gallery">Галерия</a>
+    <a href="#timeline">Хроника</a>
+    <a href="#contact">Контакт</a>
+  </nav>
+  <div class="hero">Билки с характер, събрани от ръце с корени</div>
+  <section id="about">
+    <h2>Кои сме ние</h2>
+    <p>"Сейта" ЕООД е семейна ферма, разположена в полите на Витоша. Ние съчетаваме традиционното знание с устойчивото земеделие, за да предложим автентични билки, отгледани с грижа и посвещение.</p>
+  </section>
+  <section id="products">
+    <h2>Нашите продукти</h2>
+    <p>Сушени билки, ръчно събирани и обработвани: маточина, мащерка, мента, риган, копър и много други. Предлагаме също билкови миксове, чайове и натурални масла.</p>
+  </section>
+  <section id="mission">
+    <h2>Нашата философия</h2>
+    <p>Да възродим уважението към земята, към ръчното, към бавното. Да сме мост между старото знание и новите пътища на чистото хранене, на лековитата природа, на родовата памет.</p>
+  </section>
+  <section id="gallery">
+    <h2>Галерия</h2>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1598026693281-2665d93e0433" alt="Билки 1" />
+      <img src="https://images.unsplash.com/photo-1629735601386-0d7b03c4a93d" alt="Билки 2" />
+      <img src="https://images.unsplash.com/photo-1622631977555-20eb1c15d87c" alt="Билки 3" />
+    </div>
+  </section>
+  <section id="timeline">
+    <h2>Родова хроника</h2>
+    <p>🌿 1938 – Първите билки от дядо Никола<br>
+       🌿 1974 – Мария – лечителка и знахарка<br>
+       🌿 2020 – Учредяване на „Сейта“ ЕООД<br>
+       🌿 2025 – Модерна сушилня в \"Ливадето\"</p>
+  </section>
+  <section id="contact">
+    <h2>Свържи се с нас</h2>
+    <form>
+      <input type="text" placeholder="Име" required />
+      <input type="email" placeholder="Имейл" required />
+      <textarea placeholder="Съобщение" rows="5" required></textarea>
+      <button type="submit">Изпрати</button>
+    </form>
+    <p>📍 с. Мърчаево, Столична община<br>📞 +359 88 123 4567<br>📧 office@seyta.bg</p>
+  </section>
+  <footer>© 2025 Сейта ЕООД – Всички права запазени</footer>
 </body>
 </html>
