@@ -1,46 +1,171 @@
-
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEYTA EOOD - Онлайн Магазин</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SEYTA - Каталог продукти</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+  header { background: #2c3e50; color: white; padding: 1rem 2rem; text-align: center; }
+  h1 { margin: 0; }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .product-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card img {
+    max-width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
+  .product-card h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
+    flex-grow: 1;
+  }
+  .product-card p {
+    font-size: 0.9rem;
+    color: #444;
+    margin: 0 0 0.75rem 0;
+  }
+  .price {
+    font-weight: bold;
+    color: #27ae60;
+    margin-bottom: 1rem;
+  }
+  button.add-to-cart {
+    background-color: #27ae60;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  button.add-to-cart:hover {
+    background-color: #1e874b;
+  }
+  #cartCount {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: #27ae60;
+    color: white;
+    font-weight: bold;
+    padding: 0.3rem 0.7rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    user-select: none;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>SEYTA EOOD</h1>
-        <nav>
-            <button onclick="toggleLanguage()">BG/EN</button>
-            <a href="cart.html">🛒 Количка</a>
-        </nav>
-    </header>
-    <main>
-        <div class="filters">
-            <label>Категория:
-                <select>
-                    <option>Всички</option>
-                    <option>Перилни препарати</option>
-                    <option>Почистващи препарати</option>
-                </select>
-            </label>
-            <label>Цена:
-                <input type="range" min="0" max="100" value="50">
-            </label>
-        </div>
-        <div class="products">
-            <div class="product">
-                <img src="images/product1.jpg" alt="Продукт 1">
-                <h2>Перилен препарат 1</h2>
-                <p>Описание на продукта.</p>
-                <p>Цена: 10 лв.</p>
-                <button>Добави в количката</button>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2025 SEYTA EOOD</p>
-    </footer>
-    <script src="script.js"></script>
+
+<header>
+  <h1>SEYTA – Каталог продукти</h1>
+</header>
+
+<div id="cartCount" title="Брой продукти в количката">0</div>
+
+<main class="product-grid">
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Persil+3L" alt="Persil Течен перилен препарат 3л" />
+    <h3>Persil Течен перилен препарат 3л</h3>
+    <p>Концентриран препарат за бели и цветни дрехи. Произход: Германия.</p>
+    <div class="price">14.90 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Persil Течен перилен препарат 3л', 14.90)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Ariel+Capsules+60" alt="Ariel Капсули за пране 60 бр." />
+    <h3>Ariel Капсули за пране 60 бр.</h3>
+    <p>Всичко в едно: перилен препарат, омекотител и избелващ агент.</p>
+    <div class="price">28.00 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Ariel Капсули за пране 60 бр.', 28.00)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Calgon+15" alt="Calgon Таблети за защита на пералня 15 бр." />
+    <h3>Calgon Таблети за защита на пералня 15 бр.</h3>
+    <p>Предпазва пералнята от варовик и повишава ефективността.</p>
+    <div class="price">7.90 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Calgon Таблети за защита на пералня 15 бр.', 7.90)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Gama+Universal+6kg" alt="GAMA Universal Прах за пране 6 кг" />
+    <h3>GAMA Universal Прах за пране 6 кг</h3>
+    <p>Подходящ за цветно и бяло пране, с приятен аромат.</p>
+    <div class="price">36.00 лв</div>
+    <button class="add-to-cart" onclick="addToCart('GAMA Universal Прах за пране 6 кг', 36.00)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Somat+All+in+1" alt="Somat All in 1 Таблети за съдомиялна 60 бр." />
+    <h3>Somat All in 1 Таблети за съдомиялна 60 бр.</h3>
+    <p>Измива и предпазва съдомиялната машина с лесно дозиране.</p>
+    <div class="price">35.50 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Somat All in 1 Таблети за съдомиялна 60 бр.', 35.50)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Bref+Power" alt="Bref Power Гел за тоалетна 750 мл" />
+    <h3>Bref Power Гел за тоалетна 750 мл</h3>
+    <p>Ефективно почистване и свеж аромат за вашата тоалетна.</p>
+    <div class="price">4.50 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Bref Power Гел за тоалетна 750 мл', 4.50)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Mr+Proper+1L" alt="Mr Proper Универсален препарат 1л" />
+    <h3>Mr Proper Универсален препарат 1л</h3>
+    <p>Почиства всички твърди повърхности с дезинфекциращ ефект.</p>
+    <div class="price">5.20 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Mr Proper Универсален препарат 1л', 5.20)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Vanish+Oxi+Action" alt="Vanish Oxi Action Прах за петна 1.5 кг" />
+    <h3>Vanish Oxi Action Прах за петна 1.5 кг</h3>
+    <p>Ефективно премахване на петна без увреждане на тъканите.</p>
+    <div class="price">14.00 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Vanish Oxi Action Прах за петна 1.5 кг', 14.00)">Добави в количката</button>
+  </div>
+
+  <div class="product-card">
+    <img src="https://placehold.co/300x200?text=Lenor+Fabric+Softener" alt="Lenor Омекотител за тъкани 2л" />
+    <h3>Lenor Омекотител за тъкани 2л</h3>
+    <p>Омекотява и придава свеж аромат на дрехите.</p>
+    <div class="price">11.50 лв</div>
+    <button class="add-to-cart" onclick="addToCart('Lenor Омекотител за тъкани 2л', 11.50)">Добави в количката</button>
+  </div>
+
+</main>
+
+<script>
+  let cart = [];
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    document.getElementById('cartCount').textContent = cart.length;
+    alert(`Добавихте "${name}" в количката!`);
+  }
+</script>
+
 </body>
 </html>
