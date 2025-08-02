@@ -1,0 +1,1 @@
+// JavaScript code for filters, cart and language toggle

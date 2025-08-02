@@ -2,69 +2,48 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEYTA Shop</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEYTA Онлайн Магазин</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script defer src="assets/js/scripts.js"></script>
 </head>
 <body>
-    <header>
-        <h1>SEYTA Shop</h1>
-        <button onclick="toggleLanguage()">БГ/EN</button>
-    </header>
-    <section>
-        <label for="category">Категория:</label>
-        <select id="category" onchange="filterProducts()">
-            <option value="all">Всички</option>
-            <option value="перилни">Перилни препарати</option>
-            <option value="почистващи">Почистващи препарати</option>
-        </select>
-        <label for="price">Цена:</label>
-        <select id="price" onchange="filterProducts()">
-            <option value="all">Всички</option>
-            <option value="low">Под 10 лв</option>
-            <option value="mid">10 - 20 лв</option>
-            <option value="high">Над 20 лв</option>
-        </select>
-    </section>
-    <main id="product-list">
-        <!-- Sample products -->
-        <div class="product" data-category="перилни" data-price="15">
-            <img src="images/product1.jpg" alt="Перилен препарат 1">
-            <h2>Перилен препарат 1</h2>
-            <p>Ефективен срещу упорити петна. 2L</p>
-            <span>15.00 лв</span>
-        </div>
-        <div class="product" data-category="почистващи" data-price="8">
-            <img src="images/product2.jpg" alt="Почистващ препарат 2">
-            <h2>Почистващ препарат 2</h2>
-            <p>За кухня и баня, без хлор. 500ml</p>
-            <span>8.00 лв</span>
-        </div>
-        <!-- Add 18 more similar products here -->
-    </main>
-    <footer>
-        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">Плати с Viva Wallet</a>
-    </footer>
-    <script>
-        function toggleLanguage() {
-            alert("Language toggle clicked - implement switch logic.");
-        }
-        function filterProducts() {
-            const category = document.getElementById('category').value;
-            const price = document.getElementById('price').value;
-            const products = document.querySelectorAll('.product');
+  <header>
+    <h1>SEYTA Онлайн Магазин</h1>
+    <button id="lang-toggle">EN/БГ</button>
+    <div id="currency-selector">
+      <label for="currency">Валута:</label>
+      <select id="currency">
+        <option value="BGN">BGN</option>
+        <option value="EUR">EUR</option>
+      </select>
+    </div>
+    <input type="text" id="search" placeholder="Търси продукт..." />
+  </header>
 
-            products.forEach(p => {
-                let catMatch = category === 'all' || p.dataset.category === category;
-                let priceVal = parseFloat(p.dataset.price);
-                let priceMatch = price === 'all' ||
-                    (price === 'low' && priceVal < 10) ||
-                    (price === 'mid' && priceVal >= 10 && priceVal <= 20) ||
-                    (price === 'high' && priceVal > 20);
-                p.style.display = catMatch && priceMatch ? 'block' : 'none';
-            });
-        }
-    </script>
+  <section id="filters">
+    <label>Категория:
+      <select id="category-filter">
+        <option value="all">Всички</option>
+        <option value="prep">Перилни препарати</option>
+        <option value="detergent">Детергенти</option>
+      </select>
+    </label>
+    <label>Цена до:
+      <input type="number" id="price-filter" placeholder="лв." />
+    </label>
+  </section>
+
+  <main id="product-list">
+    <!-- Продукти ще се зареждат тук -->
+  </main>
+
+  <footer>
+    <p>SEYTA EOOD © 2025</p>
+    <button id="checkout-btn">Плащане</button>
+  </footer>
+
+  <script src="https://www.vivawallet.com/web-payment.js"></script>
 </body>
 </html>
