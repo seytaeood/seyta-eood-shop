@@ -1,0 +1,85 @@
+import requests
+from bs4 import BeautifulSoup
+import json
+
+def scrape_chistdom_category(category_id=103):
+    base_url = f"https://chistdom.com/bg?category={category_id}"
+    products = []
+    
+    try:
+        response = requests.get(base_url, headers={'User-Agent': 'Mozilla/5.0'})
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Намиране на всички продукти в категорията
+        product_items = soup.find_all('div', class_='product-item')  # Променете според актуалния HTML на Chistdom
+        
+        for item in product_items:
+            product = {
+                'name': item.find('h3', class_='product-title').text.strip(),
+                'price': item.find('span', class_='price').text.strip(),
+                'description': item.find('div', class_='product-description').text.strip(),
+                'image_url': item.find('img')['src'],
+                'specs': []
+            }
+            
+            # Допълнителни характеристики (ако има)
+            specs = item.find_all('li', class_='spec-item')
+            for spec in specs:
+                product['specs'].append(spec.text.strip())
+            
+            products.append(product)
+        
+        return products
+    
+    except Exception as e:
+        print(f"Грешка при скрейпинг: {e}")
+        return []
+
+def generate_html(products, output_file='index.html'):
+    html_template = f"""
+    <!DOCTYPE html>
+    <html lang="bg">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Seyta EOOD - Продукти</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; margin: 0; padding: 20px; }}
+            .product-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }}
+            .product-card {{ border: 1px solid #ddd; padding: 15px; border-radius: 5px; }}
+            .product-image {{ max-width: 100%; height: auto; }}
+            .product-title {{ font-size: 1.2em; margin: 10px 0; }}
+            .product-price {{ font-weight: bold; color: #e63946; }}
+            .product-specs {{ margin-top: 10px; font-size: 0.9em; }}
+        </style>
+    </head>
+    <body>
+        <h1>Нашите продукти</h1>
+        <div class="product-grid">
+            {''.join([f"""
+            <div class="product-card">
+                <img src="{p['image_url']}" alt="{p['name']}" class="product-image">
+                <h2 class="product-title">{p['name']}</h2>
+                <div class="product-price">{p['price']}</div>
+                <p>{p['description']}</p>
+                <ul class="product-specs">
+                    {''.join([f'<li>{spec}</li>' for spec in p['specs']])}
+                </ul>
+            </div>
+            """ for p in products])}
+        </div>
+    </body>
+    </html>
+    """
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write(html_template)
+
+if __name__ == "__main__":
+    products = scrape_chistdom_category(103)
+    
+    if products:
+        generate_html(products)
+        print(f"Успешно генериран HTML файл с {len(products)} продукта.")
+    else:
+        print("Не са намерени продукти или възникна грешка.")
