@@ -2,48 +2,45 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SEYTA Онлайн Магазин</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <script defer src="assets/js/scripts.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEYTA EOOD - Онлайн Магазин</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>SEYTA Онлайн Магазин</h1>
-    <button id="lang-toggle">EN/БГ</button>
-    <div id="currency-selector">
-      <label for="currency">Валута:</label>
-      <select id="currency">
-        <option value="BGN">BGN</option>
-        <option value="EUR">EUR</option>
-      </select>
-    </div>
-    <input type="text" id="search" placeholder="Търси продукт..." />
-  </header>
-
-  <section id="filters">
-    <label>Категория:
-      <select id="category-filter">
-        <option value="all">Всички</option>
-        <option value="prep">Перилни препарати</option>
-        <option value="detergent">Детергенти</option>
-      </select>
-    </label>
-    <label>Цена до:
-      <input type="number" id="price-filter" placeholder="лв." />
-    </label>
-  </section>
-
-  <main id="product-list">
-    <!-- Продукти ще се зареждат тук -->
-  </main>
-
-  <footer>
-    <p>SEYTA EOOD © 2025</p>
-    <button id="checkout-btn">Плащане</button>
-  </footer>
-
-  <script src="https://www.vivawallet.com/web-payment.js"></script>
+    <header>
+        <h1>SEYTA EOOD</h1>
+        <nav>
+            <button onclick="toggleLanguage()">BG/EN</button>
+            <a href="cart.html">🛒 Количка</a>
+        </nav>
+    </header>
+    <main>
+        <div class="filters">
+            <label>Категория:
+                <select>
+                    <option>Всички</option>
+                    <option>Перилни препарати</option>
+                    <option>Почистващи препарати</option>
+                </select>
+            </label>
+            <label>Цена:
+                <input type="range" min="0" max="100" value="50">
+            </label>
+        </div>
+        <div class="products">
+            <div class="product">
+                <img src="images/product1.jpg" alt="Продукт 1">
+                <h2>Перилен препарат 1</h2>
+                <p>Описание на продукта.</p>
+                <p>Цена: 10 лв.</p>
+                <button>Добави в количката</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 SEYTA EOOD</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
