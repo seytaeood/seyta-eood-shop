@@ -1,15 +1,70 @@
-<!-- В HEAD -->
-<link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
-<script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
 
-<!-- В BODY, най-долу -->
-<div hidden id="snipcart" data-api-key="YOUR_PUBLIC_API_KEY" data-config-add-product-behavior="modal" data-currency="BGN"></div>
-<button class="snipcart-add-item"
-  data-item-id="item001"
-  data-item-price="25.99"
-  data-item-url="/"
-  data-item-name="Препарат за под"
-  data-item-description="Силен и свеж"
-  data-item-image="images/floor-cleaner.jpg">
-  Добави в количката
-</button>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEYTA Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>SEYTA Shop</h1>
+        <button onclick="toggleLanguage()">БГ/EN</button>
+    </header>
+    <section>
+        <label for="category">Категория:</label>
+        <select id="category" onchange="filterProducts()">
+            <option value="all">Всички</option>
+            <option value="перилни">Перилни препарати</option>
+            <option value="почистващи">Почистващи препарати</option>
+        </select>
+        <label for="price">Цена:</label>
+        <select id="price" onchange="filterProducts()">
+            <option value="all">Всички</option>
+            <option value="low">Под 10 лв</option>
+            <option value="mid">10 - 20 лв</option>
+            <option value="high">Над 20 лв</option>
+        </select>
+    </section>
+    <main id="product-list">
+        <!-- Sample products -->
+        <div class="product" data-category="перилни" data-price="15">
+            <img src="images/product1.jpg" alt="Перилен препарат 1">
+            <h2>Перилен препарат 1</h2>
+            <p>Ефективен срещу упорити петна. 2L</p>
+            <span>15.00 лв</span>
+        </div>
+        <div class="product" data-category="почистващи" data-price="8">
+            <img src="images/product2.jpg" alt="Почистващ препарат 2">
+            <h2>Почистващ препарат 2</h2>
+            <p>За кухня и баня, без хлор. 500ml</p>
+            <span>8.00 лв</span>
+        </div>
+        <!-- Add 18 more similar products here -->
+    </main>
+    <footer>
+        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">Плати с Viva Wallet</a>
+    </footer>
+    <script>
+        function toggleLanguage() {
+            alert("Language toggle clicked - implement switch logic.");
+        }
+        function filterProducts() {
+            const category = document.getElementById('category').value;
+            const price = document.getElementById('price').value;
+            const products = document.querySelectorAll('.product');
+
+            products.forEach(p => {
+                let catMatch = category === 'all' || p.dataset.category === category;
+                let priceVal = parseFloat(p.dataset.price);
+                let priceMatch = price === 'all' ||
+                    (price === 'low' && priceVal < 10) ||
+                    (price === 'mid' && priceVal >= 10 && priceVal <= 20) ||
+                    (price === 'high' && priceVal > 20);
+                p.style.display = catMatch && priceMatch ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
