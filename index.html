@@ -1,166 +1,279 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SEYTA – Перилни Препарати на Едро</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f7fa;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #004d99;
-      color: white;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-    #language-switch {
-      background-color: white;
-      color: #004d99;
-      border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .filters {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem;
-    }
-    .filters select {
-      padding: 0.4rem;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.2rem;
-      padding: 1rem;
-    }
-    .product-card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      padding: 1rem;
-      text-align: center;
-    }
-    .product-card img {
-      max-width: 100%;
-      height: 150px;
-      object-fit: contain;
-    }
-    .price {
-      color: #007a33;
-      font-weight: bold;
-      margin-top: 0.5rem;
-    }
-    .buy-button {
-      background-color: #00b36b;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      margin-top: 0.5rem;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    footer {
-      background: #004d99;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SEYTA - Магазин с перилни препарати</title>
+
+<!-- Snipcart CSS -->
+<link href="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.css" rel="stylesheet" />
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background:#f9f9f9;
+    color:#222;
+  }
+  header {
+    background:#004d99;
+    color:#fff;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  header h1 {
+    margin:0;
+  }
+  #cart-button {
+    background:#27ae60;
+    border:none;
+    padding:10px 20px;
+    color:#fff;
+    font-weight:bold;
+    border-radius:5px;
+    cursor:pointer;
+  }
+  main {
+    max-width:1100px;
+    margin: 20px auto;
+    padding:0 20px;
+  }
+  .products {
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+    gap:20px;
+  }
+  .product {
+    background:#fff;
+    padding:15px;
+    border-radius:8px;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
+    text-align:center;
+  }
+  .product img {
+    width:100%;
+    height:160px;
+    object-fit:contain;
+    margin-bottom:10px;
+  }
+  .product h3 {
+    margin:10px 0 5px 0;
+    font-size:18px;
+  }
+  .product p {
+    font-size:14px;
+    color:#555;
+    min-height:40px;
+  }
+  .price {
+    font-weight:bold;
+    color:#27ae60;
+    margin:10px 0;
+  }
+  .snipcart-add-item {
+    background:#004d99;
+    color:#fff;
+    border:none;
+    padding:10px 15px;
+    font-size:14px;
+    border-radius:5px;
+    cursor:pointer;
+    transition: background 0.3s ease;
+  }
+  .snipcart-add-item:hover {
+    background:#002f5f;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1 id="store-title">SEYTA – Перилни Препарати</h1>
-    <button id="language-switch">EN</button>
-  </header>
 
-  <section class="filters">
-    <select id="categoryFilter">
-      <option value="all">Всички категории</option>
-      <option value="перилни">Перилни</option>
-      <option value="почистващи">Почистващи</option>
-    </select>
-    <select id="priceFilter">
-      <option value="all">Всички цени</option>
-      <option value="low">Под 10 лв</option>
-      <option value="mid">10-20 лв</option>
-      <option value="high">Над 20 лв</option>
-    </select>
-  </section>
+<header>
+  <h1>SEYTA Магазин</h1>
+  <button id="cart-button" class="snipcart-checkout">
+    Количка (<span class="snipcart-items-count">0</span>)
+  </button>
+</header>
 
-  <section class="product-grid" id="productGrid">
-    <!-- Продукти -->
-    <div class="product-card" data-category="перилни" data-price="15">
-      <img src="https://images.unsplash.com/photo-1589810263364-dbc3facc1db3" alt="Персил гел 2.5L">
-      <h3>Persil Power Gel 2.5L</h3>
-      <p>Мощен течен перилен препарат за цветно пране. Немско качество.</p>
-      <p class="price">15.90 лв</p>
-      <button class="buy-button">Купи с Viva Wallet</button>
-    </div>
+<main>
+  <div class="products" id="products-container">
+    <!-- Продуктите ще се зареждат тук -->
+  </div>
+</main>
 
-    <div class="product-card" data-category="перилни" data-price="9">
-      <img src="https://images.unsplash.com/photo-1618839395896-f3a2fbd3d4c1" alt="Ariel капсули">
-      <h3>Ariel Pods 3in1</h3>
-      <p>Капсули за пране с мощна формула. 15 броя.</p>
-      <p class="price">9.99 лв</p>
-      <button class="buy-button">Купи с Viva Wallet</button>
-    </div>
+<!-- Snipcart -->
+<div hidden id="snipcart" data-api-key="ВАШИЯТ_API_КЛЮЧ_ТУК"></div>
+<script src="https://cdn.snipcart.com/themes/v3.3.1/default/snipcart.js"></script>
 
-    <!-- ... още 18 продукта със снимки (ако искаш, ще добавя веднага) ... -->
-  </section>
-
-  <footer>
-    <p>&copy; 2025 SEYTA EOOD. Всички права запазени.</p>
-  </footer>
-
-  <script>
-    const switcher = document.getElementById('language-switch');
-    const title = document.getElementById('store-title');
-    const buyButtons = document.querySelectorAll('.buy-button');
-    let isBG = true;
-
-    switcher.addEventListener('click', () => {
-      isBG = !isBG;
-      title.textContent = isBG ? 'SEYTA – Перилни Препарати' : 'SEYTA – Wholesale Detergents';
-      switcher.textContent = isBG ? 'EN' : 'БГ';
-      buyButtons.forEach(btn => btn.textContent = isBG ? 'Купи с Viva Wallet' : 'Buy with Viva Wallet');
-    });
-
-    document.getElementById('categoryFilter').addEventListener('change', filterProducts);
-    document.getElementById('priceFilter').addEventListener('change', filterProducts);
-
-    function filterProducts() {
-      const category = document.getElementById('categoryFilter').value;
-      const price = document.getElementById('priceFilter').value;
-      const cards = document.querySelectorAll('.product-card');
-
-      cards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-        const cardPrice = parseFloat(card.getAttribute('data-price'));
-        let visible = true;
-
-        if (category !== 'all' && cardCategory !== category) visible = false;
-        if (price === 'low' && cardPrice >= 10) visible = false;
-        if (price === 'mid' && (cardPrice < 10 || cardPrice > 20)) visible = false;
-        if (price === 'high' && cardPrice <= 20) visible = false;
-
-        card.style.display = visible ? 'block' : 'none';
-      });
+<script>
+  const products = [
+    {
+      id: "p1",
+      name: "Persil Power Gel 2.5L",
+      price: 15.90,
+      image: "https://images.unsplash.com/photo-1589810263364-dbc3facc1db3?auto=format&fit=crop&w=400&q=80",
+      description: "Мощен течен перилен препарат за цветно пране."
+    },
+    {
+      id: "p2",
+      name: "Ariel Pods 3in1",
+      price: 9.99,
+      image: "https://images.unsplash.com/photo-1618839395896-f3a2fbd3d4c1?auto=format&fit=crop&w=400&q=80",
+      description: "Капсули за пране с мощна формула. 15 броя."
+    },
+    {
+      id: "p3",
+      name: "Lenor Spring Awakening 1.9L",
+      price: 6.80,
+      image: "https://images.unsplash.com/photo-1616401788816-b56a7dcfc485?auto=format&fit=crop&w=400&q=80",
+      description: "Омекотител с дълготраен аромат."
+    },
+    {
+      id: "p4",
+      name: "Fairy Original 900мл",
+      price: 4.20,
+      image: "https://images.unsplash.com/photo-1616401789353-efc64a6b6a9f?auto=format&fit=crop&w=400&q=80",
+      description: "Препарат за съдове с лимонов аромат."
+    },
+    {
+      id: "p5",
+      name: "Bref Power Aktiv Ocean",
+      price: 3.90,
+      image: "https://images.unsplash.com/photo-1616401789271-b7f720b18e3b?auto=format&fit=crop&w=400&q=80",
+      description: "Таблетки за тоалетна с 4 активни съставки."
+    },
+    {
+      id: "p6",
+      name: "Domestos Thick Bleach 1.25L",
+      price: 5.60,
+      image: "https://images.unsplash.com/photo-1616401789435-1176c95ef2fb?auto=format&fit=crop&w=400&q=80",
+      description: "Дезинфектант за баня и тоалетна."
+    },
+    {
+      id: "p7",
+      name: "Calgon 3in1 - 15 таблетки",
+      price: 7.90,
+      image: "https://images.unsplash.com/photo-1616401790003-ec7065a30b25?auto=format&fit=crop&w=400&q=80",
+      description: "Против котлен камък за перални машини."
+    },
+    {
+      id: "p8",
+      name: "Vanish Oxi Action 1.5kg",
+      price: 11.20,
+      image: "https://images.unsplash.com/photo-1616401790484-78d3e2a2e7b6?auto=format&fit=crop&w=400&q=80",
+      description: "Прах за петна, подходящ за цветно пране."
+    },
+    {
+      id: "p9",
+      name: "Finish Powerball All-in-1",
+      price: 22.90,
+      image: "https://images.unsplash.com/photo-1616401791021-dbcfe5c21633?auto=format&fit=crop&w=400&q=80",
+      description: "Таблетки за съдомиялна с мощно почистване."
+    },
+    {
+      id: "p10",
+      name: "Cif Cream Lemon 750мл",
+      price: 4.70,
+      image: "https://images.unsplash.com/photo-1616401791400-4e2969427de0?auto=format&fit=crop&w=400&q=80",
+      description: "Абразивен крем за кухня и баня."
+    },
+    {
+      id: "p11",
+      name: "Sano Maxima 1L",
+      price: 5.50,
+      image: "https://images.unsplash.com/photo-1616401791855-b6a6c0e20cbb?auto=format&fit=crop&w=400&q=80",
+      description: "Многофункционален препарат за подове."
+    },
+    {
+      id: "p12",
+      name: "Glassex 500мл",
+      price: 3.20,
+      image: "https://images.unsplash.com/photo-1616401792211-56f1bc60f8b3?auto=format&fit=crop&w=400&q=80",
+      description: "Препарат за стъкла и огледала."
+    },
+    {
+      id: "p13",
+      name: "Bref Fresh WC",
+      price: 2.80,
+      image: "https://images.unsplash.com/photo-1616401792579-95192d7bb7f1?auto=format&fit=crop&w=400&q=80",
+      description: "Ароматизатор за тоалетна."
+    },
+    {
+      id: "p14",
+      name: "Savo Classic 1L",
+      price: 3.50,
+      image: "https://images.unsplash.com/photo-1616401792922-f96707f66a4c?auto=format&fit=crop&w=400&q=80",
+      description: "Отбелващ и дезинфекциращ препарат."
+    },
+    {
+      id: "p15",
+      name: "Dr. Beckmann Colour & Dirt",
+      price: 12.90,
+      image: "https://images.unsplash.com/photo-1616401793260-75d57b7a0d89?auto=format&fit=crop&w=400&q=80",
+      description: "Препарат за защита на цветовете."
+    },
+    {
+      id: "p16",
+      name: "Persil Sensitive Gel 2.5L",
+      price: 17.90,
+      image: "https://images.unsplash.com/photo-1616401793601-6d8c5b8cdabc?auto=format&fit=crop&w=400&q=80",
+      description: "Гел за чувствителна кожа."
+    },
+    {
+      id: "p17",
+      name: "Somat Gold 60 таблетки",
+      price: 29.50,
+      image: "https://images.unsplash.com/photo-1616401793967-8f4a9c2d1125?auto=format&fit=crop&w=400&q=80",
+      description: "Таблетки за съдомиялна с висока ефективност."
+    },
+    {
+      id: "p18",
+      name: "Finish Dishwasher Cleaner",
+      price: 7.90,
+      image: "https://images.unsplash.com/photo-1616401794320-5298f1e8109e?auto=format&fit=crop&w=400&q=80",
+      description: "Препарат за почистване на съдомиялна машина."
+    },
+    {
+      id: "p19",
+      name: "Cillit Bang Power Cleaner",
+      price: 6.20,
+      image: "https://images.unsplash.com/photo-1616401794667-58d08f803f4b?auto=format&fit=crop&w=400&q=80",
+      description: "Мощен почистващ препарат за баня и кухня."
+    },
+    {
+      id: "p20",
+      name: "Vileda Easy Wring",
+      price: 25.00,
+      image: "https://images.unsplash.com/photo-1616401795001-4c3e3a8fa796?auto=format&fit=crop&w=400&q=80",
+      description: "Система за изстискване на моп с кофа."
     }
-  </script>
+  ];
+
+  const container = document.getElementById('products-container');
+
+  products.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'product';
+    div.innerHTML = `
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.description}</p>
+      <p class="price">${p.price.toFixed(2)} лв</p>
+      <button 
+        class="snipcart-add-item"
+        data-item-id="${p.id}"
+        data-item-price="${p.price}"
+        data-item-url="https://seytaeood.github.io/seyta-eood-shop/"
+        data-item-name="${p.name}"
+        data-item-description="${p.description}"
+        data-item-image="${p.image}">
+        Добави в количка
+      </button>
+    `;
+    container.appendChild(div);
+  });
+</script>
+
 </body>
 </html>
