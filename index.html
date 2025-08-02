@@ -1,1 +1,113 @@
-pip install requests beautifulsoup4
+#!/bin/bash
+set -e
+
+# Създаване на папки
+mkdir -p seyta-scraper/data seyta-scraper/output
+
+# Създаване на scrape_chistdom.py
+cat > seyta-scraper/scrape_chistdom.py << 'EOF'
+import requests
+from bs4 import BeautifulSoup
+import json
+import os
+
+def scrape_chistdom_category(category_id=103):
+    base_url = f"https://chistdom.com/bg?category={category_id}"
+    products = []
+    try:
+        response = requests.get(base_url, headers={'User-Agent': 'Mozilla/5.0'})
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        product_items = soup.select('div.product-item')  # Провери правилния CSS селектор
+
+        for item in product_items:
+            name_tag = item.select_one('h3.product-title')
+            price_tag = item.select_one('span.price')
+            desc_tag = item.select_one('div.product-description')
+            image_tag = item.select_one('img')
+
+            if not (name_tag and price_tag and desc_tag and image_tag):
+                continue
+
+            specs = [spec.text.strip() for spec in item.select('li.spec-item')] if item.select('li.spec-item') else []
+
+            product = {
+                'id': name_tag.text.strip().lower().replace(' ', '-'),
+                'name': name_tag.text.strip(),
+                'price': price_tag.text.strip(),
+                'description': desc_tag.text.strip(),
+                'image': image_tag['src'],
+                'specs': specs
+            }
+            products.append(product)
+
+        return products
+    except Exception as e:
+        print(f"Грешка при скрейпинг: {e}")
+        return []
+
+def save_json(products, path='data/products.json'):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump({'products': products}, f, ensure_ascii=False, indent=2)
+    print(f"Продуктите са записани в {path}")
+
+def generate_html_from_json(json_path='data/products.json', output_path='output/index.html'):
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    products = data.get('products', [])
+    html = f\"\"\"<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seyta EOOD - Продукти</title>
+<style>
+  body {{ font-family: Arial, sans-serif; margin: 0; padding: 20px; background:#f9f9f9; }}
+  .product-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 20px; }}
+  .product-card {{ background: #fff; border-radius: 6px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }}
+  .product-image {{ max-width: 100%; height: 180px; object-fit: contain; }}
+  .product-title {{ font-size: 1.2em; margin: 10px 0 5px; }}
+  .product-price {{ font-weight: bold; color: #27ae60; }}
+  .product-specs {{ margin-top: 10px; font-size: 0.9em; list-style: inside disc; color: #555; }}
+</style>
+</head>
+<body>
+  <h1>Нашите продукти</h1>
+  <div class="product-grid">
+\"\"\"
+    for p in products:
+        specs_html = "".join([f"<li>{spec}</li>" for spec in p.get('specs', [])])
+        html += f\"\"\"
+    <div class="product-card">
+      <img src="{p.get('image')}" alt="{p.get('name')}">
+      <h2 class="product-title">{p.get('name')}</h2>
+      <div class="product-price">{p.get('price')}</div>
+      <p>{p.get('description')}</p>
+      <ul class="product-specs">{specs_html}</ul>
+    </div>\"\"\"
+
+    html += \"\"\"
+  </div>
+</body>
+</html>\"\"\"
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f"Генериран HTML каталог: {output_path}")
+
+if __name__ == "__main__":
+    products = scrape_chistdom_category(103)
+    if products:
+        save_json(products)
+        generate_html_from_json()
+    else:
+        print("Не са намерени продукти или възникна грешка.")
+EOF
+
+# Създаване на ZIP архива
+zip -r seyta-scraper.zip seyta-scraper/
+
+echo "ZIP архивът seyta-scraper.zip е създаден успешно."
