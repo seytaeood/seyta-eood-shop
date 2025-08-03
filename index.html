@@ -3,46 +3,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEYTA EOOD Shop</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <script defer src="script.js"></script>
 </head>
 <body>
     <header>
-        <img src="assets/logo.png" alt="SEYTA EOOD Logo" id="logo">
-        <h1>SEYTA EOOD - Wholesale Detergents</h1>
+        <h1>SEYTA EOOD</h1>
         <nav>
-            <button onclick="switchLanguage('en')">EN</button>
-            <button onclick="switchLanguage('bg')">BG</button>
-        </nav>
-        <div class="currency-selector">
-            <label for="currency">Currency:</label>
-            <select id="currency" onchange="convertCurrency()">
+            <button onclick="changeLang('bg')">BG</button>
+            <button onclick="changeLang('en')">EN</button>
+            <select id="currencySelect" onchange="changeCurrency(this.value)">
                 <option value="BGN">BGN</option>
                 <option value="EUR">EUR</option>
-                <option value="USD">USD</option>
             </select>
-        </div>
-        <div class="cart"><a href="#">🛒 Cart (0)</a></div>
+        </nav>
     </header>
     <main>
-        <section id="filters">
-            <input type="text" id="search" placeholder="Search products...">
-            <select id="categoryFilter">
-                <option value="all">All Categories</option>
-                <option value="detergents">Detergents</option>
-                <option value="cleaners">Cleaners</option>
-                <option value="others">Others</option>
-            </select>
-        </section>
-        <section id="product-list">
-            <!-- Products will be injected here -->
-        </section>
+        <aside>
+            <input type="text" id="searchInput" placeholder="Search...">
+            <h3>Filter by category</h3>
+            <ul id="categoryFilter"></ul>
+            <h3>Filter by price</h3>
+            <input type="range" id="priceRange" min="0" max="100" step="1" oninput="filterProducts()">
+        </aside>
+        <section id="productGrid"></section>
     </main>
     <footer>
-        <p>&copy; 2025 SEYTA EOOD. All rights reserved.</p>
-        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">Pay with Viva Wallet</a>
+        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">Checkout with Viva Wallet</a>
     </footer>
 </body>
 </html>
