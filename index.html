@@ -1,37 +1,40 @@
+<section style="background-color: #f9f9f9; padding: 2rem; border-top: 1px solid #ddd; margin-top: 2rem;">
+  <div style="text-align: center;">
+    <img src="images/logo.png" alt="SEYTA Лого" style="max-height: 80px; margin-bottom: 1rem;">
+    <h2>Заяви оферта на PDF</h2>
+    <p>Свали автоматично попълнен файл с дата, номер и контакти.</p>
+    <a href="https://sytaeoodfiles.blob.core.windows.net/public/seyta-request-form.pdf?sp=r&st=2025-08-03T14:00:00Z&se=2025-08-04T14:00:00Z&spr=https&sv=2022-11-02&sr=b&sig=VJUXp6U8uFv%2FbRfSbtvjZ%2BaTuPjqVviN%2Fqt4OU7Kl6A%3D" 
+       target="_blank"
+       style="display: inline-block; background-color: #007bff; color: white; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 1rem 0;">
+      📄 Изтегли PDF заявка
+    </a>
+  </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SEYTA EOOD Shop</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles.css" rel="stylesheet">
-    <script defer src="script.js"></script>
-</head>
-<body>
-    <header>
-        <h1>SEYTA EOOD</h1>
-        <nav>
-            <button onclick="changeLang('bg')">BG</button>
-            <button onclick="changeLang('en')">EN</button>
-            <select id="currencySelect" onchange="changeCurrency(this.value)">
-                <option value="BGN">BGN</option>
-                <option value="EUR">EUR</option>
-            </select>
-        </nav>
-    </header>
-    <main>
-        <aside>
-            <input type="text" id="searchInput" placeholder="Search...">
-            <h3>Filter by category</h3>
-            <ul id="categoryFilter"></ul>
-            <h3>Filter by price</h3>
-            <input type="range" id="priceRange" min="0" max="100" step="1" oninput="filterProducts()">
-        </aside>
-        <section id="productGrid"></section>
-    </main>
-    <footer>
-        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">Checkout with Viva Wallet</a>
-    </footer>
-</body>
-</html>
+  <form style="max-width: 600px; margin: 2rem auto; text-align: left;">
+    <label for="name">Име:</label><br>
+    <input type="text" id="name" name="name" placeholder="Вашето име" required style="width: 100%; padding: 0.6rem; margin-bottom: 1rem;">
+
+    <label for="email">Имейл:</label><br>
+    <input type="email" id="email" name="email" placeholder="Вашият имейл" required style="width: 100%; padding: 0.6rem; margin-bottom: 1rem;">
+
+    <label for="message">Съобщение или заявка:</label><br>
+    <textarea id="message" name="message" placeholder="Вашето съобщение..." rows="4" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem;"></textarea>
+
+    <button type="submit" style="background-color: #28a745; color: white; padding: 0.6rem 1.5rem; border: none; border-radius: 6px; cursor: pointer;">
+      📤 Изпрати заявка
+    </button>
+  </form>
+
+  <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #555;">
+    <p><strong>Контакти:</strong> +359 88 123 4567 | office@seyta.bg</p>
+    <p>Номер на заявка: <strong>#REQ-<span id="req-id"></span></strong> | Дата: <span id="today"></span></p>
+  </div>
+</section>
+
+<script>
+  // Генериране на номер на заявка
+  const now = new Date();
+  const reqId = `${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}-${Math.floor(1000 + Math.random() * 9000)}`;
+  document.getElementById('req-id').textContent = reqId;
+  document.getElementById('today').textContent = now.toLocaleDateString("bg-BG");
+</script>
