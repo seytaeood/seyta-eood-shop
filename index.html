@@ -1,40 +1,21 @@
-<section style="background-color: #f9f9f9; padding: 2rem; border-top: 1px solid #ddd; margin-top: 2rem;">
-  <div style="text-align: center;">
-    <img src="images/logo.png" alt="SEYTA Лого" style="max-height: 80px; margin-bottom: 1rem;">
-    <h2>Заяви оферта на PDF</h2>
-    <p>Свали автоматично попълнен файл с дата, номер и контакти.</p>
-    <a href="https://sytaeoodfiles.blob.core.windows.net/public/seyta-request-form.pdf?sp=r&st=2025-08-03T14:00:00Z&se=2025-08-04T14:00:00Z&spr=https&sv=2022-11-02&sr=b&sig=VJUXp6U8uFv%2FbRfSbtvjZ%2BaTuPjqVviN%2Fqt4OU7Kl6A%3D" 
-       target="_blank"
-       style="display: inline-block; background-color: #007bff; color: white; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 1rem 0;">
-      📄 Изтегли PDF заявка
-    </a>
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title>Seyta EOOD Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color:#fff0f6; font-family:sans-serif;">
+  <div class="container py-5">
+    <h1 class="text-center mb-4">Добре дошли в Seyta EOOD</h1>
+    <p class="text-center mb-5">Моля, изберете категория продукт:</p>
+    <div class="list-group">
+      <a href="soaps-bg.html" class="list-group-item list-group-item-action">Сапуни</a>
+      <a href="shampoos-bg.html" class="list-group-item list-group-item-action">Шампоани</a>
+      <a href="detergents-bg.html" class="list-group-item list-group-item-action">Препарати</a>
+      <a href="rose-oils-bg.html" class="list-group-item list-group-item-action">Розови масла</a>
+    </div>
   </div>
-
-  <form style="max-width: 600px; margin: 2rem auto; text-align: left;">
-    <label for="name">Име:</label><br>
-    <input type="text" id="name" name="name" placeholder="Вашето име" required style="width: 100%; padding: 0.6rem; margin-bottom: 1rem;">
-
-    <label for="email">Имейл:</label><br>
-    <input type="email" id="email" name="email" placeholder="Вашият имейл" required style="width: 100%; padding: 0.6rem; margin-bottom: 1rem;">
-
-    <label for="message">Съобщение или заявка:</label><br>
-    <textarea id="message" name="message" placeholder="Вашето съобщение..." rows="4" style="width: 100%; padding: 0.6rem; margin-bottom: 1rem;"></textarea>
-
-    <button type="submit" style="background-color: #28a745; color: white; padding: 0.6rem 1.5rem; border: none; border-radius: 6px; cursor: pointer;">
-      📤 Изпрати заявка
-    </button>
-  </form>
-
-  <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #555;">
-    <p><strong>Контакти:</strong> +359 88 123 4567 | office@seyta.bg</p>
-    <p>Номер на заявка: <strong>#REQ-<span id="req-id"></span></strong> | Дата: <span id="today"></span></p>
-  </div>
-</section>
-
-<script>
-  // Генериране на номер на заявка
-  const now = new Date();
-  const reqId = `${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}-${Math.floor(1000 + Math.random() * 9000)}`;
-  document.getElementById('req-id').textContent = reqId;
-  document.getElementById('today').textContent = now.toLocaleDateString("bg-BG");
-</script>
+</body>
+</html>
