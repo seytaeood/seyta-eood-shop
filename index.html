@@ -1,37 +1,85 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEYTA EOOD</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сейта ЕООД - Начало</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <h1>SEYTA EOOD</h1>
-        <nav>
-            <a href="index.html">Начало</a>
-            <a href="cleaners.html">Почистващи препарати</a>
-            <a href="https://pay.vivawallet.com/seyta-eood" target="_blank">Плащане</a>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Добре дошли!</h2>
-            <p>Висококачествени продукти, произведени в Турция.</p>
-        </section>
-        <section class="products">
-            <h3>Препоръчани продукти</h3>
-            <div class="product-card">
-                <img src="images/detergent.jpg" alt="Турски препарат">
-                <h4>Препарат за под</h4>
-                <p>Мощен препарат за почистване на подови настилки.</p>
-                <p><strong>Цена:</strong> 6.99 лв.</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>Контакт: +359896600310 | Email: epron1eood@gmail.com</p>
-    </footer>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Сейта ЕООД</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="cleaners.html">Почистващи препарати</a></li>
+          <li class="nav-item"><a class="nav-link" href="soaps.html">Сапуни</a></li>
+          <li class="nav-item"><a class="nav-link" href="shampoos.html">Шампоани</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="py-5 text-center bg-light">
+    <div class="container">
+      <h1>Добре дошли в Сейта ЕООД</h1>
+      <p class="lead">Вашият избор за качествени почистващи препарати, сапуни и шампоани произведени в Турция.</p>
+    </div>
+  </header>
+
+  <main class="container my-5">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <img src="images/omo-professional.jpg" class="card-img-top" alt="Прах за пране OMO Professional" />
+          <div class="card-body">
+            <h5 class="card-title">Прах за пране OMO Professional</h5>
+            <p class="card-text">Професионален препарат за пране, 8.4 кг, 168 пранета.</p>
+            <a href="cleaners.html" class="btn btn-primary">Виж продукти</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <img src="images/lavender-soap.jpg" class="card-img-top" alt="Лавандулов сапун" />
+          <div class="card-body">
+            <h5 class="card-title">Лавандулов сапун</h5>
+            <p class="card-text">Натурален сапун с лавандулово масло, подходящ за чувствителна кожа.</p>
+            <a href="soaps.html" class="btn btn-primary">Виж продукти</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <img src="images/argan-shampoo.jpg" class="card-img-top" alt="Арганов шампоан" />
+          <div class="card-body">
+            <h5 class="card-title">Арганов шампоан</h5>
+            <p class="card-text">Шампоан с арганово масло за здрава и блестяща коса.</p>
+            <a href="shampoos.html" class="btn btn-primary">Виж продукти</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-primary text-white py-3 text-center">
+    <div class="container">
+      <small>© 2025 Сейта ЕООД | Email: epron1eood@gmail.com | Телефон: +359896600310</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
