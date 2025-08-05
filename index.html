@@ -1,33 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seyta EOOD Shop 3D</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEYTA EOOD – Онлайн магазин</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px;
+      background-color: #f5f5f5;
+    }
+    .product-card {
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .product-card:hover {
+      transform: scale(1.02);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    footer {
+      background: #333;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Добре дошли в Seyta 3D Магазин</h1>
-    </header>
+  <!-- Навигация -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">SEYTA EOOD</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Начало</a></li>
+          <li class="nav-item"><a class="nav-link" href="#cleaners">Почистващи препарати</a></li>
+          <li class="nav-item"><a class="nav-link" href="mailto:epron1eood@gmail.com">Контакт</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <main>
-        <section class="product-section">
-            <h2>3D Визуализация на продукт</h2>
-            <model-viewer src="product.glb" alt="3D Продукт" auto-rotate camera-controls ar style="width: 100%; height: 400px;"></model-viewer>
-        </section>
-    </main>
+  <!-- Хедър -->
+  <header class="py-5 text-center bg-light">
+    <div class="container">
+      <h1 class="display-5 fw-bold">Турски почистващи препарати на едро и дребно</h1>
+      <p class="lead">Доставка, качество, достъпност. Онлайн магазин на SEYTA EOOD</p>
+      <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-primary btn-lg">Плати директно</a>
+    </div>
+  </header>
 
-    <a href="https://wa.me/359888000000?text=Здравейте,%20искам%20да%20поръчам%20продукт" target="_blank" class="whatsapp-button">
-        📱 Поръчай по WhatsApp
-    </a>
+  <!-- Категория: Почистващи препарати -->
+  <section id="cleaners" class="py-5">
+    <div class="container">
+      <h2 class="mb-4 text-center">Почистващи препарати</h2>
+      <div class="row g-4">
+        <!-- Продукт 1 -->
+        <div class="col-md-4">
+          <div class="card product-card">
+            <img src="https://vnosnipreparati.com/wp-content/uploads/2021/12/omo-professional-prah-1.jpg" class="card-img-top" alt="ОМО Прах">
+            <div class="card-body">
+              <h5 class="card-title">Прах за пране OMO Professional 10.5 кг</h5>
+              <p class="card-text">Подходящ за бяло и цветно пране. Висока ефективност и икономичност.</p>
+              <p class="fw-bold">Цена: 42.00 лв</p>
+              <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-success">Купи</a>
+            </div>
+          </div>
+        </div>
+        <!-- Продукт 2 -->
+        <div class="col-md-4">
+          <div class="card product-card">
+            <img src="https://vnosnipreparati.com/wp-content/uploads/2022/03/domestos-5l.jpg" class="card-img-top" alt="Domestos">
+            <div class="card-body">
+              <h5 class="card-title">Domestos 5L – Универсален препарат</h5>
+              <p class="card-text">Идеален за дезинфекция и почистване на бани, тоалетни и повърхности.</p>
+              <p class="fw-bold">Цена: 16.90 лв</p>
+              <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-success">Купи</a>
+            </div>
+          </div>
+        </div>
+        <!-- Продукт 3 -->
+        <div class="col-md-4">
+          <div class="card product-card">
+            <img src="https://vnosnipreparati.com/wp-content/uploads/2022/01/sano-floor-cleaner.jpg" class="card-img-top" alt="Sano">
+            <div class="card-body">
+              <h5 class="card-title">Sano Floor Cleaner – 2L</h5>
+              <p class="card-text">Ароматизиран препарат за почистване на подови настилки с отличен ефект.</p>
+              <p class="fw-bold">Цена: 7.20 лв</p>
+              <a href="https://pay.vivawallet.com/seyta-eood" class="btn btn-success">Купи</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Chatbase AI Chat -->
-    <script>
-      window.chatbaseConfig = { chatbotId: "YOUR_CHATBOT_ID" };
-    </script>
-    <script src="https://www.chatbase.co/embed.min.js" defer></script>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 SEYTA EOOD | Email: epron1eood@gmail.com | Тел: +359 896 600 310</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
