@@ -1,24 +1,4 @@
-.pay-button {
-  display: inline-block;
-  background-color: #00aaff;
-  color: white;
-  padding: 12px 20px;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 6px;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
-}
-
-.pay-button:hover {
-  background-color: #0077cc;
-}<div style="text-align:center; margin-top:30px;">
-  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" class="pay-button">
-    🛒 Плати с Viva Wallet
-  </a>
-</div><div style="text-align:center; margin-top:20px;">
-  <img src="assets/images/logo.png" alt="SEYTA EOOD Logo" style="width:200px; height:auto;">
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
@@ -29,51 +9,38 @@
 <body>
   <header>
     <img src="assets/images/logo.png" alt="SEYTA EOOD Logo" class="logo">
-    <nav>
-      <ul>
-        <li><a href="#products">Продукти</a></li>
-        <li><a href="#about">За нас</a></li>
-        <li><a href="#contact">Контакт</a></li>
-      </ul>
-    </nav>
+    <h1>Турски почистващи препарати</h1>
   </header>
 
-  <main>
-    <section id="hero">
-      <h1>Добре дошли в SEYTA EOOD</h1>
-      <p>Висококачествени турски почистващи препарати на едро и дребно</p>
-    </section>
+  <section id="products">
+    <h2>Нашите продукти</h2>
+    <div class="product-grid">
 
-    <section id="products">
-      <h2>Нашите продукти</h2>
-      <div class="product-grid">
-        <!-- Примерен продукт -->
-        <div class="product-card">
-          <img src="assets/images/product1.jpg" alt="Препарат">
-          <h3>Перилен препарат ABC</h3>
-          <p>Мощна формула за дълбоко почистване</p>
-          <span class="price">12.99 лв</span>
-        </div>
-        <!-- Добави още продукти -->
+      <div class="product-card">
+        <img src="assets/images/abc-detergent.jpg" alt="ABC Перилен препарат" class="product-image">
+        <h3>ABC Перилен препарат</h3>
+        <p>2x защита на цветовете, 6 кг, до 40 пранета</p>
+        <span class="price">24.99 лв</span>
+        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" class="pay-button">Купи</a>
       </div>
-    </section>
 
-    <section id="about">
-      <h2>За SEYTA EOOD</h2>
-      <p>Фирмата е специализирана в дистрибуцията на турски почистващи препарати. Работим с търговци на едро и дребно, като осигуряваме бърза доставка и конкурентни цени.</p>
-    </section>
+      <div class="product-card">
+        <img src="assets/images/xyz-cleaner.jpg" alt="XYZ Почистващ препарат" class="product-image">
+        <h3>XYZ Почистващ препарат</h3>
+        <p>Универсален препарат за кухня и баня, 1 л</p>
+        <span class="price">8.99 лв</span>
+        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" class="pay-button">Купи</a>
+      </div>
 
-    <section id="contact">
-      <h2>Контакт</h2>
-      <p>📞 Телефон: +359 88 123 4567</p>
-      <p>📧 Email: info@seyta.bg</p>
-      <p>📍 Адрес: София, България</p>
-    </section>
-  </main>
+      <div class="product-card">
+        <img src="assets/images/rose-shampoo.jpg" alt="Rose Шампоан" class="product-image">
+        <h3>Rose Шампоан</h3>
+        <p>С арганово масло, за блясък и мекота, 500 мл</p>
+        <span class="price">6.49 лв</span>
+        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" class="pay-button">Купи</a>
+      </div>
 
-  <footer>
-    <p>&copy; 2025 SEYTA EOOD. Всички права запазени.</p>
-  </footer>
+    </div>
+  </section>
 </body>
-
 </html>
