@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
+  <meta charset="UTF-8">
+  <title>SEYTA EOOD Shop</title>
+</head>
+<body>
+  <h1>Добре дошли в SEYTA EOOD</h1>
+  <p>Онлайн магазин за перилни препарати и детергенти.</p>
+
+  <!-- Viva Wallet бутон -->
+  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener"
+     style="position:fixed;right:16px;bottom:16px;background:#6b46c1;color:#fff;
+            padding:14px 18px;border-radius:9999px;
+            box-shadow:0 6px 16px rgba(0,0,0,.2);
+            text-decoration:none;font-weight:700;z-index:9999;">
+    Плати с Viva Wallet
+  </a>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SEYTA EOOD - Онлайн магазин</title>
