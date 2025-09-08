@@ -146,6 +146,151 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
+  <meta charset="UTF-8" />
+  <title>SEYTA EOOD Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --brand:#6b46c1; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Arial, sans-serif; background:#f7f7f9; color:#222; }
+    header { background:var(--brand); color:#fff; padding:20px; }
+    header .wrap { max-width:1100px; margin:0 auto; display:flex; gap:16px; align-items:center; justify-content:space-between; }
+    .brand { font-size:20px; font-weight:700; letter-spacing:.3px; }
+    nav a { color:#fff; text-decoration:none; padding:8px 12px; border-radius:8px; }
+    nav a:hover { background:rgba(255,255,255,.15); }
+    main { max-width:1100px; margin:24px auto; padding:0 16px; }
+    .toolbar { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+    .toolbar input, .toolbar select, .toolbar button {
+      padding:10px 12px; border:1px solid #ddd; border-radius:10px; background:#fff;
+    }
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap:16px; }
+    .card { background:#fff; border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,.06); overflow:hidden; display:flex; flex-direction:column; }
+    .card img { width:100%; height:160px; object-fit:cover; background:#eee; }
+    .p16 { padding:16px; }
+    .title { font-size:16px; font-weight:700; color:var(--brand); margin:0 0 6px; }
+    .muted { color:#666; font-size:13px; }
+    .row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:12px; }
+    .btn, a.btn { display:inline-block; background:var(--brand); color:#fff; text-decoration:none; border:0; padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer; }
+    footer { text-align:center; padding:24px; color:#777; }
+    .floating-pay { position:fixed; right:16px; bottom:16px; background:var(--brand); color:#fff; padding:14px 18px; border-radius:9999px; box-shadow:0 6px 16px rgba(0,0,0,.2); text-decoration:none; font-weight:700; z-index:9999; }
+    .empty { text-align:center; padding:40px; color:#666; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">SEYTA EOOD — Перилни и почистващи</div>
+      <nav>
+        <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" rel="noopener">Плати с Viva Wallet</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Търси продукт..." />
+      <select id="cat">
+        <option value="">Всички категории</option>
+      </select>
+      <button id="csv" class="btn" type="button">Експорт CSV</button>
+    </div>
+
+    <div id="grid" class="grid"></div>
+
+    <div id="empty" class="empty" style="display:none;">Няма съвпадения.</div>
+  </main>
+
+  <footer>© 2025 SEYTA EOOD</footer>
+
+  <!-- Плаващ бутон за плащане -->
+  <a href="https://pay.vivawallet.com/seyta-eood" target="_blank" class="floating-pay">Плати</a>
+
+  <script src="products.js"></script>
+  <script>
+    // UI refs
+    const grid = document.getElementById('grid');
+    const q = document.getElementById('q');
+    const cat = document.getElementById('cat');
+    const empty = document.getElementById('empty');
+    const csvBtn = document.getElementById('csv');
+
+    // Populate category filter
+    const categories = [...new Set(PRODUCTS.map(p => p.category))].sort();
+    for (const c of categories) {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      cat.appendChild(opt);
+    }
+
+    function money(v, cur='BGN') {
+      try { return new Intl.NumberFormat('bg-BG', { style:'currency', currency: cur }).format(v); }
+      catch { return v + ' ' + cur; }
+    }
+
+    function render(list) {
+      grid.innerHTML = '';
+      if (!list.length) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      for (const p of list) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${p.image}" alt="${p.name}" loading="lazy">
+          <div class="p16">
+            <h3 class="title">${p.name}</h3>
+            <div class="muted">${p.category}</div>
+            <div class="row">
+              <div><strong>${money(p.price, p.currency)}</strong><div class="muted">${p.size || ''}</div></div>
+              <div>
+                <a class="btn" href="product.html?id=${encodeURIComponent(p.id)}">Детайли</a>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    function filter() {
+      const term = q.value.trim().toLowerCase();
+      const c = cat.value;
+      const out = PRODUCTS.filter(p => {
+        const hit = [p.name, p.category, p.description].join(' ').toLowerCase().includes(term);
+        const inCat = !c || p.category === c;
+        return hit && inCat;
+      });
+      render(out);
+    }
+
+    q.addEventListener('input', filter);
+    cat.addEventListener('change', filter);
+
+    // CSV export
+    csvBtn.addEventListener('click', () => {
+      const cols = ['id','name','price','currency','category','size','image','description'];
+      const rows = [cols.join(',')]
+        .concat(PRODUCTS.map(p => cols.map(k => {
+          const v = (p[k] ?? '').toString().replace(/"/g,'""');
+          return /[",\n]/.test(v) ? `"${v}"` : v;
+        }).join(',')));
+      const blob = new Blob([rows.join('\n')], { type:'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'seyta-products.csv'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // First render
+    render(PRODUCTS);
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
   <meta charset="UTF-8">
   <title>SEYTA EOOD Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -292,5 +437,6 @@
 </body>
 
 </html>
+
 
 
