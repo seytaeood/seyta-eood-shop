@@ -183,6 +183,245 @@ const PRODUCTS = [
     price: 32.00, currency: "BGN",
     category: "Професионални", size: "10 L",
     image: "https://images.unsplash.com/photo-1585421514738-01798e348b17?q=80&w=1200&auto=format&fit=crop",
+    description: "Концентрат за големи площи. Ниска пенообразуваност."
+  },
+  // Перилни капсули
+  {
+    id: "PODS-COLOR-30",
+    name: "Капсули за пране Color 30 бр.",
+    price: 17.90, currency: "BGN",
+    category: "Перилни препарати", size: "30 бр.",
+    image: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c86?q=80&w=1200&auto=format&fit=crop",
+    description: "Тройна камера. Премахва петна и пази цвета."
+  },
+  {
+    id: "PODS-WHITE-42",
+    name: "Капсули за пране White 42 бр.",
+    price: 23.50, currency: "BGN",
+    category: "Перилни препарати", size: "42 бр.",
+    image: "https://images.unsplash.com/photo-1607619056574-7b8d7a3ae2b6?q=80&w=1200&auto=format&fit=crop",
+    description: "Избелваща технология. Ясно дозиране."
+  },
+  // Ароматизатори за пране
+  {
+    id: "SCENT-BEADS-260",
+    name: "Ароматни перли Fresh Laundry 260 g",
+    price: 12.90, currency: "BGN",
+    category: "Ароматизатори", size: "260 g",
+    image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5b84cc?q=80&w=1200&auto=format&fit=crop",
+    description: "Добавя дълбок аромат директно в барабана."
+  },
+  {
+    id: "SCENT-BEADS-500",
+    name: "Ароматни перли Spring Garden 500 g",
+    price: 19.50, currency: "BGN",
+    category: "Ароматизатори", size: "500 g",
+    image: "https://images.unsplash.com/photo-1486946255434-2466348c2166?q=80&w=1200&auto=format&fit=crop",
+    description: "Интензивен и дълготраен аромат до 12 седмици."
+  },
+  // Стъклокерамика и инокс
+  {
+    id: "HOB-CERAMIC-500",
+    name: "Почистващ за стъклокерамика 500 ml",
+    price: 6.20, currency: "BGN",
+    category: "Кухня", size: "500 ml",
+    image: "https://images.unsplash.com/photo-1517991104123-1d56a6e69c63?q=80&w=1200&auto=format&fit=crop",
+    description: "Премахва загорели петна. Полира повърхността."
+  },
+  {
+    id: "STEEL-CLEAN-500",
+    name: "Почистващ за инокс 500 ml",
+    price: 7.10, currency: "BGN",
+    category: "Кухня", size: "500 ml",
+    image: "https://images.unsplash.com/photo-1556909212-d5b604d0c9a1?q=80&w=1200&auto=format&fit=crop",
+    description: "Анти-пръстови отпечатъци. С атестат за контакт с храни."
+  }
+];
+// Каталог ~24 артикула. Валута: BGN. Можеш да редактираш свободно.
+const PRODUCTS = [
+  // Перилни препарати
+  {
+    id: "DET-LIQ-05L-ULTRA",
+    name: "Течен перилен препарат UltraClean 5L",
+    price: 18.90, currency: "BGN",
+    category: "Перилни препарати", size: "5 L",
+    image: "https://images.unsplash.com/photo-1585386959984-a41552231658?q=80&w=1200&auto=format&fit=crop",
+    description: "Концентриран за бяло и цветно. Ефективен при 20–60°C."
+  },
+  {
+    id: "DET-LIQ-03L-COLOR",
+    name: "Течен перилен препарат ColorCare 3L",
+    price: 13.40, currency: "BGN",
+    category: "Перилни препарати", size: "3 L",
+    image: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?q=80&w=1200&auto=format&fit=crop",
+    description: "За цветни тъкани. Запазва цветовете ярки."
+  },
+  {
+    id: "DET-POW-09KG-REG",
+    name: "Прах за пране Regular 9 kg",
+    price: 31.90, currency: "BGN",
+    category: "Перилни препарати", size: "9 kg",
+    image: "https://images.unsplash.com/photo-1563452652-6c9c3b05a72b?q=80&w=1200&auto=format&fit=crop",
+    description: "Универсална формула с ензими. До 90 пранета."
+  },
+  {
+    id: "DET-POW-06KG-SENSITIVE",
+    name: "Прах за пране Sensitive 6 kg",
+    price: 25.50, currency: "BGN",
+    category: "Перилни препарати", size: "6 kg",
+    image: "https://images.unsplash.com/photo-1615485737657-2f7d5b7b6b7a?q=80&w=1200&auto=format&fit=crop",
+    description: "Без оцветители. Нежен към кожата."
+  },
+  // Омекотители
+  {
+    id: "SOFT-LAV-02L",
+    name: "Омекотител LavenderTouch 2L",
+    price: 9.80, currency: "BGN",
+    category: "Омекотители", size: "2 L",
+    image: "https://images.unsplash.com/photo-1622484211210-39f2d9965a8b?q=80&w=1200&auto=format&fit=crop",
+    description: "Дълготраен аромат на лавандула. Улеснява гладенето."
+  },
+  {
+    id: "SOFT-FRESH-04L",
+    name: "Омекотител Fresh Breeze 4L",
+    price: 14.90, currency: "BGN",
+    category: "Омекотители", size: "4 L",
+    image: "https://images.unsplash.com/photo-1585386959694-7c1e70b73a3e?q=80&w=1200&auto=format&fit=crop",
+    description: "Свежест до 12 седмици в гардероба."
+  },
+  // За съдове
+  {
+    id: "DISH-LEMON-01L",
+    name: "Препарат за съдове Lemon 1L",
+    price: 4.60, currency: "BGN",
+    category: "За съдове", size: "1 L",
+    image: "https://images.unsplash.com/photo-1512427691650-1f7f06c3e9c5?q=80&w=1200&auto=format&fit=crop",
+    description: "Силна формула срещу мазнини. Щадящ към кожата."
+  },
+  {
+    id: "DISH-ALOE-05L",
+    name: "Препарат за съдове Aloe Vera 5L",
+    price: 17.20, currency: "BGN",
+    category: "За съдове", size: "5 L",
+    image: "https://images.unsplash.com/photo-1615485290398-a14f49d1c2d1?q=80&w=1200&auto=format&fit=crop",
+    description: "Икономична разфасовка за HoReCa."
+  },
+  // Миялна машина
+  {
+    id: "DW-TABS-100",
+    name: "Таблетки за миялна 100 бр. All-in-1",
+    price: 22.90, currency: "BGN",
+    category: "Миялна машина", size: "100 бр.",
+    image: "https://images.unsplash.com/photo-1529369622524-4ae4c4f1f4b1?q=80&w=1200&auto=format&fit=crop",
+    description: "Сол + гланц + ензими. Без фосфати."
+  },
+  {
+    id: "DW-SALT-2KG",
+    name: "Сол за миялна 2 kg",
+    price: 5.20, currency: "BGN",
+    category: "Миялна машина", size: "2 kg",
+    image: "https://images.unsplash.com/photo-1603052875538-f7f22e0b5a9a?q=80&w=1200&auto=format&fit=crop",
+    description: "Предпазва от котлен камък. Подобрява измиването."
+  },
+  {
+    id: "DW-RINSE-075L",
+    name: "Гланц за миялна 750 ml",
+    price: 6.40, currency: "BGN",
+    category: "Миялна машина", size: "750 ml",
+    image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1200&auto=format&fit=crop",
+    description: "Блясък без следи. Бързо съхнене."
+  },
+  // Повърхности и под
+  {
+    id: "ALLPUR-LEMON-1L",
+    name: "Универсален почистващ Lemon 1L",
+    price: 4.90, currency: "BGN",
+    category: "Универсални почистващи", size: "1 L",
+    image: "https://images.unsplash.com/photo-1541534401786-2077eed87a42?q=80&w=1200&auto=format&fit=crop",
+    description: "За кухни, плотове и мебели. Бързо изпаряване."
+  },
+  {
+    id: "FLOOR-PINE-5L",
+    name: "Препарат за под Pine Fresh 5L",
+    price: 12.80, currency: "BGN",
+    category: "За под", size: "5 L",
+    image: "https://images.unsplash.com/photo-1616628188502-404779843f38?q=80&w=1200&auto=format&fit=crop",
+    description: "Подходящ за теракот, ламиниран паркет и гранитогрес."
+  },
+  {
+    id: "GLASS-SPRAY-750",
+    name: "Препарат за стъкло 750 ml",
+    price: 4.10, currency: "BGN",
+    category: "Стъкло и огледала", size: "750 ml",
+    image: "https://images.unsplash.com/photo-1506851093333-9833a1bd0a07?q=80&w=1200&auto=format&fit=crop",
+    description: "Блясък без следи. С амоняк."
+  },
+  // Баня и WC
+  {
+    id: "BATH-ANTI-CALC-1L",
+    name: "Препарат за баня Anti-Calc 1L",
+    price: 6.90, currency: "BGN",
+    category: "Баня", size: "1 L",
+    image: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=1200&auto=format&fit=crop",
+    description: "Разтваря котлен камък и сапунени отлагания."
+  },
+  {
+    id: "WC-GEL-750",
+    name: "WC гел Active 750 ml",
+    price: 4.30, currency: "BGN",
+    category: "WC", size: "750 ml",
+    image: "https://images.unsplash.com/photo-1544989164-31dc3c645987?q=80&w=1200&auto=format&fit=crop",
+    description: "Гъста формула. Почиства и дезодорира."
+  },
+  // Обезмаслители и кухненска хигиена
+  {
+    id: "DEGREASER-1L",
+    name: "Силен обезмаслител KitchenPro 1L",
+    price: 7.60, currency: "BGN",
+    category: "Обезмаслители", size: "1 L",
+    image: "https://images.unsplash.com/photo-1590080876800-53f2189f9b9a?q=80&w=1200&auto=format&fit=crop",
+    description: "Справя се с нагар и тежки мазнини. Професионален клас."
+  },
+  {
+    id: "OVEN-CLEANER-750",
+    name: "Почистващ за фурни 750 ml",
+    price: 6.80, currency: "BGN",
+    category: "Обезмаслители", size: "750 ml",
+    image: "https://images.unsplash.com/photo-1624009713140-53983a3c68cf?q=80&w=1200&auto=format&fit=crop",
+    description: "Разгражда нагар. Гел-формула."
+  },
+  // Дезинфекция
+  {
+    id: "BLEACH-4L",
+    name: "Белина 4 L",
+    price: 5.90, currency: "BGN",
+    category: "Дезинфекция", size: "4 L",
+    image: "https://images.unsplash.com/photo-1583947581924-860bda6a26b2?q=80&w=1200&auto=format&fit=crop",
+    description: "Хлорна основа. За хигиенизиране и избелване."
+  },
+  {
+    id: "SANIT-ANTIBAC-1L",
+    name: "Антибактериален концентрат 1 L",
+    price: 11.50, currency: "BGN",
+    category: "Дезинфекция", size: "1 L",
+    image: "https://images.unsplash.com/photo-1585432959449-b1c7c7a1aab4?q=80&w=1200&auto=format&fit=crop",
+    description: "За подове и повърхности. Разреждане 1:50."
+  },
+  // Професионални концентрати
+  {
+    id: "HORECA-GLASS-5L",
+    name: "HoReCa Glass Pro 5 L",
+    price: 19.90, currency: "BGN",
+    category: "Професионални", size: "5 L",
+    image: "https://images.unsplash.com/photo-1572985025058-f27aeca1b477?q=80&w=1200&auto=format&fit=crop",
+    description: "За витрини и дограма. Без следи и замазване."
+  },
+  {
+    id: "HORECA-FLOOR-10L",
+    name: "HoReCa Floor Pro 10 L",
+    price: 32.00, currency: "BGN",
+    category: "Професионални", size: "10 L",
+    image: "https://images.unsplash.com/photo-1585421514738-01798e348b17?q=80&w=1200&auto=format&fit=crop",
     description: "Концентр
 {
     "products": [
